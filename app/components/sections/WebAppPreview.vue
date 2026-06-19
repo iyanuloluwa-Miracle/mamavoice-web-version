@@ -1,0 +1,63 @@
+<template>
+  <section class="py-20 px-4 bg-gradient-to-br from-mama-teal to-mama-teal-dark relative overflow-hidden">
+    <!-- Decorative blobs -->
+    <div class="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl" />
+    <div class="absolute bottom-0 left-0 w-56 h-56 bg-mama-coral/20 rounded-full blur-3xl" />
+
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <!-- Icon -->
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-white/15 backdrop-blur-sm rounded-3xl mb-8 text-4xl">
+        🎙️
+      </div>
+
+      <h2 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
+        Try MamaVoice<br />
+        <span class="text-mama-sky">Right Now — For Free</span>
+      </h2>
+
+      <p class="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        No registration needed. Chat with our AI health assistant instantly.
+        Ask about symptoms, nutrition, vaccinations — anything on your mind.
+      </p>
+
+      <!-- Feature pills -->
+      <div class="flex flex-wrap justify-center gap-3 mb-10">
+        <div
+          v-for="pill in pills"
+          :key="pill"
+          class="flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium"
+        >
+          <svg class="w-3.5 h-3.5 text-mama-sky" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+          </svg>
+          {{ pill }}
+        </div>
+      </div>
+
+      <!-- Main CTA -->
+      <NuxtLink
+        to="/chat"
+        class="inline-flex items-center gap-3 bg-white text-mama-teal px-10 py-5 rounded-full font-black text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+      >
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+          <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+        </svg>
+        Start Chatting with MamaVoice
+      </NuxtLink>
+
+      <p class="text-white/50 text-sm mt-5">
+        For personalized tracking & vaccinations — download the mobile app
+      </p>
+    </div>
+  </section>
+</template>
+
+<script setup lang="ts">
+const pills = [
+  'No sign-up required',
+  'Instant AI responses',
+  'Multilingual support',
+  'Evidence-based guidance',
+]
+</script>
