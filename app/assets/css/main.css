@@ -37,12 +37,33 @@
   --animate-typing-dot:  typing-dot 1.4s ease-in-out infinite;
 }
 
+/* =================== BASE RESETS & MOBILE OPTIMISATIONS ======== */
 * {
   font-family: 'DM Sans', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Prevent font inflation on mobile */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  /* Prevent horizontal overflow on all viewports */
+  overflow-x: hidden;
+  min-width: 320px;
+}
+
+/* Minimum touch target across the board */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Smooth theme transition — excludes animation-driven elements */
@@ -58,7 +79,50 @@ html {
   transition: none;
 }
 
-/* ===================== DARK MODE OVERRIDES ===================== */
+/* =================== FLUID TYPOGRAPHY ========================= */
+/* Scales smoothly from 320px to 1280px viewport */
+.text-fluid-xs   { font-size: clamp(0.7rem,  1.5vw, 0.75rem); }
+.text-fluid-sm   { font-size: clamp(0.8rem,  2vw,   0.875rem); }
+.text-fluid-base { font-size: clamp(0.875rem,2.2vw, 1rem); }
+.text-fluid-lg   { font-size: clamp(1rem,    2.5vw, 1.125rem); }
+.text-fluid-xl   { font-size: clamp(1.1rem,  3vw,   1.25rem); }
+.text-fluid-2xl  { font-size: clamp(1.25rem, 3.5vw, 1.5rem); }
+.text-fluid-3xl  { font-size: clamp(1.5rem,  4vw,   1.875rem); }
+.text-fluid-4xl  { font-size: clamp(1.875rem,5vw,   2.25rem); }
+.text-fluid-5xl  { font-size: clamp(2.25rem, 6vw,   3rem); }
+.text-fluid-6xl  { font-size: clamp(2.5rem,  7vw,   3.75rem); }
+.text-fluid-hero { font-size: clamp(2rem,    6vw,   4rem); line-height: 1.1; }
+
+/* =================== SAFE AREA PADDING ======================== */
+/* iOS notch / bottom home indicator support */
+.pb-safe  { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.pt-safe  { padding-top:    env(safe-area-inset-top, 0px); }
+.px-safe  {
+  padding-left:  env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* =================== HORIZONTAL SCROLL CONTAINERS ============= */
+.scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+.scroll-x::-webkit-scrollbar { display: none; }
+.scroll-snap-start { scroll-snap-align: start; }
+
+/* =================== DRAWER OVERLAY ========================== */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* =================== DARK MODE OVERRIDES ===================== */
 .dark {
   --color-mama-bg:              #0F172A;
   --color-mama-surface:         #1E293B;
@@ -72,30 +136,27 @@ html {
   --color-mama-input:           #1E293B;
 }
 
-/* =================== NEUMORPHIC SHADOWS ======================== */
-/* Light mode */
+/* =================== NEUMORPHIC SHADOWS ====================== */
 .shadow-soft       { box-shadow: 8px 8px 16px #d1d9e0, -8px -8px 16px #ffffff; }
 .shadow-soft-sm    { box-shadow: 4px 4px 8px #d1d9e0,  -4px -4px 8px #ffffff; }
 .shadow-soft-inset { box-shadow: inset 4px 4px 8px #d1d9e0, inset -4px -4px 8px #ffffff; }
 .shadow-soft-hover { box-shadow: 12px 12px 24px #d1d9e0, -12px -12px 24px #ffffff; }
 
-/* Dark mode overrides */
 .dark .shadow-soft       { box-shadow: 8px 8px 16px rgba(0,0,0,0.4),  -8px -8px 16px rgba(255,255,255,0.03); }
 .dark .shadow-soft-sm    { box-shadow: 4px 4px 8px rgba(0,0,0,0.35),  -4px -4px 8px rgba(255,255,255,0.02); }
 .dark .shadow-soft-inset { box-shadow: inset 4px 4px 8px rgba(0,0,0,0.3), inset -4px -4px 8px rgba(255,255,255,0.02); }
 .dark .shadow-soft-hover { box-shadow: 12px 12px 24px rgba(0,0,0,0.5), -12px -12px 24px rgba(255,255,255,0.04); }
 
-/* =================== ANIMATION DELAYS ========================= */
+/* =================== ANIMATION DELAYS ======================== */
 .anim-delay-100 { animation-delay: 100ms; }
 .anim-delay-200 { animation-delay: 200ms; }
 .anim-delay-300 { animation-delay: 300ms; }
 .anim-delay-400 { animation-delay: 400ms; }
 .anim-delay-500 { animation-delay: 500ms; }
 
-/* Fade-in-up starts hidden */
 .animate-fade-in-up { opacity: 0; }
 
-/* =================== KEYFRAMES ================================ */
+/* =================== KEYFRAMES =============================== */
 @keyframes pulse-ring {
   0%   { transform: scale(1);    opacity: 0.8; }
   50%  { transform: scale(1.15); opacity: 0.4; }
@@ -125,4 +186,13 @@ html {
 @keyframes typing-dot {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
   30%           { transform: translateY(-6px); opacity: 1; }
+}
+
+/* =================== REDUCED MOTION ========================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
