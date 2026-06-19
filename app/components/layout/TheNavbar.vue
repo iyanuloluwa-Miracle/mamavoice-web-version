@@ -1,4 +1,5 @@
 <template>
+  <!-- Sticky header -->
   <nav
     class="sticky top-0 z-50 transition-all duration-300"
     :class="isScrolled
@@ -7,27 +8,28 @@
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
+
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center gap-1 flex-shrink-0">
-          <span class="text-2xl font-black bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent">Mama</span>
-          <span class="text-2xl font-black text-mama-coral">Voice</span>
+        <NuxtLink to="/" class="flex items-center gap-0.5 flex-shrink-0">
+          <span class="text-xl sm:text-2xl font-black bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent">Mama</span>
+          <span class="text-xl sm:text-2xl font-black text-mama-coral">Voice</span>
         </NuxtLink>
 
-        <!-- Desktop nav links -->
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#features" class="text-mama-dark/70 dark:text-slate-400 hover:text-mama-teal dark:hover:text-mama-teal font-medium transition-colors text-sm">Features</a>
-          <a href="#specialists" class="text-mama-dark/70 dark:text-slate-400 hover:text-mama-teal dark:hover:text-mama-teal font-medium transition-colors text-sm">Specialists</a>
-          <a href="#nutrition" class="text-mama-dark/70 dark:text-slate-400 hover:text-mama-teal dark:hover:text-mama-teal font-medium transition-colors text-sm">Nutrition</a>
-          <a href="#how-it-works" class="text-mama-dark/70 dark:text-slate-400 hover:text-mama-teal dark:hover:text-mama-teal font-medium transition-colors text-sm">How It Works</a>
+        <!-- Desktop nav links (lg+) -->
+        <div class="hidden lg:flex items-center gap-8">
+          <a v-for="link in navLinks" :key="link.href" :href="link.href"
+            class="text-mama-dark/70 dark:text-slate-400 hover:text-mama-teal dark:hover:text-mama-teal font-medium transition-colors text-sm">
+            {{ link.label }}
+          </a>
         </div>
 
-        <!-- Desktop right actions -->
-        <div class="hidden md:flex items-center gap-3">
+        <!-- Desktop right actions (lg+) -->
+        <div class="hidden lg:flex items-center gap-3">
           <!-- Language picker -->
           <div class="relative">
             <button
               @click="isLangOpen = !isLangOpen"
-              class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 dark:border-slate-700 text-sm font-medium text-mama-dark dark:text-slate-300 hover:border-mama-teal hover:text-mama-teal transition-all dark:bg-transparent"
+              class="flex items-center gap-1.5 px-3 py-2 rounded-full border border-gray-200 dark:border-slate-700 text-sm font-medium text-mama-dark dark:text-slate-300 hover:border-mama-teal hover:text-mama-teal transition-all"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
@@ -35,62 +37,46 @@
               {{ selectedLang }}
               <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div
-              v-if="isLangOpen"
-              class="absolute right-0 mt-2 w-28 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden z-50"
-            >
-              <button
-                v-for="lang in langs"
-                :key="lang"
+            <div v-if="isLangOpen"
+              class="absolute right-0 mt-2 w-28 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden z-50">
+              <button v-for="lang in langs" :key="lang"
                 @click="selectedLang = lang; isLangOpen = false"
                 class="w-full px-4 py-2.5 text-left text-sm hover:bg-mama-sky dark:hover:bg-slate-700 hover:text-mama-teal transition-colors"
-                :class="selectedLang === lang
-                  ? 'text-mama-teal font-semibold bg-mama-sky dark:bg-slate-700'
-                  : 'text-mama-dark dark:text-slate-300'"
-              >
+                :class="selectedLang === lang ? 'text-mama-teal font-semibold bg-mama-sky dark:bg-slate-700' : 'text-mama-dark dark:text-slate-300'">
                 {{ lang }}
               </button>
             </div>
           </div>
 
           <!-- Dark mode toggle -->
-          <button
-            @click="toggle"
-            class="w-9 h-9 rounded-full flex items-center justify-center bg-mama-sky dark:bg-slate-800 text-mama-teal hover:scale-110 transition-all"
-            :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-          >
-            <!-- Moon: shown in light mode -->
+          <button @click="toggle"
+            class="w-10 h-10 rounded-full flex items-center justify-center bg-mama-sky dark:bg-slate-800 text-mama-teal hover:scale-110 transition-all"
+            :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
             <svg v-if="!isDark" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
-            <!-- Sun: shown in dark mode -->
             <svg v-else class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="5"/>
               <path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
             </svg>
           </button>
 
-          <NuxtLink
-            to="/chat"
-            class="px-5 py-2 rounded-full border-2 border-mama-teal text-mama-teal font-semibold text-sm hover:bg-mama-sky dark:hover:bg-mama-teal/20 transition-all"
-          >
+          <NuxtLink to="/chat"
+            class="px-5 py-2 rounded-full border-2 border-mama-teal text-mama-teal font-semibold text-sm hover:bg-mama-sky dark:hover:bg-mama-teal/20 transition-all">
             Try Web App
           </NuxtLink>
-          <a
-            href="#download"
-            class="px-5 py-2 rounded-full bg-mama-teal text-white font-semibold text-sm hover:bg-mama-teal-dark transition-all shadow-sm"
-          >
+          <a href="#download"
+            class="px-5 py-2 rounded-full bg-mama-teal text-white font-semibold text-sm hover:bg-mama-teal-dark transition-all shadow-sm">
             Download App
           </a>
         </div>
 
-        <!-- Mobile right actions -->
-        <div class="flex md:hidden items-center gap-2">
-          <!-- Dark mode toggle (mobile) -->
-          <button
-            @click="toggle"
-            class="w-9 h-9 rounded-full flex items-center justify-center bg-mama-sky dark:bg-slate-800 text-mama-teal"
-          >
+        <!-- Mobile/Tablet right cluster -->
+        <div class="flex lg:hidden items-center gap-2">
+          <!-- Dark mode toggle -->
+          <button @click="toggle"
+            class="w-10 h-10 rounded-full flex items-center justify-center bg-mama-sky dark:bg-slate-800 text-mama-teal"
+            :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
             <svg v-if="!isDark" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
@@ -100,39 +86,100 @@
             </svg>
           </button>
           <!-- Hamburger -->
-          <button
-            @click="isMenuOpen = !isMenuOpen"
-            class="p-2 rounded-xl text-mama-dark dark:text-slate-300 hover:bg-mama-sky dark:hover:bg-slate-800 transition-colors"
-          >
-            <svg v-if="!isMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button @click="isMenuOpen = true"
+            class="w-10 h-10 rounded-xl text-mama-dark dark:text-slate-300 hover:bg-mama-sky dark:hover:bg-slate-800 transition-colors"
+            aria-label="Open menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-            <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
         </div>
       </div>
     </div>
+  </nav>
 
-    <!-- Mobile menu -->
-    <div v-if="isMenuOpen" class="md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-gray-100 dark:border-slate-800">
-      <div class="px-6 py-4 flex flex-col gap-4">
-        <a href="#features" @click="isMenuOpen = false" class="text-mama-dark dark:text-slate-300 font-medium py-2">Features</a>
-        <a href="#specialists" @click="isMenuOpen = false" class="text-mama-dark dark:text-slate-300 font-medium py-2">Specialists</a>
-        <a href="#nutrition" @click="isMenuOpen = false" class="text-mama-dark dark:text-slate-300 font-medium py-2">Nutrition</a>
-        <a href="#how-it-works" @click="isMenuOpen = false" class="text-mama-dark dark:text-slate-300 font-medium py-2">How It Works</a>
-        <div class="flex gap-3 pt-2 border-t border-gray-100 dark:border-slate-800">
-          <NuxtLink to="/chat" @click="isMenuOpen = false" class="flex-1 py-3 text-center rounded-full border-2 border-mama-teal text-mama-teal font-semibold text-sm">
+  <!-- ============================================================ -->
+  <!-- Mobile slide-in drawer + backdrop                            -->
+  <!-- ============================================================ -->
+  <Teleport to="body">
+    <!-- Backdrop -->
+    <Transition
+      enter-active-class="transition-opacity duration-300"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition-opacity duration-300"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <div v-if="isMenuOpen" class="drawer-backdrop lg:hidden" @click="isMenuOpen = false" />
+    </Transition>
+
+    <!-- Drawer panel -->
+    <Transition
+      enter-active-class="transition-transform duration-300 ease-out"
+      enter-from-class="translate-x-full"
+      enter-to-class="translate-x-0"
+      leave-active-class="transition-transform duration-300 ease-in"
+      leave-from-class="translate-x-0"
+      leave-to-class="translate-x-full"
+    >
+      <div v-if="isMenuOpen"
+        class="fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] bg-mama-surface flex flex-col shadow-2xl lg:hidden"
+      >
+        <!-- Drawer header -->
+        <div class="flex items-center justify-between px-6 h-16 border-b border-mama-border-light flex-shrink-0">
+          <div class="flex items-center gap-0.5">
+            <span class="text-xl font-black bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent">Mama</span>
+            <span class="text-xl font-black text-mama-coral">Voice</span>
+          </div>
+          <button @click="isMenuOpen = false"
+            class="w-10 h-10 rounded-xl text-mama-muted hover:text-mama-text hover:bg-mama-input transition-colors"
+            aria-label="Close menu">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Nav links -->
+        <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1">
+          <a v-for="link in navLinks" :key="link.href" :href="link.href"
+            @click="isMenuOpen = false"
+            class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-mama-text font-medium hover:bg-mama-sky hover:text-mama-teal transition-colors">
+            <span class="text-lg">{{ link.emoji }}</span>
+            {{ link.label }}
+          </a>
+        </nav>
+
+        <!-- Language picker in drawer -->
+        <div class="px-4 py-4 border-t border-mama-border-light">
+          <p class="text-xs font-semibold text-mama-muted uppercase tracking-wider mb-3 px-2">Language</p>
+          <div class="grid grid-cols-4 gap-2">
+            <button v-for="lang in langs" :key="lang"
+              @click="selectedLang = lang"
+              class="py-2.5 rounded-xl text-sm font-semibold transition-all"
+              :class="selectedLang === lang
+                ? 'bg-mama-teal text-white shadow-sm'
+                : 'bg-mama-input text-mama-muted hover:bg-mama-sky hover:text-mama-teal'">
+              {{ lang }}
+            </button>
+          </div>
+        </div>
+
+        <!-- CTA buttons -->
+        <div class="px-4 pb-6 pb-safe space-y-3 border-t border-mama-border-light pt-4">
+          <NuxtLink to="/chat" @click="isMenuOpen = false"
+            class="flex items-center justify-center w-full py-3.5 rounded-2xl border-2 border-mama-teal text-mama-teal font-bold text-base">
             Try Web App
           </NuxtLink>
-          <a href="#download" @click="isMenuOpen = false" class="flex-1 py-3 text-center rounded-full bg-mama-teal text-white font-semibold text-sm">
+          <a href="#download" @click="isMenuOpen = false"
+            class="flex items-center justify-center w-full py-3.5 rounded-2xl bg-mama-teal text-white font-bold text-base shadow-sm">
             Download App
           </a>
         </div>
       </div>
-    </div>
-  </nav>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -144,19 +191,35 @@ const isLangOpen = ref(false)
 const selectedLang = ref('EN')
 const langs = ['EN', 'YO', 'HA', 'IG']
 
+const navLinks = [
+  { href: '#features',    label: 'Features',    emoji: '✨' },
+  { href: '#specialists', label: 'Specialists',  emoji: '🏥' },
+  { href: '#nutrition',   label: 'Nutrition',    emoji: '🌿' },
+  { href: '#how-it-works',label: 'How It Works', emoji: '🚀' },
+]
+
 const handleScroll = () => { isScrolled.value = window.scrollY > 20 }
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-  document.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement
-    if (!target.closest('[data-lang-picker]')) {
-      isLangOpen.value = false
-    }
-  })
+  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+})
+
+// Close lang picker on outside click
+onMounted(() => {
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement
+    if (!target.closest('[data-lang-picker]')) isLangOpen.value = false
+  })
+})
+
+// Prevent body scroll when drawer is open
+watch(isMenuOpen, (open) => {
+  if (import.meta.client) {
+    document.body.style.overflow = open ? 'hidden' : ''
+  }
 })
 </script>
