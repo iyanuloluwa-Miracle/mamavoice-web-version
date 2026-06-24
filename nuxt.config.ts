@@ -17,9 +17,10 @@ export default defineNuxtConfig({
         { name: 'twitter:image', content: '/mamavoiceLogo.png' },
       ],
       link: [
-        { rel: 'icon', type: 'image/png', href: '/mamavoiceLogo.png' },
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'apple-touch-icon', href: '/mamavoiceLogo.png' },
+        { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico?v=2' },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v=2' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/mamavoiceLogo.png' },
+        { rel: 'apple-touch-icon', type: 'image/png', href: '/mamavoiceLogo.png' },
       ],
     }
   },
