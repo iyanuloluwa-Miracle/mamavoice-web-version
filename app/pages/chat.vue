@@ -7,6 +7,10 @@
         <span class="text-lg sm:text-xl font-black bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent">Mama</span>
         <span class="text-lg sm:text-xl font-black text-mama-coral">Voice</span>
         <span class="ml-1.5 text-[10px] sm:text-xs font-semibold bg-mama-sky text-mama-teal px-1.5 sm:px-2 py-0.5 rounded-full">AI</span>
+        <!-- Web Preview badge -->
+        <span class="ml-2 text-[9px] sm:text-[10px] font-bold bg-mama-coral/10 text-mama-coral px-2 py-0.5 rounded-full tracking-wide">
+          {{ t('chat.webPreviewBadge') }}
+        </span>
       </NuxtLink>
 
       <div class="flex items-center gap-2">
@@ -33,6 +37,22 @@
           </div>
         </div>
 
+        <!-- TTS toggle -->
+        <button
+          v-if="ttsSupported"
+          @click="toggleEnabled()"
+          :title="t('chat.ttsToggle')"
+          class="w-9 h-9 rounded-full flex items-center justify-center transition-all"
+          :class="ttsEnabled ? 'bg-mama-sky text-mama-teal' : 'bg-mama-input text-mama-muted'"
+        >
+          <svg v-if="ttsEnabled" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+          <svg v-else class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 18l1.27 1.27L20.27 18 5.27 3 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/>
+          </svg>
+        </button>
+
         <!-- Dark mode toggle -->
         <button @click="toggle"
           class="w-9 h-9 rounded-full flex items-center justify-center bg-mama-sky dark:bg-slate-800 text-mama-teal"
@@ -46,7 +66,7 @@
           </svg>
         </button>
 
-        <!-- Download CTA — hidden on smallest screens -->
+        <!-- Download CTA -->
         <a href="/#download"
           class="hidden xs:hidden sm:flex items-center gap-2 bg-mama-teal text-white px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold hover:bg-mama-teal-dark transition-all">
           <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
@@ -57,13 +77,29 @@
       </div>
     </header>
 
+    <!-- ── Web Preview banner (dismissible) ───────────────────── -->
+    <div
+      v-if="!previewDismissed"
+      class="flex-shrink-0 bg-mama-teal/10 border-b border-mama-teal/20 px-4 py-2.5 flex items-center justify-between gap-3"
+    >
+      <p class="text-xs text-mama-text">
+        📱 {{ t('chat.webPreviewBanner') }}
+        <a href="/#download" class="font-semibold text-mama-teal hover:underline">{{ t('chat.getFullApp') }}</a>
+      </p>
+      <button
+        @click="dismissPreview"
+        class="flex-shrink-0 text-xs font-semibold text-mama-muted hover:text-mama-text transition-colors"
+      >
+        {{ t('chat.previewDismiss') }}
+      </button>
+    </div>
+
     <!-- ── Conversation area ──────────────────────────────────── -->
     <div ref="messagesContainer" class="flex-1 overflow-y-auto px-3 sm:px-4 py-4 sm:py-6 overscroll-contain">
       <div class="max-w-3xl mx-auto w-full">
 
         <!-- Empty state -->
         <div v-if="messages.length === 0" class="flex flex-col items-center justify-center min-h-[55vh] sm:min-h-[60vh] text-center gap-5 sm:gap-6 py-4">
-          <!-- Avatar -->
           <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-mama-teal to-mama-teal-light flex items-center justify-center shadow-md">
             <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
@@ -78,7 +114,6 @@
             </p>
           </div>
 
-          <!-- Suggested prompts: 1 col on mobile, 2 col on sm+ -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 w-full max-w-2xl">
             <button
               v-for="prompt in suggestedPrompts"
@@ -100,7 +135,6 @@
             class="flex items-end gap-2 sm:gap-3 mb-3 sm:mb-4"
             :class="msg.role === 'user' ? 'justify-end' : 'justify-start'"
           >
-            <!-- AI avatar -->
             <div v-if="msg.role === 'ai'"
               class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-mama-teal to-mama-teal-light flex items-center justify-center flex-shrink-0 mb-1">
               <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -110,7 +144,7 @@
 
             <div class="max-w-[82%] sm:max-w-[75%] md:max-w-[65%]">
               <div
-                class="px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm leading-relaxed"
+                class="px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm leading-relaxed whitespace-pre-wrap"
                 :class="msg.role === 'user'
                   ? 'bg-mama-teal text-white rounded-3xl rounded-br-sm'
                   : 'bg-mama-surface text-mama-text rounded-3xl rounded-bl-sm shadow-soft-sm border border-mama-border-light'"
@@ -160,16 +194,18 @@
     <div class="bg-mama-surface border-t border-mama-border-light px-3 sm:px-4 pt-2.5 sm:pt-3 pb-safe flex-shrink-0"
       style="padding-bottom: max(12px, env(safe-area-inset-bottom));">
       <div class="max-w-3xl mx-auto">
-        <div class="flex items-end gap-2 sm:gap-3 bg-mama-input rounded-[1.25rem] sm:rounded-[1.5rem] border border-mama-border shadow-soft-sm px-3 sm:px-4 py-2.5 sm:py-3">
+        <div class="flex items-end gap-2 sm:gap-3 bg-mama-input rounded-[1.25rem] sm:rounded-[1.5rem] border border-mama-border shadow-soft-sm px-3 sm:px-4 py-2.5 sm:py-3"
+          :class="isRecording ? 'border-mama-coral' : ''">
 
-          <!-- Mic button — 44px min -->
+          <!-- Mic button -->
           <button
-            @click="toggleRecording"
+            @click="handleMicClick"
             class="flex-shrink-0 w-10 h-10 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-200"
-            :class="isRecording ? 'bg-mama-coral scale-110' : 'bg-mama-sky hover:bg-mama-teal hover:scale-105'"
+            :class="isRecording ? 'bg-mama-coral scale-110' : (sttSupported ? 'bg-mama-sky hover:bg-mama-teal hover:scale-105' : 'bg-mama-input cursor-not-allowed opacity-50')"
             :aria-label="isRecording ? t('chat.stopRecording') : t('chat.startRecording')"
+            :disabled="!sttSupported && !isRecording"
           >
-            <svg v-if="!isRecording" class="w-4 h-4 sm:w-4 sm:h-4 text-mama-teal" fill="currentColor" viewBox="0 0 24 24">
+            <svg v-if="!isRecording" class="w-4 h-4" :class="sttSupported ? 'text-mama-teal' : 'text-mama-muted'" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
               <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
             </svg>
@@ -186,8 +222,9 @@
             @keydown.enter.shift.exact="() => {}"
             @input="autoResize"
             rows="1"
-            :placeholder="t('chat.placeholder')"
+            :placeholder="isRecording ? t('chat.listening') : t('chat.placeholder')"
             class="flex-1 resize-none bg-transparent text-mama-text placeholder-mama-muted/60 text-sm leading-relaxed focus:outline-none min-h-[24px] max-h-28 overflow-y-auto"
+            :class="isRecording ? 'placeholder-mama-coral/70' : ''"
           />
 
           <!-- Voice wave while recording -->
@@ -195,18 +232,18 @@
             <UiVoiceWave :is-active="true" size="sm" color="teal" />
           </div>
 
-          <!-- Send button — 44px min -->
+          <!-- Send button -->
           <button
             @click="sendMessage"
-            :disabled="!inputText.trim() && !isRecording"
+            :disabled="(!inputText.trim() && !isRecording) || isTyping"
             class="flex-shrink-0 w-10 h-10 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-200"
-            :class="inputText.trim()
+            :class="inputText.trim() && !isTyping
               ? 'bg-mama-teal hover:bg-mama-teal-dark hover:scale-105 active:scale-95'
               : 'bg-mama-input cursor-not-allowed'"
             :aria-label="t('chat.sendMessage')"
           >
             <svg class="w-4 h-4"
-              :class="inputText.trim() ? 'text-white' : 'text-mama-muted'"
+              :class="inputText.trim() && !isTyping ? 'text-white' : 'text-mama-muted'"
               fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
@@ -231,6 +268,8 @@ definePageMeta({ layout: false })
 
 const { t, locale, locales, setLocale } = useI18n()
 const { isDark, toggle } = useColorMode()
+const { isRecording, isSupported: sttSupported, startRecording, stopRecording } = useSpeechToText()
+const { isEnabled: ttsEnabled, isSupported: ttsSupported, speak, toggleEnabled } = useTextToSpeech()
 
 useSeoMeta({
   title: 'MamaVoice AI Chat — Your Maternal Health Companion',
@@ -247,10 +286,19 @@ const messages = ref<Message[]>([])
 const inputText = ref('')
 const isTyping = ref(false)
 const hasReplied = ref(false)
-const isRecording = ref(false)
 const isLangOpen = ref(false)
 const messagesContainer = ref<HTMLElement>()
 const inputRef = ref<HTMLTextAreaElement>()
+
+// Web Preview banner
+const previewDismissed = ref(false)
+onMounted(() => {
+  previewDismissed.value = localStorage.getItem('mama-preview-dismissed') === 'true'
+})
+function dismissPreview() {
+  previewDismissed.value = true
+  localStorage.setItem('mama-preview-dismissed', 'true')
+}
 
 const suggestedPrompts = computed(() => [
   { key: 'p0', emoji: '🤰', text: t('chat.p0') },
@@ -259,24 +307,13 @@ const suggestedPrompts = computed(() => [
   { key: 'p3', emoji: '👶', text: t('chat.p3') },
 ])
 
-function getAiResponse(userText: string): string {
-  const lower = userText.toLowerCase()
-  if (lower.includes('swoll') || lower.includes('edema') || lower.includes('leg')) return t('chat.rSwollen')
-  if (lower.includes('iron') || lower.includes('food') || lower.includes('eat') || lower.includes('nutrition')) return t('chat.rIron')
-  if (lower.includes('vaccine') || lower.includes('vaccin') || lower.includes('tetanus') || lower.includes('injection')) return t('chat.rVaccine')
-  if (lower.includes('cry') || lower.includes('newborn') || lower.includes('baby') || lower.includes('infant')) return t('chat.rCry')
-  if (lower.includes('pain') || lower.includes('back') || lower.includes('ache')) return t('chat.rPain')
-  if (lower.includes('nausea') || lower.includes('vomit') || lower.includes('sick') || lower.includes('morning')) return t('chat.rNausea')
-  return t('chat.rDefault')
-}
-
 function getTime(): string {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
 async function sendMessage() {
   const text = inputText.value.trim()
-  if (!text) return
+  if (!text || isTyping.value) return
 
   messages.value.push({ role: 'user', text, time: getTime() })
   inputText.value = ''
@@ -284,12 +321,28 @@ async function sendMessage() {
   scrollToBottom()
 
   isTyping.value = true
-  await new Promise(resolve => setTimeout(resolve, 1400))
 
-  isTyping.value = false
-  messages.value.push({ role: 'ai', text: getAiResponse(text), time: getTime() })
-  hasReplied.value = true
-  scrollToBottom()
+  try {
+    const apiMessages = messages.value.map(m => ({
+      role: m.role === 'user' ? 'user' : 'assistant' as 'user' | 'assistant',
+      content: m.text,
+    }))
+
+    const res = await $fetch<{ text: string }>('/api/chat', {
+      method: 'POST',
+      body: { messages: apiMessages, locale: locale.value },
+    })
+
+    const aiText = res.text || t('chat.errorResponse')
+    messages.value.push({ role: 'ai', text: aiText, time: getTime() })
+    speak(aiText, locale.value)
+  } catch {
+    messages.value.push({ role: 'ai', text: t('chat.errorResponse'), time: getTime() })
+  } finally {
+    isTyping.value = false
+    hasReplied.value = true
+    scrollToBottom()
+  }
 }
 
 async function sendSuggested(text: string) {
@@ -298,8 +351,31 @@ async function sendSuggested(text: string) {
   await sendMessage()
 }
 
-function toggleRecording() {
-  isRecording.value = !isRecording.value
+async function handleMicClick() {
+  if (isRecording.value) {
+    stopRecording()
+    return
+  }
+
+  if (!sttSupported.value) {
+    messages.value.push({ role: 'ai', text: t('chat.micNotSupported'), time: getTime() })
+    scrollToBottom()
+    return
+  }
+
+  try {
+    const transcript = await startRecording(locale.value, (interim) => {
+      inputText.value = interim
+      autoResize()
+    })
+    if (transcript.trim()) {
+      inputText.value = transcript.trim()
+      await nextTick()
+      await sendMessage()
+    }
+  } catch {
+    // Silently fail — sttSupported will be set false if permissions denied
+  }
 }
 
 function scrollToBottom() {
