@@ -9,7 +9,7 @@
             <span class="text-2xl font-black text-mama-coral">Voice</span>
           </div>
           <p class="text-white/60 text-sm leading-relaxed mb-6">
-            Empowering mothers across Africa with trusted voice-first maternal and newborn health guidance.
+            {{ t('footer.tagline') }}
           </p>
           <!-- Social icons -->
           <div class="flex items-center gap-4">
@@ -37,29 +37,29 @@
           </div>
         </div>
 
-        <!-- Features column -->
+        <!-- Platform column -->
         <div>
-          <h3 class="font-bold text-white mb-5 text-sm uppercase tracking-wider">Platform</h3>
+          <h3 class="font-bold text-white mb-5 text-sm uppercase tracking-wider">{{ t('footer.platformHeading') }}</h3>
           <ul class="space-y-3">
-            <li v-for="link in platformLinks" :key="link">
-              <a href="#" class="text-white/60 hover:text-mama-teal-light text-sm transition-colors">{{ link }}</a>
+            <li v-for="link in platformLinks" :key="link.key">
+              <a href="#" class="text-white/60 hover:text-mama-teal-light text-sm transition-colors">{{ link.label }}</a>
             </li>
           </ul>
         </div>
 
         <!-- Resources column -->
         <div>
-          <h3 class="font-bold text-white mb-5 text-sm uppercase tracking-wider">Resources</h3>
+          <h3 class="font-bold text-white mb-5 text-sm uppercase tracking-wider">{{ t('footer.resourcesHeading') }}</h3>
           <ul class="space-y-3">
-            <li v-for="link in resourceLinks" :key="link">
-              <a href="#" class="text-white/60 hover:text-mama-teal-light text-sm transition-colors">{{ link }}</a>
+            <li v-for="link in resourceLinks" :key="link.key">
+              <a href="#" class="text-white/60 hover:text-mama-teal-light text-sm transition-colors">{{ link.label }}</a>
             </li>
           </ul>
         </div>
 
         <!-- Contact column -->
         <div>
-          <h3 class="font-bold text-white mb-5 text-sm uppercase tracking-wider">Contact</h3>
+          <h3 class="font-bold text-white mb-5 text-sm uppercase tracking-wider">{{ t('footer.contactHeading') }}</h3>
           <ul class="space-y-3">
             <li class="flex items-start gap-2 text-sm text-white/60">
               <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-mama-teal-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,7 +78,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              Lagos, Nigeria & across Africa
+              Lagos, Nigeria &amp; across Africa
             </li>
           </ul>
         </div>
@@ -86,11 +86,11 @@
 
       <!-- Bottom bar -->
       <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-white/40 text-sm">© 2025 MamaVoice. Built for African Mothers.</p>
+        <p class="text-white/40 text-sm">{{ t('footer.copyright') }}</p>
         <div class="flex items-center gap-6 text-sm text-white/40">
-          <a href="#" class="hover:text-mama-teal-light transition-colors">Privacy Policy</a>
-          <a href="#" class="hover:text-mama-teal-light transition-colors">Terms of Service</a>
-          <a href="#" class="hover:text-mama-teal-light transition-colors">Cookie Policy</a>
+          <a href="#" class="hover:text-mama-teal-light transition-colors">{{ t('footer.privacy') }}</a>
+          <a href="#" class="hover:text-mama-teal-light transition-colors">{{ t('footer.terms') }}</a>
+          <a href="#" class="hover:text-mama-teal-light transition-colors">{{ t('footer.cookie') }}</a>
         </div>
       </div>
     </div>
@@ -98,6 +98,26 @@
 </template>
 
 <script setup lang="ts">
-const platformLinks = ['Voice Consultations', 'Pregnancy Tracking', 'Specialist Directory', 'Vaccination Monitor', 'Nutrition Guide', 'Newborn Care']
-const resourceLinks = ['About MamaVoice', 'Health Partners', 'FAQs', 'Blog', 'Press Kit', 'Community']
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const platformLinks = computed(() => [
+  { key: 'pl0', label: t('footer.pl0') },
+  { key: 'pl1', label: t('footer.pl1') },
+  { key: 'pl2', label: t('footer.pl2') },
+  { key: 'pl3', label: t('footer.pl3') },
+  { key: 'pl4', label: t('footer.pl4') },
+  { key: 'pl5', label: t('footer.pl5') },
+])
+
+const resourceLinks = computed(() => [
+  { key: 'rl0', label: t('footer.rl0') },
+  { key: 'rl1', label: t('footer.rl1') },
+  { key: 'rl2', label: t('footer.rl2') },
+  { key: 'rl3', label: t('footer.rl3') },
+  { key: 'rl4', label: t('footer.rl4') },
+  { key: 'rl5', label: t('footer.rl5') },
+])
 </script>
