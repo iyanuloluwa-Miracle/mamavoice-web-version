@@ -219,6 +219,10 @@
     "rCry": "Igbe ọmọ tuntun jẹ́ ohun tó ṣe deédéé gígàn àti ọ̀nà kan ṣoṣo tí wọ́n ń bá sọrọ! Àwọn ìdí tó wọ́pọ̀:\n\n• Ebi (tó wọ́pọ̀ jùlọ — gbìyànjú fífún ọmú)\n• Àwọ̀ ìbọ̀ tó dọ̀tì\n• Fẹ́ láti dì mú/fara balẹ̀\n• Àárẹ̀ tàbí ìṣọ́kùnrùn\n• Ẹ̀fúùfù tàbí ìrora inú (gbìyànjú fífarabalẹ̀ inú pẹ̀lú rẹ̀)\n\nÀwọn ọmọ tuntun máa ń sunkún wákàtí 1-3 lójoojúmọ̀ ní ọ̀sẹ̀ àkọ́kọ́. Tí ọmọ rẹ kò bá dáwọ́ dúró fún wákàtí 3, tí iba bá ju 38°C lọ, tàbí tí kò bá jẹ dáadáa, jọ̀wọ́ lọ ránsẹ́ dókítà lẹ̀ẹ̀kan.",
     "rPain": "Ìrora ẹ̀yìn nígbà oyún jẹ́ ohun tó wọ́pọ̀ gidigidi. Gbiyànjú àwọn ìwòsàn wọ̀nyí tó aláàbò:\n\n• Yoga oyún tó rọ tàbí títẹnumọ̀\n• Sùn lé ẹgbẹ́ òsì pẹ̀lú ìrọ̀lẹ̀ láàárín àwọn ẹsẹ̀ rẹ\n• Wọ àwọn bàtà tó ṣe àtìlẹ́yìn, tó pẹlẹ̀\n• Fi ohun gbígbóná kekere (kì í ṣe gbigbóná jù) sí àbùdá tó ń dùn\n\nTí ìrora bá pọ̀ tàbí tí ó bá wà pẹ̀lú iba tàbí àwọn àmì ito, jọ̀wọ́ bá dókítà rẹ sọrọ.",
     "rNausea": "Àrùn owúrọ̀ jẹ́ ohun tó wọ́pọ̀ gidigidi ní ìdá àkọ́kọ́ oyún. Èyí lè ràn lọ́wọ́:\n\n• Jẹ àwọn oúnjẹ kékeré, lójoojúmọ̀ — má jẹ́ kí inú rẹ ó ṣofo\n• Gbìyànjú kíkí tàbí akamu ní àárọ̀ ṣáájú dìde\n• Mu omi tútù tàbí tíì atalẹ̀ lọ́ra lọ́ra\n• Yẹra fún oúnjẹ tó tán, tó ni ọ̀rá, tàbí tó ní òórùn líle\n\nTí o bá ìgọ̀ tó fi kò lè mú oúnjẹ tàbí omi mọ̀, jọ̀wọ́ ránsẹ́ dókítà — o lè nílò IV fluids.",
-    "rDefault": "Ìbéèrè tó dára. MamaVoice wà níbí láti ṣe àtìlẹ́yìn rẹ ní gbogbo ìgbésẹ̀ oyún àti ìrìn-àjò ọmọ tuntun rẹ. Fún ìtọ́sọ́nà tó péye jùlọ fún ipò rẹ:\n\n1. Bá ọ̀kan lára àwọn ogbóntarigi jẹ́rìísí wa sọrọ nínú ẹ̀rọ náà\n2. Wá sí ìbẹ̀wò antenatal tòkàn rẹ\n3. Pe ilé-ìwòsàn tó sún mọ́ ọ tí àwọn ìbéèrè rẹ bá pọ̀\n\nṢé àwọn nkan pàtàkì kan nípa oyún, oúnjẹ, àjesára, tàbí ìtọ́jú ọmọ tuntun ni mo lè ràn ọ lọ́wọ́ pẹ̀lú lónìí?"
+    "rDefault": "Ìbéèrè tó dára. MamaVoice wà níbí láti ṣe àtìlẹ́yìn rẹ ní gbogbo ìgbésẹ̀ oyún àti ìrìn-àjò ọmọ tuntun rẹ. Fún ìtọ́sọ́nà tó péye jùlọ fún ipò rẹ:\n\n1. Bá ọ̀kan lára àwọn ogbóntarigi jẹ́rìísí wa sọrọ nínú ẹ̀rọ náà\n2. Wá sí ìbẹ̀wò antenatal tòkàn rẹ\n3. Pe ilé-ìwòsàn tó sún mọ́ ọ tí àwọn ìbéèrè rẹ bá pọ̀\n\nṢé àwọn nkan pàtàkì kan nípa oyún, oúnjẹ, àjesára, tàbí ìtọ́jú ọmọ tuntun ni mo lè ràn ọ lọ́wọ́ pẹ̀lú lónìí?",
+    "webPreviewBadge": "ÌWÒ AYÉLUJÁRA",
+    "webPreviewBanner": "O ń lo ìwò ayélujára. Gba ẹ̀rọ pípé fún ìrírí tó dára jùlọ.",
+    "getFullApp": "Gba ẹ̀rọ pípé",
+    "previewDismiss": "Kọ"
   }
 }
