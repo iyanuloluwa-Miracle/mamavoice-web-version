@@ -13,9 +13,13 @@ export default defineNuxtConfig({
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'theme-color', content: '#00897B' },
+        { property: 'og:image', content: '/mamavoiceLogo.png' },
+        { name: 'twitter:image', content: '/mamavoiceLogo.png' },
       ],
       link: [
+        { rel: 'icon', type: 'image/png', href: '/mamavoiceLogo.png' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'apple-touch-icon', href: '/mamavoiceLogo.png' },
       ],
     }
   },

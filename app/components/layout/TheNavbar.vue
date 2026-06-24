@@ -9,9 +9,9 @@
       <div class="flex items-center justify-between h-16">
 
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center gap-0.5 flex-shrink-0">
-          <span class="text-xl sm:text-2xl font-black bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent">Mama</span>
-          <span class="text-xl sm:text-2xl font-black text-mama-coral">Voice</span>
+        <NuxtLink to="/" class="flex items-center gap-3 flex-shrink-0">
+          <img src="/mamavoiceLogo.png" alt="MamaVoice logo" class="h-10 w-auto" />
+          <span class="text-xl sm:text-2xl font-black text-mama-coral">MamaVoice</span>
         </NuxtLink>
 
         <!-- Desktop nav links (lg+) -->
@@ -108,9 +108,9 @@
         class="fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] bg-mama-surface flex flex-col shadow-2xl lg:hidden"
       >
         <div class="flex items-center justify-between px-6 h-16 border-b border-mama-border-light flex-shrink-0">
-          <div class="flex items-center gap-0.5">
-            <span class="text-xl font-black bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent">Mama</span>
-            <span class="text-xl font-black text-mama-coral">Voice</span>
+          <div class="flex items-center gap-3">
+            <img src="/mamavoiceLogo.png" alt="MamaVoice logo" class="h-10 w-auto" />
+            <span class="text-xl font-black text-mama-coral">MamaVoice</span>
           </div>
           <button @click="isMenuOpen = false"
             class="w-10 h-10 rounded-xl text-mama-muted hover:text-mama-text hover:bg-mama-input transition-colors"

@@ -4,9 +4,12 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         <!-- Brand column -->
         <div class="lg:col-span-1">
-          <div class="flex items-center gap-1 mb-4">
-            <span class="text-2xl font-black bg-gradient-to-r from-mama-teal-light to-mama-teal bg-clip-text text-transparent">Mama</span>
-            <span class="text-2xl font-black text-mama-coral">Voice</span>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="/mamavoiceLogo.png" alt="MamaVoice logo" class="h-12 w-auto" />
+            <div>
+              <div class="text-2xl font-black text-white">Mama</div>
+              <div class="text-2xl font-black text-mama-coral">Voice</div>
+            </div>
           </div>
           <p class="text-white/60 text-sm leading-relaxed mb-6">
             {{ t('footer.tagline') }}
