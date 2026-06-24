@@ -219,6 +219,14 @@
     "rCry": "Kukan jariri na al'ada ne gaba ɗaya kuma shine kadai hanyar da suke sadarwa! Sanannun dalilai:\n\n• Yunwa (mafi yawa — gwada ciyarwa)\n• Mayafi ɗan datti\n• Yana son a riƙe shi/a ta'azanta shi\n• Yana gajiya ko an ɓata masa hankali\n• Iskar ciki ko ciwo (gwada tausa ciki a hankali)\n\nYawancin jariran suna kuka sa'o'i 1-3 a kowace rana a makonni na farko. Idan jaririyar ba ta daina bayan sa'o'i 3, tana da zazzabi sama da 38°C, ko ba ta cin lafiya ba, da fatan je likita nan take.",
     "rPain": "Ciwon baya a lokacin ciki ya zama ruwan dare. Gwada waɗannan hanyoyin maganin lafiya:\n\n• Yoga na ciki mai taushi ko miƙewa\n• Kwana kan gefen hagunka da matashin kai tsakanin ƙafafunka\n• Sa takalma masu tallafi, mai lebur\n• Sanya abu mai dumi (ba zafi ba) a wurin da ke ciwo\n\nIdan ciwo ya tsananta ko ya zo tare da zazzabi ko alamun fitsari, da fatan tattauna da likitanka.",
     "rNausea": "Amai na safe ya zama ruwan dare a kashi na farko na ciki. Ga abin da zai iya taimakawa:\n\n• Ci abinci kaɗan, sau da yawa — kar ki ƙyale cikin ki ya ƙofe\n• Gwada kisco ko akamu da safe kafin tashi\n• Sha ruwa sanyi ko shayin ginger a hankali\n• Guji abinci mai zafi, mai kitse, ko mai ƙamshi mai ƙarfi\n\nIdan kana amai sosai har ba za ki iya riƙe abinci ko ruwa ba, da fatan je likita — kuna iya buƙatar IV fluids.",
-    "rDefault": "Tambaya mai kyau. MamaVoice yana nan don tallafar ku a kowace matakin ciki da tafiyar jariri. Don mafi daidaituwar jagora ga yanayin ku:\n\n1. Tattauna da ɗaya daga cikin ƙwararrunmu da aka tabbatar a cikin app\n2. Halarci ziyarar antenatal ta gaba\n3. Kira asibitin da ke kusa da ku idan kuna da damuwa mai gaggawa\n\nKuna da wani abu na musamman game da ciki, abinci, alurar riga kafi, ko kulawa da jariri da za a iya taimaka muku a yau?"
+    "rDefault": "Tambaya mai kyau. MamaVoice yana nan don tallafar ku a kowace matakin ciki da tafiyar jariri. Don mafi daidaituwar jagora ga yanayin ku:\n\n1. Tattauna da ɗaya daga cikin ƙwararrunmu da aka tabbatar a cikin app\n2. Halarci ziyarar antenatal ta gaba\n3. Kira asibitin da ke kusa da ku idan kuna da damuwa mai gaggawa\n\nKuna da wani abu na musamman game da ciki, abinci, alurar riga kafi, ko kulawa da jariri da za a iya taimaka muku a yau?",
+    "webPreviewBadge": "WEB PREVIEW",
+    "webPreviewBanner": "Wannan kallon yanar gizo ne. Don cikakken bin lafiya, tunatarwa ta alurar riga kafi & goyon bayan muryar da ba ta kan layi —",
+    "getFullApp": "sauke app.",
+    "previewDismiss": "Na fahimta",
+    "listening": "Ina sauraro… yi magana yanzu",
+    "errorResponse": "Yi haƙuri, na sami matsalar haɗin. Da fatan sake gwadawa.",
+    "micNotSupported": "Makirofon ba ya goyon bayan mai bincike naka. Da fatan rubuta saƙon ka maimakon haka.",
+    "ttsToggle": "Canza amsar murya"
   }
 }

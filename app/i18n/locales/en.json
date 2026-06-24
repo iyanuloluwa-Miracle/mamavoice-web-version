@@ -219,6 +219,14 @@
     "rCry": "Newborn crying is completely normal and is their only way to communicate! Common reasons include:\n\n• Hunger (most common — try feeding)\n• Dirty diaper\n• Needs to be held/comforted\n• Overtired or overstimulated\n• Gas or tummy discomfort (try gentle tummy massages)\n\nMost babies cry 1–3 hours per day in the first few weeks. If your baby is inconsolable for over 3 hours, has a fever above 38°C, or isn't feeding well, please see a doctor right away.",
     "rPain": "Back pain during pregnancy is very common. Try these safe remedies:\n\n• Gentle prenatal yoga or stretching\n• Sleep on your left side with a pillow between your knees\n• Wear supportive, flat shoes\n• Apply a warm (not hot) compress to the painful area\n\nIf the pain is severe or accompanied by fever or urinary symptoms, please consult your doctor.",
     "rNausea": "Morning sickness is very common in the first trimester. Here's what can help:\n\n• Eat small, frequent meals — don't let your stomach get empty\n• Try dry crackers or akamu (pap) first thing in the morning\n• Sip cold water or ginger tea slowly\n• Avoid spicy, fatty, or strongly-smelling foods\n\nIf you're vomiting so much you can't keep food or water down, please see a doctor — you may need IV fluids.",
-    "rDefault": "That's a great question. MamaVoice is here to support you every step of your pregnancy and newborn journey. For the most accurate guidance on your specific situation, I recommend:\n\n1. Speaking with one of our verified specialists in the app\n2. Attending your next antenatal clinic visit\n3. Calling your nearest health facility if you have urgent concerns\n\nIs there anything specific about pregnancy, nutrition, vaccinations, or newborn care I can help you with today?"
+    "rDefault": "That's a great question. MamaVoice is here to support you every step of your pregnancy and newborn journey. For the most accurate guidance on your specific situation, I recommend:\n\n1. Speaking with one of our verified specialists in the app\n2. Attending your next antenatal clinic visit\n3. Calling your nearest health facility if you have urgent concerns\n\nIs there anything specific about pregnancy, nutrition, vaccinations, or newborn care I can help you with today?",
+    "webPreviewBadge": "WEB PREVIEW",
+    "webPreviewBanner": "This is a web preview. For full health tracking, vaccination reminders & offline voice support —",
+    "getFullApp": "download the app.",
+    "previewDismiss": "Got it",
+    "listening": "Listening… speak now",
+    "errorResponse": "Sorry, I had trouble connecting. Please try again in a moment.",
+    "micNotSupported": "Microphone not supported in your browser. Please type your message instead.",
+    "ttsToggle": "Toggle voice responses"
   }
 }
