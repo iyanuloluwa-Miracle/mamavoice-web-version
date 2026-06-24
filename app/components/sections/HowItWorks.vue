@@ -4,14 +4,14 @@
       <!-- Header -->
       <div class="text-center mb-10 sm:mb-14">
         <div class="inline-flex items-center gap-2 bg-mama-sky text-mama-teal px-4 py-2 rounded-full text-sm font-semibold mb-4">
-          🚀 How It Works
+          {{ t('howItWorks.badge') }}
         </div>
         <h2 class="text-fluid-4xl font-black text-mama-text mb-4">
-          Get Started in
-          <span class="text-mama-teal">Minutes</span>
+          {{ t('howItWorks.headline1') }}
+          <span class="text-mama-teal">{{ t('howItWorks.headline2') }}</span>
         </h2>
         <p class="text-fluid-lg text-mama-muted max-w-xl mx-auto">
-          No complex setup. No data required. Just download, speak, and get the guidance you need.
+          {{ t('howItWorks.sub') }}
         </p>
       </div>
 
@@ -37,7 +37,7 @@
 
           <!-- Step badge -->
           <div class="inline-flex items-center gap-1 text-xs font-bold text-mama-teal bg-mama-sky px-2.5 py-1 rounded-full mb-3">
-            Step {{ step.num }}
+            {{ t('howItWorks.step') }} {{ step.num }}
           </div>
 
           <h3 class="text-base sm:text-lg font-bold text-mama-text mb-2">{{ step.title }}</h3>
@@ -51,7 +51,7 @@
           to="/chat"
           class="inline-flex items-center gap-2 bg-mama-teal text-white px-8 sm:px-10 py-4 rounded-full font-bold text-sm sm:text-base shadow-md hover:bg-mama-teal-dark hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
         >
-          Start Your Journey Today
+          {{ t('howItWorks.cta') }}
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
@@ -62,12 +62,17 @@
 </template>
 
 <script setup lang="ts">
-const steps = [
-  { num: '01', emoji: '📱', iconBg: 'bg-mama-sky dark:bg-slate-700', title: 'Download & Register', desc: 'Get MamaVoice on iOS or Android. Register with just your phone number — no email required.' },
-  { num: '02', emoji: '👤', iconBg: 'bg-green-50 dark:bg-slate-700', title: 'Set Your Profile', desc: 'Enter your due date, language preference, and basic health history. Takes under 2 minutes.' },
-  { num: '03', emoji: '🎙️', iconBg: 'bg-orange-50 dark:bg-slate-700', title: 'Ask by Voice', desc: 'Tap the mic and speak freely. Ask anything about your pregnancy in your own language.' },
-  { num: '04', emoji: '📊', iconBg: 'bg-purple-50 dark:bg-slate-700', title: 'Track Daily Health', desc: 'Log symptoms, weight, and baby kicks. Get automated reminders for medications and vaccines.' },
-  { num: '05', emoji: '🏥', iconBg: 'bg-mama-sky dark:bg-slate-700', title: 'Connect with Doctors', desc: 'Book video or voice consultations with verified specialists from the comfort of your home.' },
-  { num: '06', emoji: '🌍', iconBg: 'bg-green-50 dark:bg-slate-700', title: 'Share & Grow', desc: 'Invite fellow mothers. Share milestones and encouragement in your community group.' },
-]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const steps = computed(() => [
+  { num: '01', emoji: '📱', iconBg: 'bg-mama-sky dark:bg-slate-700',    title: t('howItWorks.s1.title'), desc: t('howItWorks.s1.desc') },
+  { num: '02', emoji: '👤', iconBg: 'bg-green-50 dark:bg-slate-700',   title: t('howItWorks.s2.title'), desc: t('howItWorks.s2.desc') },
+  { num: '03', emoji: '🎙️', iconBg: 'bg-orange-50 dark:bg-slate-700', title: t('howItWorks.s3.title'), desc: t('howItWorks.s3.desc') },
+  { num: '04', emoji: '📊', iconBg: 'bg-purple-50 dark:bg-slate-700',  title: t('howItWorks.s4.title'), desc: t('howItWorks.s4.desc') },
+  { num: '05', emoji: '🏥', iconBg: 'bg-mama-sky dark:bg-slate-700',    title: t('howItWorks.s5.title'), desc: t('howItWorks.s5.desc') },
+  { num: '06', emoji: '🌍', iconBg: 'bg-green-50 dark:bg-slate-700',   title: t('howItWorks.s6.title'), desc: t('howItWorks.s6.desc') },
+])
 </script>

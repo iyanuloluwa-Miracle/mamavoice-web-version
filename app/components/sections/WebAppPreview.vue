@@ -9,13 +9,12 @@
       </div>
 
       <h2 class="text-fluid-5xl font-black text-white mb-4 sm:mb-6 leading-tight">
-        Try MamaVoice<br />
-        <span class="text-mama-sky">Right Now — For Free</span>
+        {{ t('webApp.headline1') }}<br />
+        <span class="text-mama-sky">{{ t('webApp.headline2') }}</span>
       </h2>
 
       <p class="text-white/70 text-fluid-lg max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
-        No registration needed. Chat with our AI health assistant instantly.
-        Ask about symptoms, nutrition, vaccinations — anything on your mind.
+        {{ t('webApp.sub') }}
       </p>
 
       <!-- Feature pills — scroll on mobile, wrap on desktop -->
@@ -41,21 +40,26 @@
           <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
           <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
         </svg>
-        Start Chatting with MamaVoice
+        {{ t('webApp.cta') }}
       </NuxtLink>
 
       <p class="text-white/50 text-xs sm:text-sm mt-4 sm:mt-5">
-        For personalised tracking &amp; vaccinations — download the mobile app
+        {{ t('webApp.footnote') }}
       </p>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-const pills = [
-  'No sign-up required',
-  'Instant AI responses',
-  'Multilingual support',
-  'Evidence-based guidance',
-]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const pills = computed(() => [
+  t('webApp.pill0'),
+  t('webApp.pill1'),
+  t('webApp.pill2'),
+  t('webApp.pill3'),
+])
 </script>

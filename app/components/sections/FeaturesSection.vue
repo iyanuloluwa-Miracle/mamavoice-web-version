@@ -4,14 +4,14 @@
       <!-- Header -->
       <div class="text-center mb-10 sm:mb-14">
         <div class="inline-flex items-center gap-2 bg-mama-sky text-mama-teal px-4 py-2 rounded-full text-sm font-semibold mb-4">
-          ✨ Core Features
+          {{ t('features.badge') }}
         </div>
         <h2 class="text-fluid-4xl font-black text-mama-text mb-4">
-          Everything a Mother Needs,<br class="hidden sm:block" />
-          <span class="text-mama-teal">All in One Place</span>
+          {{ t('features.headline1') }}<br class="hidden sm:block" />
+          <span class="text-mama-teal">{{ t('features.headline2') }}</span>
         </h2>
         <p class="text-fluid-lg text-mama-muted max-w-xl mx-auto">
-          From pregnancy tracking to newborn care — MamaVoice guides you every step of the way.
+          {{ t('features.sub') }}
         </p>
       </div>
 
@@ -48,56 +48,24 @@
 </template>
 
 <script setup lang="ts">
-const { isDark } = useColorMode()
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useColorMode } from '../../composables/useColorMode'
 
-const features = [
-  {
-    emoji: '🎙️',
-    title: 'Voice-First Consultations',
-    desc: 'Speak naturally in Yoruba, Hausa, Igbo, or English — our AI understands and responds in your language with trusted medical guidance.',
-    tag: 'Multilingual AI',
-    iconBg: '#E3F2FD', iconBgDark: '#0F2922',
-    tagColor: '#14B8A6', tagBg: '#E3F2FD', tagBgDark: '#0F2922',
-  },
-  {
-    emoji: '🏥',
-    title: 'Specialist Connect',
-    desc: 'Instant access to verified OBGYNs, midwives, and pediatricians across Nigeria for virtual or in-person consultations.',
-    tag: '50+ Doctors',
-    iconBg: '#F0FDF4', iconBgDark: '#0A2318',
-    tagColor: '#81C784', tagBg: '#F0FDF4', tagBgDark: '#0A2318',
-  },
-  {
-    emoji: '📊',
-    title: 'Health Tracking',
-    desc: 'Monitor blood pressure, weight, baby movements, and key milestones automatically throughout your pregnancy journey.',
-    tag: 'Real-Time',
-    iconBg: '#F5F3FF', iconBgDark: '#1A1040',
-    tagColor: '#7C3AED', tagBg: '#F5F3FF', tagBgDark: '#1A1040',
-  },
-  {
-    emoji: '🌿',
-    title: 'Nutrition Guidance',
-    desc: 'Personalized meal plans featuring local Nigerian foods rich in folate, iron, and protein — foods you actually know and love.',
-    tag: 'Local Foods',
-    iconBg: '#E3F2FD', iconBgDark: '#0F2922',
-    tagColor: '#14B8A6', tagBg: '#E3F2FD', tagBgDark: '#0F2922',
-  },
-  {
-    emoji: '💉',
-    title: 'Vaccination Monitor',
-    desc: 'Never miss a prenatal or newborn vaccine. Get smart reminders with a full timeline for mother and baby.',
-    tag: 'WHO Schedule',
-    iconBg: '#FFF7ED', iconBgDark: '#1A0F0A',
-    tagColor: '#FF8A65', tagBg: '#FFF7ED', tagBgDark: '#1A0F0A',
-  },
-  {
-    emoji: '🤱',
-    title: 'Newborn Care',
-    desc: 'Evidence-based guidance for breastfeeding, cord care, diaper rash, fever response, and early childhood milestones.',
-    tag: 'Pediatric Care',
-    iconBg: '#FDF2F8', iconBgDark: '#1A0A15',
-    tagColor: '#EC4899', tagBg: '#FDF2F8', tagBgDark: '#1A0A15',
-  },
-]
+const { isDark } = useColorMode()
+const { t } = useI18n()
+
+const features = computed(() => [
+  { emoji: '🎙️', key: 'voice',      iconBg: '#E3F2FD', iconBgDark: '#0F2922', tagColor: '#14B8A6', tagBg: '#E3F2FD', tagBgDark: '#0F2922' },
+  { emoji: '🏥',  key: 'specialist', iconBg: '#F0FDF4', iconBgDark: '#0A2318', tagColor: '#81C784', tagBg: '#F0FDF4', tagBgDark: '#0A2318' },
+  { emoji: '📊',  key: 'health',     iconBg: '#F5F3FF', iconBgDark: '#1A1040', tagColor: '#7C3AED', tagBg: '#F5F3FF', tagBgDark: '#1A1040' },
+  { emoji: '🌿',  key: 'nutrition',  iconBg: '#E3F2FD', iconBgDark: '#0F2922', tagColor: '#14B8A6', tagBg: '#E3F2FD', tagBgDark: '#0F2922' },
+  { emoji: '💉',  key: 'vaccine',    iconBg: '#FFF7ED', iconBgDark: '#1A0F0A', tagColor: '#FF8A65', tagBg: '#FFF7ED', tagBgDark: '#1A0F0A' },
+  { emoji: '🤱',  key: 'newborn',    iconBg: '#FDF2F8', iconBgDark: '#1A0A15', tagColor: '#EC4899', tagBg: '#FDF2F8', tagBgDark: '#1A0A15' },
+].map(f => ({
+  ...f,
+  title: t(`features.${f.key}.title`),
+  desc:  t(`features.${f.key}.desc`),
+  tag:   t(`features.${f.key}.tag`),
+})))
 </script>

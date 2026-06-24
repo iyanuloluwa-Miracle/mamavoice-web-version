@@ -4,14 +4,14 @@
       <!-- Header -->
       <div class="text-center mb-10 sm:mb-14">
         <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/30 text-mama-green dark:text-green-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-          🌿 Nutrition Guide
+          {{ t('nutrition.badge') }}
         </div>
         <h2 class="text-fluid-4xl font-black text-mama-text mb-4">
-          Nourish You & Your Baby<br class="hidden sm:block" />
-          <span class="text-mama-teal">With Foods You Know</span>
+          {{ t('nutrition.headline1') }}<br class="hidden sm:block" />
+          <span class="text-mama-teal">{{ t('nutrition.headline2') }}</span>
         </h2>
         <p class="text-fluid-lg text-mama-muted max-w-xl mx-auto">
-          MamaVoice recommends local Nigerian superfoods packed with nutrients your baby needs to thrive.
+          {{ t('nutrition.sub') }}
         </p>
       </div>
 
@@ -19,7 +19,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
         <div
           v-for="food in foods"
-          :key="food.name"
+          :key="food.key"
           class="bg-mama-bg rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-hover transition-all duration-300 group"
         >
           <!-- Food image area -->
@@ -53,13 +53,13 @@
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                {{ food.prep }} prep
+                {{ food.prepDuration }} {{ t('nutrition.prep') }}
               </div>
               <div class="flex items-center gap-1.5 text-xs text-mama-muted">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
-                Serves {{ food.servings }}
+                {{ t('nutrition.serves') }} {{ food.servesCount }}
               </div>
               <span class="ml-auto text-xs font-bold px-2.5 py-1 rounded-full" :class="food.safetyClass">
                 {{ food.safety }}
@@ -71,10 +71,10 @@
 
       <!-- CTA -->
       <div class="text-center mt-10 sm:mt-12">
-        <p class="text-mama-muted mb-4 text-sm sm:text-base">Get personalised meal plans based on your trimester</p>
+        <p class="text-mama-muted mb-4 text-sm sm:text-base">{{ t('nutrition.ctaSub') }}</p>
         <NuxtLink to="/chat"
           class="inline-flex items-center gap-2 bg-mama-teal text-white px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold hover:bg-mama-teal-dark transition-all shadow-md text-sm sm:text-base">
-          Get My Nutrition Plan
+          {{ t('nutrition.cta') }}
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
@@ -85,36 +85,50 @@
 </template>
 
 <script setup lang="ts">
-const foods = [
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const foods = computed(() => [
   {
-    name: 'Moi Moi',
+    key: 'moimoi',
     emoji: '🫘',
     gradient: 'bg-gradient-to-br from-amber-50 to-orange-100 dark:from-amber-900/20 dark:to-orange-900/20',
-    badge: 'High Protein',
-    description: 'Steamed bean pudding made from blended black-eyed peas — a pregnancy superfood.',
-    benefits: ['14g of protein per serving', 'Rich in folate for neural tube development', 'Iron supports red blood cell production'],
-    prep: '45 mins', servings: '4–6',
-    safety: '✓ Safe', safetyClass: 'bg-green-50 dark:bg-green-900/30 text-mama-green dark:text-green-400',
+    safetyClass: 'bg-green-50 dark:bg-green-900/30 text-mama-green dark:text-green-400',
+    name: t('nutrition.moimoi.name'),
+    badge: t('nutrition.moimoi.badge'),
+    description: t('nutrition.moimoi.desc'),
+    benefits: [t('nutrition.moimoi.b0'), t('nutrition.moimoi.b1'), t('nutrition.moimoi.b2')],
+    prepDuration: '45 min',
+    servesCount: '4–6',
+    safety: t('nutrition.moimoi.safety'),
   },
   {
-    name: 'Ugu Soup',
+    key: 'ugu',
     emoji: '🥬',
     gradient: 'bg-gradient-to-br from-green-50 to-teal-100 dark:from-green-900/20 dark:to-teal-900/20',
-    badge: 'Iron Rich',
-    description: 'Fluted pumpkin leaf soup — one of Nigeria\'s most nutrient-dense vegetables.',
-    benefits: ['Highest iron content of any Nigerian leaf', 'Vitamin A supports fetal eye development', 'Calcium and magnesium for bone formation'],
-    prep: '30 mins', servings: '3–4',
-    safety: '✓ Safe', safetyClass: 'bg-green-50 dark:bg-green-900/30 text-mama-green dark:text-green-400',
+    safetyClass: 'bg-green-50 dark:bg-green-900/30 text-mama-green dark:text-green-400',
+    name: t('nutrition.ugu.name'),
+    badge: t('nutrition.ugu.badge'),
+    description: t('nutrition.ugu.desc'),
+    benefits: [t('nutrition.ugu.b0'), t('nutrition.ugu.b1'), t('nutrition.ugu.b2')],
+    prepDuration: '30 min',
+    servesCount: '3–4',
+    safety: t('nutrition.ugu.safety'),
   },
   {
-    name: 'Pap & Groundnut',
+    key: 'pap',
     emoji: '🌽',
     gradient: 'bg-gradient-to-br from-yellow-50 to-amber-100 dark:from-yellow-900/20 dark:to-amber-900/20',
-    badge: 'Energy Boost',
-    description: 'Fermented corn porridge (akamu) paired with protein-rich groundnuts.',
-    benefits: ['Probiotics from fermentation aid digestion', 'Healthy fats from groundnuts for brain development', 'High energy — ideal for the third trimester'],
-    prep: '20 mins', servings: '2',
-    safety: '✓ Safe', safetyClass: 'bg-green-50 dark:bg-green-900/30 text-mama-green dark:text-green-400',
+    safetyClass: 'bg-green-50 dark:bg-green-900/30 text-mama-green dark:text-green-400',
+    name: t('nutrition.pap.name'),
+    badge: t('nutrition.pap.badge'),
+    description: t('nutrition.pap.desc'),
+    benefits: [t('nutrition.pap.b0'), t('nutrition.pap.b1'), t('nutrition.pap.b2')],
+    prepDuration: '20 min',
+    servesCount: '2',
+    safety: t('nutrition.pap.safety'),
   },
-]
+])
 </script>

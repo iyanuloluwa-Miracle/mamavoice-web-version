@@ -16,18 +16,18 @@
           <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
-          Trusted by 10,000+ African Mothers
+          {{ t('hero.badge') }}
         </div>
 
         <!-- Headline — fluid typography -->
         <h1 class="text-fluid-hero font-black leading-tight text-mama-text mb-5">
-          Every Mother Deserves a
-          <span class="bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent block sm:inline"> Trusted Voice</span>
-          <span class="text-mama-coral block sm:inline"> Companion</span>
+          {{ t('hero.headline1') }}
+          <span class="bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent block sm:inline"> {{ t('hero.headline2') }}</span>
+          <span class="text-mama-coral block sm:inline"> {{ t('hero.headline3') }}</span>
         </h1>
 
         <p class="text-fluid-lg text-mama-muted max-w-lg mx-auto lg:mx-0 leading-relaxed mb-8">
-          Speak naturally in <strong class="text-mama-text">Yoruba, Hausa, Igbo, or English</strong> and receive personalised pregnancy, newborn care, nutrition, and vaccination guidance.
+          {{ t('hero.sub') }}
         </p>
 
         <!-- CTA buttons — stacked on mobile, row on sm+ -->
@@ -39,7 +39,7 @@
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.39.07 2.37.74 3.19.8.96-.1 1.95-.8 3.2-.8 1.5.07 2.63.64 3.33 1.6-3.04 1.77-2.55 6.19.28 7.28zM13 3.5c-.55 2.29-2.48 4-4.33 3.88C8.37 5.04 10.5 3 13 3.5z"/>
             </svg>
-            Download App
+            {{ t('hero.downloadApp') }}
           </a>
           <NuxtLink
             to="/chat"
@@ -49,7 +49,7 @@
               <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
               <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
             </svg>
-            Try Web App
+            {{ t('hero.tryWebApp') }}
           </NuxtLink>
         </div>
 
@@ -174,21 +174,26 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useColorMode } from '../../composables/useColorMode'
+
 const { isDark } = useColorMode()
+const { t } = useI18n()
 
 const phoneShadow = computed(() => isDark.value
   ? '0 32px 64px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.3)'
   : '0 32px 64px rgba(0,137,123,0.2), 0 8px 24px rgba(0,0,0,0.08)')
 
-const stats = [
-  { emoji: '👩‍👧', value: '10K+', label: 'Mothers Helped' },
-  { emoji: '🏥',   value: '50+',  label: 'Specialists' },
-  { emoji: '🕐',   value: '24/7', label: 'Available' },
-]
+const stats = computed(() => [
+  { emoji: '👩‍👧', value: '10K+', label: t('hero.stats.mothers') },
+  { emoji: '🏥',   value: '50+',  label: t('hero.stats.specialists') },
+  { emoji: '🕐',   value: '24/7', label: t('hero.stats.available') },
+])
 
-const mobileStats = [
-  { emoji: '👩‍👧', value: '10K+', label: 'Mothers' },
-  { emoji: '🏥',   value: '50+',  label: 'Doctors' },
-  { emoji: '🌍',   value: '4',    label: 'Languages' },
-]
+const mobileStats = computed(() => [
+  { emoji: '👩‍👧', value: '10K+', label: t('hero.stats.mothersShort') },
+  { emoji: '🏥',   value: '50+',  label: t('hero.stats.doctors') },
+  { emoji: '🌍',   value: '4',    label: t('hero.stats.languages') },
+])
 </script>

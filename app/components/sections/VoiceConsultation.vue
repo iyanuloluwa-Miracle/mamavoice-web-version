@@ -8,14 +8,14 @@
             <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
             <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
           </svg>
-          Live Voice Consultation
+          {{ t('voice.badge') }}
         </div>
         <h2 class="text-fluid-4xl font-black text-white mb-4">
-          Ask Anything, Anytime,<br class="hidden sm:block" />
-          <span class="text-mama-teal-light">In Your Language</span>
+          {{ t('voice.headline1') }}<br class="hidden sm:block" />
+          <span class="text-mama-teal-light">{{ t('voice.headline2') }}</span>
         </h2>
         <p class="text-white/50 text-fluid-lg max-w-xl mx-auto">
-          MamaVoice understands Yoruba, Hausa, Igbo, and English — responding with trusted medical guidance instantly.
+          {{ t('voice.sub') }}
         </p>
       </div>
 
@@ -32,9 +32,9 @@
 
           <div class="text-center">
             <p class="text-white/60 text-sm sm:text-base mb-1">
-              {{ isRecording ? 'Listening… speak now' : 'Tap the mic to speak' }}
+              {{ isRecording ? t('voice.listening') : t('voice.tapToSpeak') }}
             </p>
-            <p class="text-white/30 text-xs sm:text-sm">Supports Yoruba · Hausa · Igbo · English</p>
+            <p class="text-white/30 text-xs sm:text-sm">{{ t('voice.supports') }}</p>
           </div>
 
           <!-- Language tags — horizontal scroll on mobile -->
@@ -63,7 +63,7 @@
             </div>
             <div class="max-w-[85%] sm:max-w-sm">
               <div class="text-xs mb-1.5" :class="msg.role === 'user' ? 'text-right text-white/40' : 'text-white/40'">
-                {{ msg.role === 'user' ? 'You' : 'MamaVoice' }} · {{ msg.time }}
+                {{ msg.role === 'user' ? t('voice.you') : t('voice.mamavoice') }} · {{ msg.time }}
               </div>
               <div
                 class="px-4 py-3 rounded-3xl text-xs sm:text-sm leading-relaxed"
@@ -106,21 +106,26 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 const isRecording = ref(false)
 const toggleRecording = () => { isRecording.value = !isRecording.value }
 
-const messages = [
-  { role: 'user', text: 'I am 28 weeks pregnant and my legs are swollen. What should I do?', time: '9:02 AM' },
-  { role: 'ai', text: 'Mild swelling during pregnancy is common. Elevate your feet, drink plenty of water, and avoid standing for long periods. If you experience sudden severe swelling or headaches, visit a clinic immediately.', time: '9:02 AM' },
-  { role: 'user', text: 'Thank you. What iron-rich foods can I eat?', time: '9:03 AM' },
-]
+const messages = computed(() => [
+  { role: 'user', text: t('voice.msg1'), time: '9:02 AM' },
+  { role: 'ai',   text: t('voice.msg2'), time: '9:02 AM' },
+  { role: 'user', text: t('voice.msg3'), time: '9:03 AM' },
+])
 
 const waveHeights = [30, 60, 45, 80, 55, 70, 40, 90, 65, 75, 50, 85, 35, 70, 45, 60, 80, 40, 65, 55]
 
-const languages = [
-  { code: 'en', label: '🇳🇬 English' },
-  { code: 'yo', label: 'Yorùbá' },
-  { code: 'ha', label: 'Hausa' },
-  { code: 'ig', label: 'Igbo' },
-]
+const languages = computed(() => [
+  { code: 'en', label: t('voice.langEn') },
+  { code: 'yo', label: t('voice.langYo') },
+  { code: 'ha', label: t('voice.langHa') },
+  { code: 'ig', label: t('voice.langIg') },
+])
 </script>
