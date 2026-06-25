@@ -88,7 +88,8 @@
                   selectedLang === lang.code
                     ? 'border-mama-teal bg-mama-sky dark:bg-mama-teal/15 shadow-lg scale-[1.02]'
                     : 'border-mama-border bg-mama-surface hover:border-mama-teal-light hover:shadow-md hover:scale-[1.01]',
-                  `card-entrance-${index}`
+                  `card-entrance-${index}`,
+                  index === languages.length - 1 && languages.length % 2 !== 0 ? 'col-span-2' : ''
                 ]"
                 :style="{ animationDelay: `${300 + index * 100}ms` }"
               >
