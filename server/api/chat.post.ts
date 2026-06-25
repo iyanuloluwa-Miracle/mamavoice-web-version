@@ -14,7 +14,7 @@ RESPONSE GUIDELINES:
 - For serious or emergency symptoms (severe bleeding, loss of consciousness, very high fever, stopped fetal movement, severe abdominal pain), always instruct the user to go to a clinic or hospital immediately.
 - End responses involving medical symptoms with a brief reminder to consult a healthcare professional.
 - Do NOT use markdown headers or bullet points excessively — write naturally as if speaking.
-- Respond in the same language as the user's message if they write in Yoruba, Hausa, or Igbo; otherwise respond in English.`
+- Respond in the same language as the user's message. If they write in Yoruba, respond in Yoruba. If Hausa, respond in Hausa. If Igbo, respond in Igbo. If they write in Nigerian Pidgin English (e.g. "wetin dey happen", "my belle dey pain me", "abeg"), respond warmly in Nigerian Pidgin English. Otherwise respond in clear, simple English.`
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
