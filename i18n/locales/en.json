@@ -65,6 +65,7 @@
     "langYo": "Yorùbá",
     "langHa": "Hausa",
     "langIg": "Igbo",
+    "langPcm": "🇳🇬 Naija",
     "msg1": "I am 28 weeks pregnant and my legs are swollen. What should I do?",
     "msg2": "Mild swelling during pregnancy is common. Elevate your feet, drink plenty of water, and avoid standing for long periods. If you experience sudden severe swelling or headaches, visit a clinic immediately.",
     "msg3": "Thank you. What iron-rich foods can I eat?"
@@ -223,6 +224,7 @@
     "webPreviewBadge": "WEB PREVIEW",
     "webPreviewBanner": "You're using the web preview. Get the full app for the best experience.",
     "getFullApp": "Get the full app",
-    "previewDismiss": "Dismiss"
+    "previewDismiss": "Dismiss",
+    "sttLangFallback": "Voice input may not work for this language on your device. Please type your message instead."
   }
 }

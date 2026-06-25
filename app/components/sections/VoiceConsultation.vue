@@ -127,5 +127,6 @@ const languages = computed(() => [
   { code: 'yo', label: t('voice.langYo') },
   { code: 'ha', label: t('voice.langHa') },
   { code: 'ig', label: t('voice.langIg') },
+  { code: 'pcm', label: t('voice.langPcm') },
 ])
 </script>

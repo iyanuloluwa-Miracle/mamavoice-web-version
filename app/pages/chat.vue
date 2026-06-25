@@ -66,6 +66,18 @@
           </svg>
         </button>
 
+        <!-- New chat -->
+        <button
+          v-if="messages.length > 0"
+          @click="clearChat"
+          title="New chat"
+          class="w-9 h-9 rounded-full flex items-center justify-center bg-mama-input text-mama-muted hover:bg-mama-sky hover:text-mama-teal transition-all"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+        </button>
+
         <!-- Download CTA -->
         <a href="/#download"
           class="hidden xs:hidden sm:flex items-center gap-2 bg-mama-teal text-white px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold hover:bg-mama-teal-dark transition-all">
@@ -259,9 +271,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick } from 'vue'
+import { ref, computed, nextTick, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useColorMode } from '../composables/useColorMode'
+import { useChatHistory } from '../composables/useChatHistory'
 import { useSeoMeta } from '@unhead/vue'
 
 definePageMeta({ layout: false })
@@ -270,6 +283,7 @@ const { t, locale, locales, setLocale } = useI18n()
 const { isDark, toggle } = useColorMode()
 const { isRecording, isSupported: sttSupported, startRecording, stopRecording } = useSpeechToText()
 const { isEnabled: ttsEnabled, isSupported: ttsSupported, speak, toggleEnabled } = useTextToSpeech()
+const { load: loadHistory, save: saveHistory, clear: clearHistory } = useChatHistory()
 
 useSeoMeta({
   title: 'MamaVoice AI Chat — Your Maternal Health Companion',
@@ -283,6 +297,8 @@ interface Message {
 }
 
 const messages = ref<Message[]>([])
+watch(messages, (val) => saveHistory(val), { deep: true })
+
 const inputText = ref('')
 const isTyping = ref(false)
 const hasReplied = ref(false)
@@ -294,10 +310,17 @@ const inputRef = ref<HTMLTextAreaElement>()
 const previewDismissed = ref(false)
 onMounted(() => {
   previewDismissed.value = localStorage.getItem('mama-preview-dismissed') === 'true'
+  messages.value = loadHistory()
 })
 function dismissPreview() {
   previewDismissed.value = true
   localStorage.setItem('mama-preview-dismissed', 'true')
+}
+
+function clearChat() {
+  clearHistory()
+  messages.value = []
+  hasReplied.value = false
 }
 
 const suggestedPrompts = computed(() => [
@@ -372,9 +395,13 @@ async function handleMicClick() {
       inputText.value = transcript.trim()
       await nextTick()
       await sendMessage()
+    } else {
+      messages.value.push({ role: 'ai', text: t('chat.sttLangFallback'), time: getTime() })
+      scrollToBottom()
     }
   } catch {
-    // Silently fail — sttSupported will be set false if permissions denied
+    messages.value.push({ role: 'ai', text: t('chat.sttLangFallback'), time: getTime() })
+    scrollToBottom()
   }
 }
 

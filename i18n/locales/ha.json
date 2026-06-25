@@ -65,6 +65,7 @@
     "langYo": "Yorùbá",
     "langHa": "Hausa",
     "langIg": "Igbo",
+    "langPcm": "🇳🇬 Naija",
     "msg1": "Ina da ciki na mako na 28 kuma ƙafafuna sun kumbura. Me zan yi?",
     "msg2": "Kumburi kaɗan a lokacin ciki ya zama ruwan dare. Ɗaga ƙafafunki, sha ruwa mai yawa, kuma guji tsayawa tsayi. Idan kumburi ya tsananta kwatsam ko kana da ciwon kai, je asibiti nan take.",
     "msg3": "Na gode. Waɗanne abinci masu ƙarfe zan iya ci?"
@@ -223,6 +224,7 @@
     "webPreviewBadge": "DUBAN WEB",
     "webPreviewBanner": "Kuna amfani da duban web. Samu cikakkiyar app don mafi kyau.",
     "getFullApp": "Samu cikakkiyar app",
-    "previewDismiss": "Rufe"
+    "previewDismiss": "Rufe",
+    "sttLangFallback": "Rikodin murya bazai yi aiki ba a wannan yaren a na'urar ka. Da fatan rubuta saƙon ka maimakon haka."
   }
 }

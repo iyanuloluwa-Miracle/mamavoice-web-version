@@ -32,6 +32,7 @@ export default defineNuxtConfig({
       { code: 'yo', name: 'Yorùbá', file: 'yo.json' },
       { code: 'ha', name: 'Hausa', file: 'ha.json' },
       { code: 'ig', name: 'Igbo', file: 'ig.json' },
+      { code: 'pcm', name: 'Naija', file: 'pcm.json' },
     ],
     lazy: true,
     langDir: 'locales/',

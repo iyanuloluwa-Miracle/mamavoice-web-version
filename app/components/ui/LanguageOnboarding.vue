@@ -183,6 +183,7 @@ const greetings = [
   { text: 'Ẹ kú àbọ̀', lang: 'yo' },
   { text: 'Barka da zuwa', lang: 'ha' },
   { text: 'Nnọọ', lang: 'ig' },
+  { text: 'Bawo o, Mama', lang: 'pcm' },
 ]
 
 // Language card data — static, doesn't need i18n since these are always in native language
@@ -210,6 +211,12 @@ const languages = [
     nativeName: 'Igbo',
     greeting: 'Ndewo, Mama!',
     accentClass: 'bg-mama-coral',
+  },
+  {
+    code: 'pcm',
+    nativeName: 'Naija',
+    greeting: 'Bawo o, Mama!',
+    accentClass: 'bg-orange-500',
   },
 ]
 

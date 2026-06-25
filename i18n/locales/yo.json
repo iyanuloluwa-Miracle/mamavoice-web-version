@@ -65,6 +65,7 @@
     "langYo": "Yorùbá",
     "langHa": "Hausa",
     "langIg": "Igbo",
+    "langPcm": "🇳🇬 Naija",
     "msg1": "Mo loyún ọ̀sẹ̀ 28 àti àwọn ẹsẹ̀ mi ti wú. Kí ni mo gbọdọ̀ ṣe?",
     "msg2": "Wíwú kékeré nígbà oyún jẹ́ ohun tó wọ́pọ̀. Gbé ẹsẹ̀ rẹ sókè, mu omi púpọ̀, kí o sì yẹra fún dídúró pẹ́. Tí wíwú bá pọ̀ sí i lójijì tàbí tí o bá ní efòrí, lọ sí ilé-ìwòsàn lẹ̀ẹ̀kan.",
     "msg3": "E séun. Àwọn oúnjẹ tí ó ní irin wo ni mo lè jẹ?"
@@ -223,6 +224,7 @@
     "webPreviewBadge": "ÌWÒ AYÉLUJÁRA",
     "webPreviewBanner": "O ń lo ìwò ayélujára. Gba ẹ̀rọ pípé fún ìrírí tó dára jùlọ.",
     "getFullApp": "Gba ẹ̀rọ pípé",
-    "previewDismiss": "Kọ"
+    "previewDismiss": "Kọ",
+    "sttLangFallback": "Gbígbàsílẹ̀ ohun lè má ṣiṣẹ́ fún èdè yìí ní ìbófinmu rẹ. Jọ̀wọ́ tẹ ìsọfúnni rẹ dípò."
   }
 }

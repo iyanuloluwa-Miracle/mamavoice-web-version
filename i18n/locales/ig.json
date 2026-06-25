@@ -65,6 +65,7 @@
     "langYo": "Yorùbá",
     "langHa": "Hausa",
     "langIg": "Igbo",
+    "langPcm": "🇳🇬 Naija",
     "msg1": "Enwere m ime nke izu 28 na ụkwụ m agbachie. Kedu ihe m ga-eme?",
     "msg2": "Ọgba ọgba obere n'oge ime bụ ihe a na-ahụkarị. Welie ụkwụ gị, ṅụọ mmiri ọtụtụ, ma zere ịguzo ogologo. Ọ bụrụ na ọgba ọgba bịagbue ozugbo ma ọ bụ isi gị na-awa gị, gaa ụlọ ọgwụ ozugbo.",
     "msg3": "Daalụ. Kedu nri nwere igwe m nwere ike iri?"
@@ -223,6 +224,7 @@
     "webPreviewBadge": "NLELE WEB",
     "webPreviewBanner": "Ị na-eji nlele web. Nweta ngwa isi maka ahụmịhe kacha mma.",
     "getFullApp": "Nweta ngwa isi",
-    "previewDismiss": "Kpochie"
+    "previewDismiss": "Kpochie",
+    "sttLangFallback": "Ntụga olu nwere ike ọ gaghị arụ ọrụ maka asụsụ a na ngwaọrụ gị. Biko pịa ozi gị kama."
   }
 }

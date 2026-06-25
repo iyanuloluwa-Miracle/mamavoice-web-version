@@ -3,6 +3,7 @@ const LOCALE_TO_BCP47: Record<string, string> = {
   yo: 'yo-NG',
   ha: 'ha',
   ig: 'ig-NG',
+  pcm: 'en-NG',
 }
 
 // YarnGPT voices chosen by name origin matching each language
