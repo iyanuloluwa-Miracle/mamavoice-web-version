@@ -3,7 +3,6 @@
     <SectionsHeroSection />
     <SectionsVoiceConsultation />
     <SectionsFeaturesSection />
-    <SectionsSpecialistDirectory />
     <SectionsHealthDashboard />
     <SectionsNutritionSection />
     <SectionsHowItWorks />

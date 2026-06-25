@@ -174,7 +174,6 @@ const isLangOpen = ref(false)
 
 const navLinks = computed(() => [
   { href: '#features',     label: t('nav.features'),    emoji: '✨' },
-  { href: '#specialists',  label: t('nav.specialists'), emoji: '🏥' },
   { href: '#nutrition',    label: t('nav.nutrition'),   emoji: '🌿' },
   { href: '#how-it-works', label: t('nav.howItWorks'),  emoji: '🚀' },
 ])
