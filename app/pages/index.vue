@@ -8,6 +8,7 @@
     <SectionsHowItWorks />
     <SectionsWebAppPreview />
     <SectionsAppDownload />
+    <SectionsFAQSection />
   </div>
 </template>
 
