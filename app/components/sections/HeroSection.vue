@@ -11,14 +11,6 @@
       <!-- ── Left: Text content ─────────────────────────────────── -->
       <div class="animate-fade-in-up order-1 text-center lg:text-left">
 
-        <!-- Eyebrow badge -->
-        <div class="inline-flex items-center gap-2 bg-mama-sky text-mama-teal px-4 py-2 rounded-full text-sm font-semibold mb-5">
-          <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-          </svg>
-          {{ t('hero.badge') }}
-        </div>
-
         <!-- Headline — fluid typography -->
         <h1 class="text-fluid-hero font-black leading-tight text-mama-text mb-5">
           {{ t('hero.headline1') }}
@@ -31,7 +23,7 @@
         </p>
 
         <!-- CTA buttons — stacked on mobile, row on sm+ -->
-        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-10">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
           <a
             href="#download"
             class="inline-flex items-center justify-center gap-2 bg-mama-teal text-white px-8 py-4 rounded-full font-bold text-base shadow-md hover:bg-mama-teal-dark hover:shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto"
@@ -53,18 +45,6 @@
           </NuxtLink>
         </div>
 
-        <!-- Trust indicators -->
-        <div class="flex flex-wrap items-center gap-4 justify-center lg:justify-start">
-          <div v-for="stat in stats" :key="stat.label" class="flex items-center gap-2">
-            <div class="w-9 h-9 rounded-full bg-mama-sky flex items-center justify-center flex-shrink-0">
-              <span class="text-base leading-none">{{ stat.emoji }}</span>
-            </div>
-            <div>
-              <div class="text-sm font-bold text-mama-text leading-tight">{{ stat.value }}</div>
-              <div class="text-xs text-mama-muted">{{ stat.label }}</div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- ── Right: Phone mockup ────────────────────────────────── -->
@@ -158,23 +138,11 @@
         </div>
       </div>
 
-      <!-- Mobile-only: compact stat strip (replaces phone mockup on xs) -->
-      <div class="order-2 sm:hidden w-full">
-        <div class="grid grid-cols-3 gap-3">
-          <div v-for="stat in mobileStats" :key="stat.label"
-            class="bg-mama-surface rounded-2xl p-3 text-center shadow-soft-sm">
-            <div class="text-2xl mb-1">{{ stat.emoji }}</div>
-            <div class="text-base font-black text-mama-teal">{{ stat.value }}</div>
-            <div class="text-[10px] text-mama-muted">{{ stat.label }}</div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useColorMode } from '../../composables/useColorMode'
 
@@ -185,15 +153,4 @@ const phoneShadow = computed(() => isDark.value
   ? '0 32px 64px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.3)'
   : '0 32px 64px rgba(0,137,123,0.2), 0 8px 24px rgba(0,0,0,0.08)')
 
-const stats = computed(() => [
-  { emoji: '👩‍👧', value: '10K+', label: t('hero.stats.mothers') },
-  { emoji: '🏥',   value: '50+',  label: t('hero.stats.specialists') },
-  { emoji: '🕐',   value: '24/7', label: t('hero.stats.available') },
-])
-
-const mobileStats = computed(() => [
-  { emoji: '👩‍👧', value: '10K+', label: t('hero.stats.mothersShort') },
-  { emoji: '🏥',   value: '50+',  label: t('hero.stats.doctors') },
-  { emoji: '🌍',   value: '4',    label: t('hero.stats.languages') },
-])
 </script>
