@@ -15,43 +15,43 @@
         </p>
       </div>
 
-      <!-- App screenshots — staggered 4-column grid -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-start">
+      <!-- App screenshots — staggered 2-column layout -->
+      <div class="max-w-3xl mx-auto grid grid-cols-2 gap-6 sm:gap-10 items-start">
 
-        <!-- Health check-in · dark mode -->
-        <div class="animate-float" style="animation-delay: 0ms">
-          <img
-            src="/health-dashboard-image-one.png"
-            alt="MamaVoice health check-in screen in dark mode showing weight, blood pressure, and symptom history"
-            class="w-full object-contain drop-shadow-xl"
-          />
+        <!-- Left column -->
+        <div class="flex flex-col gap-6 sm:gap-10">
+          <div class="animate-float" style="animation-delay: 0ms">
+            <img
+              src="/health-dashboard-image-one.png"
+              alt="MamaVoice health check-in screen in dark mode showing weight, blood pressure, and symptom history"
+              class="w-full object-contain drop-shadow-xl"
+            />
+          </div>
+          <div class="animate-float" style="animation-delay: 200ms">
+            <img
+              src="/health-dashboard-four.png"
+              alt="MamaVoice vaccine schedule tracker showing baby immunisation milestones"
+              class="w-full object-contain drop-shadow-xl"
+            />
+          </div>
         </div>
 
-        <!-- Health check-in · light mode (offset down) -->
-        <div class="animate-float mt-8 sm:mt-12" style="animation-delay: 250ms">
-          <img
-            src="/health-dashboard-image-two.png"
-            alt="MamaVoice health check-in screen in light mode"
-            class="w-full object-contain drop-shadow-xl"
-          />
-        </div>
-
-        <!-- Vaccine tracker -->
-        <div class="animate-float" style="animation-delay: 150ms">
-          <img
-            src="/health-dashboard-four.png"
-            alt="MamaVoice vaccine schedule tracker showing baby immunisation milestones"
-            class="w-full object-contain drop-shadow-xl"
-          />
-        </div>
-
-        <!-- Profile & settings (offset down) -->
-        <div class="animate-float mt-8 sm:mt-12" style="animation-delay: 400ms">
-          <img
-            src="/health-dashboard-three.png"
-            alt="MamaVoice profile screen showing user Amara Okeke, language, reminders, and theme settings"
-            class="w-full object-contain drop-shadow-xl"
-          />
+        <!-- Right column — offset down for stagger -->
+        <div class="flex flex-col gap-6 sm:gap-10 mt-10 sm:mt-16">
+          <div class="animate-float" style="animation-delay: 100ms">
+            <img
+              src="/health-dashboard-image-two.png"
+              alt="MamaVoice health check-in screen in light mode"
+              class="w-full object-contain drop-shadow-xl"
+            />
+          </div>
+          <div class="animate-float" style="animation-delay: 300ms">
+            <img
+              src="/health-dashboard-three.png"
+              alt="MamaVoice profile screen showing user Amara Okeke, language, reminders, and theme settings"
+              class="w-full object-contain drop-shadow-xl"
+            />
+          </div>
         </div>
 
       </div>
