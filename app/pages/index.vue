@@ -3,8 +3,7 @@
     <SectionsHeroSection />
     <SectionsVoiceConsultation />
     <SectionsFeaturesSection />
-    <SectionsHealthDashboard />
-    <SectionsNutritionSection />
+<SectionsNutritionSection />
     <SectionsHowItWorks />
     <SectionsWebAppPreview />
     <SectionsAppDownload />
