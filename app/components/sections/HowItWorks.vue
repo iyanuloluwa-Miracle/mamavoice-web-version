@@ -3,9 +3,6 @@
     <div class="max-w-6xl mx-auto">
       <!-- Header -->
       <div class="text-center mb-10 sm:mb-14">
-        <div class="inline-flex items-center gap-2 bg-mama-sky text-mama-teal px-4 py-2 rounded-full text-sm font-semibold mb-4">
-          {{ t('howItWorks.badge') }}
-        </div>
         <h2 class="text-fluid-4xl font-black text-mama-text mb-4">
           {{ t('howItWorks.headline1') }}
           <span class="text-mama-teal">{{ t('howItWorks.headline2') }}</span>

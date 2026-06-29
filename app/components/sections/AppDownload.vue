@@ -6,10 +6,6 @@
 
           <!-- Left: Text & store buttons -->
           <div class="p-7 sm:p-10 lg:p-14 flex flex-col justify-center">
-            <div class="inline-flex items-center gap-2 bg-mama-sky text-mama-teal px-4 py-2 rounded-full text-sm font-semibold mb-5 sm:mb-6 w-fit">
-              {{ t('download.badge') }}
-            </div>
-
             <h2 class="text-fluid-4xl font-black text-mama-text mb-3 sm:mb-4 leading-tight">
               {{ t('download.headline1') }}<br />
               <span class="text-mama-teal">{{ t('download.headline2') }}</span>
