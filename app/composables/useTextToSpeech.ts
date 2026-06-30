@@ -27,6 +27,53 @@ function stripMarkdown(text: string): string {
     .trim()
 }
 
+// Expand abbreviations and symbols so the speech engine reads them naturally
+function prepareForSpeech(text: string): string {
+  return text
+    .replace(/\be\.g\./gi, 'for example')
+    .replace(/\bi\.e\./gi, 'that is')
+    .replace(/\bvs\./gi, 'versus')
+    .replace(/\bDr\./g, 'Doctor')
+    .replace(/\bMr\./g, 'Mister')
+    .replace(/\bMrs\./g, 'Missus')
+    .replace(/\bProf\./g, 'Professor')
+    .replace(/(\d+)%/g, '$1 percent')
+    .replace(/(\d+)°C/g, '$1 degrees Celsius')
+    .replace(/(\d+)°F/g, '$1 degrees Fahrenheit')
+    .replace(/^\d+\.\s+/gm, '')   // strip numbered list prefixes
+    .replace(/[—–]/g, ', ')       // em/en dash → natural pause
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
+// Prefer high-quality voices; fall back gracefully
+const PREFERRED_VOICE_NAMES = [
+  'Microsoft Aria Online (Natural)',
+  'Microsoft Jenny Online (Natural)',
+  'Microsoft Zira Online (Natural)',
+  'Google UK English Female',
+  'Google US English',
+  'Samantha',
+  'Karen',
+  'Moira',
+  'Microsoft Zira Desktop',
+]
+
+function pickBestVoice(voices: SpeechSynthesisVoice[], langPrefix: string): SpeechSynthesisVoice | undefined {
+  const candidates = voices.filter(v => v.lang.startsWith(langPrefix))
+  for (const name of PREFERRED_VOICE_NAMES) {
+    const found = candidates.find(v => v.name === name || v.name.includes(name))
+    if (found) return found
+  }
+  // Prefer any female-named or remote (cloud) voice over the default compact one
+  const female = candidates.find(v =>
+    v.name.toLowerCase().includes('female') ||
+    ['aria', 'jenny', 'zira', 'samantha', 'karen', 'victoria', 'moira'].some(n => v.name.toLowerCase().includes(n))
+  )
+  if (female) return female
+  return candidates[0]
+}
+
 // Split text into chunks at sentence boundaries, each chunk ≤ maxLen chars
 function chunkBySentence(text: string, maxLen: number): string[] {
   if (text.length <= maxLen) return [text]
@@ -137,14 +184,16 @@ export function useTextToSpeech() {
     if (!isSupported.value) return
     cancelled = false
 
-    const utterance = new SpeechSynthesisUtterance(stripMarkdown(text))
+    const cleaned = prepareForSpeech(stripMarkdown(text))
+    const utterance = new SpeechSynthesisUtterance(cleaned)
     utterance.lang = LOCALE_TO_BCP47[lang] ?? 'en-NG'
-    utterance.rate = 0.9
-    utterance.pitch = 1.0
+    utterance.rate = 0.85
+    utterance.pitch = 1.05
+    utterance.volume = 1.0
 
     const langPrefix = utterance.lang.split('-')[0]!
-    const match = cachedVoices.find(v => v.lang.startsWith(langPrefix))
-    if (match) utterance.voice = match
+    const best = pickBestVoice(cachedVoices, langPrefix)
+    if (best) utterance.voice = best
 
     utterance.onstart = () => { isSpeaking.value = true }
     utterance.onend = () => { isSpeaking.value = false }
