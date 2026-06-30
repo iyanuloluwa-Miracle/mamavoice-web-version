@@ -17,10 +17,16 @@ export function useChatHistory() {
   }
 
   function save(messages: Message[]) {
+    const write = (data: Message[]) =>
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages))
+      write(messages)
     } catch {
-      // localStorage full or unavailable — fail silently
+      try {
+        write(messages.slice(Math.floor(messages.length / 2)))
+      } catch {
+        // storage critically full — nothing more we can do
+      }
     }
   }
 
