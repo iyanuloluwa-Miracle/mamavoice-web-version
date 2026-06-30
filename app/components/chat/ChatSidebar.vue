@@ -20,24 +20,13 @@
     <div class="flex items-center h-12 px-3 border-b border-mama-border-light flex-shrink-0"
       :class="isOpen ? 'justify-between' : 'justify-center'">
       <!-- Logo (expanded) -->
-      <NuxtLink v-if="isOpen" to="/" class="flex items-center gap-2 min-w-0">
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-mama-teal to-mama-teal-light flex items-center justify-center flex-shrink-0 shadow-sm">
-          <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
-            <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-          </svg>
-        </div>
-        <div class="flex items-baseline gap-0.5 min-w-0">
-          <span class="text-base font-black bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent">Mama</span>
-          <span class="text-base font-black text-mama-coral">Voice</span>
-        </div>
+      <NuxtLink v-if="isOpen" to="/" class="flex items-center min-w-0">
+        <img src="/mamavoiceLogo.png" alt="MamaVoice logo" class="h-8 w-auto" />
       </NuxtLink>
 
       <!-- Logo icon only (collapsed desktop) -->
-      <NuxtLink v-else to="/" class="w-8 h-8 rounded-lg bg-gradient-to-br from-mama-teal to-mama-teal-light flex items-center justify-center shadow-sm">
-        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
-        </svg>
+      <NuxtLink v-else to="/" class="flex items-center justify-center">
+        <img src="/mamavoiceLogo.png" alt="MamaVoice logo" class="h-7 w-auto" />
       </NuxtLink>
 
       <!-- Mobile close button -->
