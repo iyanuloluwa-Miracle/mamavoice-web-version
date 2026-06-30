@@ -30,6 +30,7 @@
 
           <NuxtLink to="/" class="flex items-center gap-2 flex-shrink-0">
             <img src="/mamavoiceLogo.png" alt="MamaVoice logo" class="h-8 w-auto" />
+            <span class="text-lg font-black text-mama-coral">MamaVoice</span>
           </NuxtLink>
         </div>
 
