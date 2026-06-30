@@ -364,10 +364,9 @@ const messages = ref<Message[]>([])
 watch(messages, (val) => saveHistory(val), { deep: true })
 
 watch(locale, (newLoc, oldLoc) => {
-  if (messages.value.length > 0 && newLoc !== oldLoc) {
-    setLocale(oldLoc)
-    pendingLocale.value = newLoc
-  }
+  if (newLoc === oldLoc || messages.value.length === 0 || pendingLocale.value !== null) return
+  pendingLocale.value = newLoc  // set before setLocale so the re-triggered watch exits early
+  setLocale(oldLoc)
 })
 
 const MAX_CHARS = 500
