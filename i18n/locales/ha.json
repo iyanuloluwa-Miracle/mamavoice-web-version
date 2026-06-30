@@ -242,7 +242,17 @@
     "webPreviewBanner": "Kuna amfani da duban web. Samu cikakkiyar app don mafi kyau.",
     "getFullApp": "Samu cikakkiyar app",
     "previewDismiss": "Rufe",
-    "sttLangFallback": "Rikodin murya bazai yi aiki ba a wannan yaren a na'urar ka. Da fatan rubuta saƙon ka maimakon haka."
+    "sttLangFallback": "Rikodin murya bazai yi aiki ba a wannan yaren a na'urar ka. Da fatan rubuta saƙon ka maimakon haka.",
+    "ttsToggle": "Kunna/kashe murya",
+    "micNotSupported": "Rikodin murya baya aiki a wannan browser. Da fatan rubuta saƙonka.",
+    "errorResponse": "Ina da matsala yanzu. Da fatan sake gwadawa.",
+    "listening": "Yana sauraro… yi magana yanzu",
+    "timeoutError": "Yana ɗaukar lokaci mai tsawo — duba haɗin ka kuma sake gwadawa.",
+    "langSwitchPrompt": "Canza harshe zai share tattaunawar ka. Ci gaba?",
+    "langSwitchConfirm": "Canza & share",
+    "langSwitchCancel": "Kiyaye harshe",
+    "emergencyPrompt": "Idan gaggawa ce, kira sabis na gaggawa yanzu",
+    "emergencyCall": "Kira 112"
   },
   "privacy": {
     "pageTitle": "Manufar Sirri — MamaVoice",

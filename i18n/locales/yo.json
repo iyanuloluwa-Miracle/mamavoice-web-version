@@ -242,7 +242,17 @@
     "webPreviewBanner": "O ń lo ìwò ayélujára. Gba ẹ̀rọ pípé fún ìrírí tó dára jùlọ.",
     "getFullApp": "Gba ẹ̀rọ pípé",
     "previewDismiss": "Kọ",
-    "sttLangFallback": "Gbígbàsílẹ̀ ohun lè má ṣiṣẹ́ fún èdè yìí ní ìbófinmu rẹ. Jọ̀wọ́ tẹ ìsọfúnni rẹ dípò."
+    "sttLangFallback": "Gbígbàsílẹ̀ ohun lè má ṣiṣẹ́ fún èdè yìí ní ìbófinmu rẹ. Jọ̀wọ́ tẹ ìsọfúnni rẹ dípò.",
+    "ttsToggle": "Ṣí/Pa ohùn",
+    "micNotSupported": "Ìgbàsílẹ̀ ohun kò ṣiṣẹ́ ní búrawọsà yìí. Jọ̀wọ́ tẹ ìsọfúnni rẹ.",
+    "errorResponse": "Inú mi kò dára nísinsìnyí. Jọ̀wọ́ gbiyànjú lẹ́ẹ̀kan sí.",
+    "listening": "Ń gbọ̀… sọ báyìí",
+    "timeoutError": "Ó ń gba pẹ̀lú púpọ̀ — ṣàyẹ̀wò ìsopọ̀ rẹ kí o gbiyànjú lẹ́ẹ̀kan sí.",
+    "langSwitchPrompt": "Yípadà èdè yóò pa ìjíròrò rẹ lọ. Ṣe ó dára?",
+    "langSwitchConfirm": "Yípadà & pa rẹ́",
+    "langSwitchCancel": "Mú èdè mi",
+    "emergencyPrompt": "Tí ó bá jẹ́ pàtàkì, pe àwọn ìpèsè ìgbàlà lẹ́sẹ̀kẹsẹ̀",
+    "emergencyCall": "Pe 112"
   },
   "privacy": {
     "pageTitle": "Ìlànà Ìkọ̀kọ̀ — MamaVoice",

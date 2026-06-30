@@ -242,7 +242,17 @@
     "webPreviewBanner": "Ị na-eji nlele web. Nweta ngwa isi maka ahụmịhe kacha mma.",
     "getFullApp": "Nweta ngwa isi",
     "previewDismiss": "Kpochie",
-    "sttLangFallback": "Ntụga olu nwere ike ọ gaghị arụ ọrụ maka asụsụ a na ngwaọrụ gị. Biko pịa ozi gị kama."
+    "sttLangFallback": "Ntụga olu nwere ike ọ gaghị arụ ọrụ maka asụsụ a na ngwaọrụ gị. Biko pịa ozi gị kama.",
+    "ttsToggle": "Gbanye/gbanyụọ olu",
+    "micNotSupported": "Ntụga olu anaghị arụ ọrụ na browser a. Biko pịa ozi gị.",
+    "errorResponse": "Enwere m nsogbu ugbu a. Biko nwaa ọzọ.",
+    "listening": "Na-ege ntị… kwuo ugbu a",
+    "timeoutError": "Ọ na-ewe oge ogologo — lelee njikọ gị ma nwaa ọzọ.",
+    "langSwitchPrompt": "Ịgbanwe asụsụ ga-ehichapụ mkparịta ụka gị. Gaa n'ihu?",
+    "langSwitchConfirm": "Gbanwe & hichapụ",
+    "langSwitchCancel": "Jide asụsụ",
+    "emergencyPrompt": "Ọ bụrụ ihe mberede, kpọọ ọrụ mberede ozugbo",
+    "emergencyCall": "Kpọọ 112"
   },
   "privacy": {
     "pageTitle": "Iwu Nzuzo — MamaVoice",

@@ -242,7 +242,17 @@
     "webPreviewBanner": "You're using the web preview. Get the full app for the best experience.",
     "getFullApp": "Get the full app",
     "previewDismiss": "Dismiss",
-    "sttLangFallback": "Voice input may not work for this language on your device. Please type your message instead."
+    "sttLangFallback": "Voice input may not work for this language on your device. Please type your message instead.",
+    "ttsToggle": "Toggle read aloud",
+    "micNotSupported": "Voice input is not supported on this browser. Please type your message.",
+    "errorResponse": "I'm having trouble right now. Please try again.",
+    "listening": "Listening… speak now",
+    "timeoutError": "It's taking too long — check your connection and try again.",
+    "langSwitchPrompt": "Switching language will clear your current chat. Continue?",
+    "langSwitchConfirm": "Switch & clear",
+    "langSwitchCancel": "Keep language",
+    "emergencyPrompt": "If this is urgent, call emergency services immediately",
+    "emergencyCall": "Call 112"
   },
   "privacy": {
     "pageTitle": "Privacy Policy — MamaVoice",

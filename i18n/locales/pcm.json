@@ -246,7 +246,13 @@
     "micNotSupported": "Microphone no work for your browser. Abeg type your message instead.",
     "errorResponse": "Sorry, connection problem. Abeg try again small time.",
     "sttLangFallback": "Voice fit no work well for Pidgin for your phone. Abeg type your message instead.",
-    "listening": "I dey hear you… yarn now"
+    "listening": "I dey hear you… yarn now",
+    "timeoutError": "E dey take long — check your connection abeg, then try again.",
+    "langSwitchPrompt": "If you change language, e go clear your chat. You wan continue?",
+    "langSwitchConfirm": "Change & clear",
+    "langSwitchCancel": "Keep language",
+    "emergencyPrompt": "If e be emergency, call emergency services sharp sharp",
+    "emergencyCall": "Call 112"
   },
   "privacy": {
     "pageTitle": "Privacy Policy — MamaVoice",
