@@ -3,14 +3,19 @@
 
     <!-- ── Header ─────────────────────────────────────────────── -->
     <header class="bg-mama-surface border-b border-mama-border-light px-3 sm:px-5 flex items-center justify-between h-14 flex-shrink-0 shadow-sm pt-safe">
-      <NuxtLink to="/" class="flex items-center gap-0.5">
-        <span class="text-lg sm:text-xl font-black bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent">Mama</span>
-        <span class="text-lg sm:text-xl font-black text-mama-coral">Voice</span>
-        <span class="ml-1.5 text-[10px] sm:text-xs font-semibold bg-mama-sky text-mama-teal px-1.5 sm:px-2 py-0.5 rounded-full">AI</span>
-        <!-- Web Preview badge -->
-        <span class="ml-2 text-[9px] sm:text-[10px] font-bold bg-mama-coral/10 text-mama-coral px-2 py-0.5 rounded-full tracking-wide">
-          {{ t('chat.webPreviewBadge') }}
-        </span>
+      <NuxtLink to="/" class="flex items-center gap-2">
+        <!-- Brand icon -->
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-mama-teal to-mama-teal-light flex items-center justify-center shadow-sm flex-shrink-0">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+            <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+        </div>
+        <div class="flex items-baseline gap-0.5">
+          <span class="text-lg sm:text-xl font-black bg-gradient-to-r from-mama-teal to-mama-teal-light bg-clip-text text-transparent">Mama</span>
+          <span class="text-lg sm:text-xl font-black text-mama-coral">Voice</span>
+          <span class="ml-1.5 text-[10px] sm:text-xs font-semibold bg-mama-sky text-mama-teal px-1.5 sm:px-2 py-0.5 rounded-full">AI</span>
+        </div>
       </NuxtLink>
 
       <div class="flex items-center gap-2">
@@ -70,12 +75,12 @@
         <button
           v-if="messages.length > 0"
           @click="clearChat"
-          title="New chat"
-          class="w-9 h-9 rounded-full flex items-center justify-center bg-mama-input text-mama-muted hover:bg-mama-sky hover:text-mama-teal transition-all"
+          class="flex items-center gap-1.5 px-3 py-2 rounded-full border border-mama-teal/40 bg-mama-sky text-mama-teal text-xs font-semibold hover:bg-mama-teal hover:text-white hover:border-mama-teal transition-all"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/>
           </svg>
+          <span>New Chat</span>
         </button>
 
         <!-- Download CTA -->
