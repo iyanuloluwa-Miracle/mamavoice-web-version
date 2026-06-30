@@ -15,6 +15,7 @@ const YARNGPT_VOICES: Record<string, string> = {
 
 function stripMarkdown(text: string): string {
   return text
+    .replace(/\p{Extended_Pictographic}/gu, '')
     .replace(/#{1,6}\s/g, '')
     .replace(/\*\*(.*?)\*\*/g, '$1')
     .replace(/\*(.*?)\*/g, '$1')
@@ -44,6 +45,8 @@ function chunkBySentence(text: string, maxLen: number): string[] {
   return chunks
 }
 
+let cachedVoices: SpeechSynthesisVoice[] = []
+
 export function useTextToSpeech() {
   const isSpeaking = ref(false)
   const isSupported = ref(false)
@@ -55,6 +58,12 @@ export function useTextToSpeech() {
     isSupported.value = 'speechSynthesis' in window
     const stored = localStorage.getItem('mama-tts')
     if (stored !== null) isEnabled.value = stored === 'true'
+    if (isSupported.value) {
+      cachedVoices = window.speechSynthesis.getVoices()
+      window.speechSynthesis.addEventListener('voiceschanged', () => {
+        cachedVoices = window.speechSynthesis.getVoices()
+      })
+    }
   })
 
   function toggleEnabled() {
@@ -133,8 +142,8 @@ export function useTextToSpeech() {
     utterance.rate = 0.9
     utterance.pitch = 1.0
 
-    const voices = window.speechSynthesis.getVoices()
-    const match = voices.find(v => v.lang.startsWith(utterance.lang.split('-')[0]))
+    const langPrefix = utterance.lang.split('-')[0]!
+    const match = cachedVoices.find(v => v.lang.startsWith(langPrefix))
     if (match) utterance.voice = match
 
     utterance.onstart = () => { isSpeaking.value = true }

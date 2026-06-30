@@ -163,9 +163,20 @@
               >
                 {{ msg.text }}
               </div>
-              <div class="text-[10px] sm:text-[11px] text-mama-muted mt-1 sm:mt-1.5 px-1"
-                :class="msg.role === 'user' ? 'text-right' : 'text-left'">
-                {{ msg.time }}
+              <div class="flex items-center gap-2 mt-1 sm:mt-1.5 px-1"
+                :class="msg.role === 'user' ? 'justify-end' : 'justify-start'">
+                <span class="text-[10px] sm:text-[11px] text-mama-muted">{{ msg.time }}</span>
+                <button
+                  v-if="ttsSupported && msg.role === 'ai'"
+                  @click="speakMessage(i, msg.text)"
+                  :title="speakingIndex === i ? 'Stop' : 'Read aloud'"
+                  class="text-mama-muted hover:text-mama-teal transition-colors"
+                >
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                    <path v-if="speakingIndex !== i" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                    <path v-else d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 18l1.27 1.27L20.27 18 5.27 3 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -286,7 +297,10 @@ const LOCALE_DISPLAY: Record<string, string> = {
   en: 'EN', yo: 'YO', ha: 'HA', ig: 'IG', pcm: 'PCM',
 }
 const { isRecording, isSupported: sttSupported, startRecording, stopRecording } = useSpeechToText()
-const { isEnabled: ttsEnabled, isSupported: ttsSupported, speak, toggleEnabled } = useTextToSpeech()
+const { isEnabled: ttsEnabled, isSupported: ttsSupported, isSpeaking, speak, stop, toggleEnabled } = useTextToSpeech()
+
+const speakingIndex = ref<number | null>(null)
+watch(isSpeaking, (val) => { if (!val) speakingIndex.value = null })
 const { load: loadHistory, save: saveHistory, clear: clearHistory } = useChatHistory()
 
 useSeoMeta({
@@ -362,7 +376,6 @@ async function sendMessage() {
 
     const aiText = res.text || t('chat.errorResponse')
     messages.value.push({ role: 'ai', text: aiText, time: getTime() })
-    speak(aiText, locale.value)
   } catch {
     messages.value.push({ role: 'ai', text: t('chat.errorResponse'), time: getTime() })
   } finally {
@@ -406,6 +419,16 @@ async function handleMicClick() {
   } catch {
     messages.value.push({ role: 'ai', text: t('chat.sttLangFallback'), time: getTime() })
     scrollToBottom()
+  }
+}
+
+function speakMessage(i: number, text: string) {
+  if (speakingIndex.value === i) {
+    stop()
+    speakingIndex.value = null
+  } else {
+    speakingIndex.value = i
+    speak(text, locale.value)
   }
 }
 
