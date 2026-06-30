@@ -35,11 +35,12 @@ export default defineEventHandler(async (event) => {
   const client = new Anthropic({ apiKey })
 
   try {
+    const trimmed = messages.slice(-12)
     const response = await client.messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 500,
       system: SYSTEM_PROMPT + `\n\nCurrent user locale: ${locale}`,
-      messages,
+      messages: trimmed,
     })
 
     const text = response.content[0].type === 'text' ? response.content[0].text : ''
