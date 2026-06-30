@@ -177,6 +177,18 @@
                     <path v-else d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 18l1.27 1.27L20.27 18 5.27 3 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/>
                   </svg>
                 </button>
+                <button
+                  v-if="msg.role === 'ai'"
+                  @click="copyMessage(i, msg.text)"
+                  :title="copiedIndex === i ? 'Copied!' : 'Copy'"
+                  class="text-mama-muted hover:text-mama-teal transition-colors"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path v-if="copiedIndex !== i" stroke-linecap="round" stroke-linejoin="round"
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-4 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    <path v-else stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -195,6 +207,34 @@
             </div>
           </div>
         </template>
+      </div>
+    </div>
+
+    <!-- ── Language switch confirmation ─────────────────────────── -->
+    <div v-if="pendingLocale" class="px-3 sm:px-4 mb-2 flex-shrink-0">
+      <div class="bg-mama-sky border border-mama-teal/30 rounded-2xl px-4 py-3 flex items-center justify-between gap-3 max-w-3xl mx-auto">
+        <p class="text-xs text-mama-text font-medium">{{ t('chat.langSwitchPrompt') }}</p>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <button @click="cancelLocaleSwitch"
+            class="text-xs font-semibold text-mama-muted hover:text-mama-text transition-colors whitespace-nowrap">
+            {{ t('chat.langSwitchCancel') }}
+          </button>
+          <button @click="confirmLocaleSwitch"
+            class="text-xs font-bold text-white bg-mama-teal hover:bg-mama-teal-dark px-3 py-1.5 rounded-full transition-colors whitespace-nowrap">
+            {{ t('chat.langSwitchConfirm') }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Emergency banner ───────────────────────────────────── -->
+    <div v-if="showEmergencyBanner" class="px-3 sm:px-4 mb-2 flex-shrink-0">
+      <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl px-4 py-3 flex items-center justify-between gap-3 max-w-3xl mx-auto">
+        <p class="text-xs text-red-700 dark:text-red-300 font-medium">🚨 {{ t('chat.emergencyPrompt') }}</p>
+        <a href="tel:112"
+          class="flex-shrink-0 text-xs font-bold text-red-600 dark:text-red-400 hover:underline whitespace-nowrap">
+          {{ t('chat.emergencyCall') }} →
+        </a>
       </div>
     </div>
 
@@ -245,6 +285,7 @@
             @keydown.enter.shift.exact="() => {}"
             @input="autoResize"
             rows="1"
+            :maxlength="MAX_CHARS"
             :placeholder="isRecording ? t('chat.listening') : t('chat.placeholder')"
             class="flex-1 resize-none bg-transparent text-mama-text placeholder-mama-muted/60 text-sm leading-relaxed focus:outline-none min-h-[24px] max-h-28 overflow-y-auto"
             :class="isRecording ? 'placeholder-mama-coral/70' : ''"
@@ -273,9 +314,14 @@
           </button>
         </div>
 
-        <p class="text-center text-[10px] sm:text-[10px] text-mama-muted mt-2 px-2">
-          {{ t('chat.disclaimer') }}
-        </p>
+        <div class="flex items-center justify-between mt-2 px-2">
+          <p class="text-[10px] sm:text-[10px] text-mama-muted">{{ t('chat.disclaimer') }}</p>
+          <span v-if="inputText.length > 0"
+            class="text-[10px] flex-shrink-0 ml-2 transition-colors"
+            :class="inputText.length > 450 ? 'text-mama-coral' : 'text-mama-muted'">
+            {{ inputText.length }}/{{ MAX_CHARS }}
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -317,6 +363,15 @@ interface Message {
 const messages = ref<Message[]>([])
 watch(messages, (val) => saveHistory(val), { deep: true })
 
+watch(locale, (newLoc, oldLoc) => {
+  if (messages.value.length > 0 && newLoc !== oldLoc) {
+    setLocale(oldLoc)
+    pendingLocale.value = newLoc
+  }
+})
+
+const MAX_CHARS = 500
+
 const inputText = ref('')
 const isTyping = ref(false)
 const hasReplied = ref(false)
@@ -324,11 +379,18 @@ const isLangOpen = ref(false)
 const messagesContainer = ref<HTMLElement>()
 const inputRef = ref<HTMLTextAreaElement>()
 
+const pendingLocale = ref<string | null>(null)
+const showEmergencyBanner = ref(false)
+const copiedIndex = ref<number | null>(null)
+
 // Web Preview banner
 const previewDismissed = ref(false)
 onMounted(() => {
   previewDismissed.value = localStorage.getItem('mama-preview-dismissed') === 'true'
   messages.value = loadHistory()
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'mama-chat-messages') messages.value = loadHistory()
+  })
 })
 function dismissPreview() {
   previewDismissed.value = true
@@ -339,6 +401,7 @@ function clearChat() {
   clearHistory()
   messages.value = []
   hasReplied.value = false
+  showEmergencyBanner.value = false
 }
 
 const suggestedPrompts = computed(() => [
@@ -362,6 +425,8 @@ async function sendMessage() {
   scrollToBottom()
 
   isTyping.value = true
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), 30_000)
 
   try {
     const apiMessages = messages.value.map(m => ({
@@ -372,13 +437,18 @@ async function sendMessage() {
     const res = await $fetch<{ text: string }>('/api/chat', {
       method: 'POST',
       body: { messages: apiMessages, locale: locale.value },
+      signal: controller.signal,
     })
 
     const aiText = res.text || t('chat.errorResponse')
     messages.value.push({ role: 'ai', text: aiText, time: getTime() })
-  } catch {
-    messages.value.push({ role: 'ai', text: t('chat.errorResponse'), time: getTime() })
+    checkEmergency(aiText)
+  } catch (err: unknown) {
+    const isTimeout = err instanceof Error && err.name === 'AbortError'
+    const msg = isTimeout ? t('chat.timeoutError') : t('chat.errorResponse')
+    messages.value.push({ role: 'ai', text: msg, time: getTime() })
   } finally {
+    clearTimeout(timer)
     isTyping.value = false
     hasReplied.value = true
     scrollToBottom()
@@ -431,6 +501,32 @@ function speakMessage(i: number, text: string) {
     speak(text, locale.value)
   }
 }
+
+const EMERGENCY_TRIGGERS = [
+  'go to hospital', 'go to the hospital', 'go to a clinic',
+  'seek medical attention immediately', 'rush to',
+  'hospital immediately', 'clinic immediately', 'call 112', 'emergency',
+]
+
+function checkEmergency(text: string) {
+  const lower = text.toLowerCase()
+  showEmergencyBanner.value = EMERGENCY_TRIGGERS.some(trigger => lower.includes(trigger))
+}
+
+async function copyMessage(i: number, text: string) {
+  await navigator.clipboard.writeText(text)
+  copiedIndex.value = i
+  setTimeout(() => { copiedIndex.value = null }, 2000)
+}
+
+function confirmLocaleSwitch() {
+  if (!pendingLocale.value) return
+  clearChat()
+  setLocale(pendingLocale.value)
+  pendingLocale.value = null
+}
+
+function cancelLocaleSwitch() { pendingLocale.value = null }
 
 function scrollToBottom() {
   nextTick(() => {
