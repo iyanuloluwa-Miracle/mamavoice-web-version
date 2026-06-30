@@ -202,9 +202,8 @@
                   <!-- Left accent stripe -->
                   <div class="absolute left-0 inset-y-0 w-1 bg-gradient-to-b from-mama-teal to-mama-teal-light" />
                   <!-- Content -->
-                  <div class="pl-5 pr-4 sm:pr-5 py-3 sm:py-4 text-sm leading-relaxed whitespace-pre-wrap text-mama-text">
-                    {{ msg.text }}
-                  </div>
+                  <div class="pl-5 pr-4 sm:pr-5 py-3 sm:py-4 text-sm leading-relaxed text-mama-text"
+                    v-html="renderAiMessage(msg.text)" />
                 </div>
 
                 <!-- Meta row: timestamp + actions -->
@@ -661,5 +660,17 @@ function autoResize() {
 function resetTextarea() {
   const el = inputRef.value
   if (el) { el.style.height = 'auto' }
+}
+
+function renderAiMessage(raw: string): string {
+  // Escape HTML first to prevent any XSS, then apply safe markdown patterns.
+  const escaped = raw
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+  return escaped
+    .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>')
+    .replace(/\n/g, '<br>')
 }
 </script>
