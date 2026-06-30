@@ -21,7 +21,7 @@
       :class="isOpen ? 'justify-between' : 'justify-center'">
       <!-- Logo (expanded) -->
       <NuxtLink v-if="isOpen" to="/" class="flex items-center gap-2 min-w-0">
-        <img src="/mamavoiceLogo.png" alt="MamaVoice logo" class="h-8 w-auto flex-shrink-0" />
+        <img src="/mamavoiceLogo.png" alt="MamaVoice logo" class="h-7 w-auto rounded-xl flex-shrink-0" />
         <span class="text-base font-black text-mama-coral truncate">MamaVoice</span>
       </NuxtLink>
 
