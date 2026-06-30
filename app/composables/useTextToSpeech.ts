@@ -6,11 +6,11 @@ const LOCALE_TO_BCP47: Record<string, string> = {
   pcm: 'en-NG',
 }
 
-// YarnGPT voices chosen by name origin matching each language
 const YARNGPT_VOICES: Record<string, string> = {
   yo: 'Wura',
   ig: 'Chinenye',
   ha: 'Zainab',
+  pcm: 'Idera',
 }
 
 function stripMarkdown(text: string): string {
@@ -27,7 +27,6 @@ function stripMarkdown(text: string): string {
     .trim()
 }
 
-// Expand abbreviations and symbols so the speech engine reads them naturally
 function prepareForSpeech(text: string): string {
   return text
     .replace(/\be\.g\./gi, 'for example')
@@ -40,13 +39,12 @@ function prepareForSpeech(text: string): string {
     .replace(/(\d+)%/g, '$1 percent')
     .replace(/(\d+)°C/g, '$1 degrees Celsius')
     .replace(/(\d+)°F/g, '$1 degrees Fahrenheit')
-    .replace(/^\d+\.\s+/gm, '')   // strip numbered list prefixes
-    .replace(/[—–]/g, ', ')       // em/en dash → natural pause
+    .replace(/^\d+\.\s+/gm, '')
+    .replace(/[—–]/g, ', ')
     .replace(/\s{2,}/g, ' ')
     .trim()
 }
 
-// Prefer high-quality voices; fall back gracefully
 const PREFERRED_VOICE_NAMES = [
   'Microsoft Aria Online (Natural)',
   'Microsoft Jenny Online (Natural)',
@@ -65,7 +63,6 @@ function pickBestVoice(voices: SpeechSynthesisVoice[], langPrefix: string): Spee
     const found = candidates.find(v => v.name === name || v.name.includes(name))
     if (found) return found
   }
-  // Prefer any female-named or remote (cloud) voice over the default compact one
   const female = candidates.find(v =>
     v.name.toLowerCase().includes('female') ||
     ['aria', 'jenny', 'zira', 'samantha', 'karen', 'victoria', 'moira'].some(n => v.name.toLowerCase().includes(n))
@@ -74,7 +71,6 @@ function pickBestVoice(voices: SpeechSynthesisVoice[], langPrefix: string): Spee
   return candidates[0]
 }
 
-// Split text into chunks at sentence boundaries, each chunk ≤ maxLen chars
 function chunkBySentence(text: string, maxLen: number): string[] {
   if (text.length <= maxLen) return [text]
   const sentences = text.match(/[^.!?]+[.!?]+/g) ?? [text]
@@ -94,18 +90,25 @@ function chunkBySentence(text: string, maxLen: number): string[] {
 
 let cachedVoices: SpeechSynthesisVoice[] = []
 
+// Shared AudioContext — created once, resumed synchronously on each user gesture.
+// This satisfies iOS Safari's rule that audio must be unlocked within a user-gesture call stack,
+// even though the actual playback (source.start) happens later after an async fetch.
+let audioCtx: AudioContext | null = null
+let currentAudioSource: AudioBufferSourceNode | null = null
+
 export function useTextToSpeech() {
   const isSpeaking = ref(false)
   const isSupported = ref(false)
   const isEnabled = ref(true)
-  let currentAudio: HTMLAudioElement | null = null
   let cancelled = false
+  // Incremented on every new speak() call so stale utterance callbacks don't reset isSpeaking
+  let speechGen = 0
 
   onMounted(() => {
-    isSupported.value = 'speechSynthesis' in window
+    isSupported.value = 'speechSynthesis' in window || 'AudioContext' in window
     const stored = localStorage.getItem('mama-tts')
     if (stored !== null) isEnabled.value = stored === 'true'
-    if (isSupported.value) {
+    if ('speechSynthesis' in window) {
       cachedVoices = window.speechSynthesis.getVoices()
       window.speechSynthesis.addEventListener('voiceschanged', () => {
         cachedVoices = window.speechSynthesis.getVoices()
@@ -122,29 +125,27 @@ export function useTextToSpeech() {
   function stop() {
     cancelled = true
     window.speechSynthesis?.cancel()
-    if (currentAudio) {
-      currentAudio.pause()
-      currentAudio = null
+    if (currentAudioSource) {
+      try { currentAudioSource.stop() } catch {}
+      currentAudioSource = null
     }
     isSpeaking.value = false
   }
 
-  function playBlob(blob: Blob): Promise<void> {
+  async function playViaAudioContext(blob: Blob): Promise<void> {
+    if (!audioCtx) return
+    const arrayBuffer = await blob.arrayBuffer()
+    const buffer = await audioCtx.decodeAudioData(arrayBuffer)
     return new Promise((resolve) => {
-      const url = URL.createObjectURL(blob)
-      const audio = new Audio(url)
-      currentAudio = audio
-      audio.onended = () => {
-        URL.revokeObjectURL(url)
-        currentAudio = null
+      const source = audioCtx!.createBufferSource()
+      source.buffer = buffer
+      source.connect(audioCtx!.destination)
+      source.onended = () => {
+        if (currentAudioSource === source) currentAudioSource = null
         resolve()
       }
-      audio.onerror = () => {
-        URL.revokeObjectURL(url)
-        currentAudio = null
-        resolve()
-      }
-      audio.play().catch(() => resolve())
+      currentAudioSource = source
+      source.start()
     })
   }
 
@@ -162,10 +163,10 @@ export function useTextToSpeech() {
           responseType: 'blob',
         })
         if (cancelled || !isEnabled.value) break
-        await playBlob(blob)
+        await playViaAudioContext(blob)
       }
-    } catch {
-      // silently fail — user can still read the text
+    } catch (err) {
+      console.error('[MamaVoice] YarnGPT TTS error:', err)
     } finally {
       if (!cancelled) isSpeaking.value = false
     }
@@ -176,13 +177,17 @@ export function useTextToSpeech() {
     stop()
 
     if (lang in YARNGPT_VOICES) {
+      // Create/resume AudioContext synchronously inside the user-gesture call stack.
+      // After resume(), the context stays running so source.start() works even after async awaits.
+      if (!audioCtx) audioCtx = new AudioContext()
+      if (audioCtx.state === 'suspended') audioCtx.resume()
       speakWithYarnGPT(text, lang)
       return
     }
 
-    // English: browser SpeechSynthesis
-    if (!isSupported.value) return
+    if (!('speechSynthesis' in window)) return
     cancelled = false
+    const gen = ++speechGen
 
     const cleaned = prepareForSpeech(stripMarkdown(text))
     const utterance = new SpeechSynthesisUtterance(cleaned)
@@ -195,9 +200,10 @@ export function useTextToSpeech() {
     const best = pickBestVoice(cachedVoices, langPrefix)
     if (best) utterance.voice = best
 
-    utterance.onstart = () => { isSpeaking.value = true }
-    utterance.onend = () => { isSpeaking.value = false }
-    utterance.onerror = () => { isSpeaking.value = false }
+    // Set isSpeaking immediately (not in onstart) so the stop icon appears without delay
+    isSpeaking.value = true
+    utterance.onend = () => { if (gen === speechGen && !cancelled) isSpeaking.value = false }
+    utterance.onerror = () => { if (gen === speechGen) isSpeaking.value = false }
 
     window.speechSynthesis.speak(utterance)
   }

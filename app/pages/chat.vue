@@ -496,8 +496,8 @@ function speakMessage(i: number, text: string) {
     stop()
     speakingIndex.value = null
   } else {
-    speakingIndex.value = i
-    speak(text, locale.value)
+    speak(text, locale.value)  // isSpeaking → true synchronously before returning
+    speakingIndex.value = i    // set after speak() so the watcher sees isSpeaking=true and doesn't reset
   }
 }
 
