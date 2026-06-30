@@ -660,6 +660,9 @@ function renderAiMessage(raw: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
   return escaped
+    .replace(/^#{3}\s+(.+)$/gm, '<strong class="block font-semibold mt-2 mb-0.5">$1</strong>')
+    .replace(/^#{2}\s+(.+)$/gm, '<strong class="block font-bold mt-2 mb-0.5">$1</strong>')
+    .replace(/^#\s+(.+)$/gm, '<strong class="block font-bold text-base mt-2 mb-1">$1</strong>')
     .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
     .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>')
     .replace(/\n/g, '<br>')
