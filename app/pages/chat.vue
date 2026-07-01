@@ -6,9 +6,12 @@
       :is-open="sidebarOpen"
       :messages="messages"
       :locale="locale"
+      :sessions="chatSessions"
+      :current-session-id="currentSessionId"
       @close="sidebarOpen = false"
       @new-chat="clearChat(); sidebarOpen = false"
       @select-prompt="sendSuggested"
+      @load-session="switchToSession"
     />
 
     <!-- ── Main Column ─────────────────────────────────────────── -->
@@ -458,11 +461,51 @@ const copiedIndex = ref<number | null>(null)
 // Sidebar state (addition 1)
 const sidebarOpen = ref(false)
 
+// Multi-session history
+interface Session { id: string; title: string; messages: Message[]; updatedAt: string }
+const chatSessions = ref<Omit<Session, 'messages'>[]>([])
+const currentSessionId = ref<string | null>(null)
+
+function getStoredSessions(): Session[] {
+  try { return JSON.parse(localStorage.getItem('mama-chat-sessions') || '[]') } catch { return [] }
+}
+
+function persistSession() {
+  if (messages.value.length === 0) return
+  const all = getStoredSessions()
+  const firstUser = messages.value.find(m => m.role === 'user')
+  const title = firstUser ? (firstUser.text.length > 55 ? firstUser.text.slice(0, 55) + '…' : firstUser.text) : 'Chat'
+  const id = currentSessionId.value ?? `s_${Date.now()}`
+  currentSessionId.value = id
+  localStorage.setItem('mama-current-session-id', id)
+  const idx = all.findIndex(s => s.id === id)
+  const entry: Session = { id, title, messages: messages.value, updatedAt: new Date().toISOString() }
+  if (idx !== -1) all[idx] = entry; else all.unshift(entry)
+  const trimmed = all.slice(0, 30)
+  localStorage.setItem('mama-chat-sessions', JSON.stringify(trimmed))
+  chatSessions.value = trimmed.map(({ id, title, updatedAt }) => ({ id, title, updatedAt }))
+}
+
+function switchToSession(id: string) {
+  persistSession()
+  const session = getStoredSessions().find(s => s.id === id)
+  if (!session) return
+  messages.value = session.messages
+  currentSessionId.value = id
+  localStorage.setItem('mama-current-session-id', id)
+  saveHistory(session.messages)
+  hasReplied.value = session.messages.some(m => m.role === 'ai')
+  showEmergencyBanner.value = false
+  scrollToBottom()
+}
+
 // Web Preview banner
 const previewDismissed = ref(false)
 onMounted(() => {
   previewDismissed.value = localStorage.getItem('mama-preview-dismissed') === 'true'
   messages.value = loadHistory()
+  currentSessionId.value = localStorage.getItem('mama-current-session-id') || null
+  chatSessions.value = getStoredSessions().map(({ id, title, updatedAt }) => ({ id, title, updatedAt }))
   window.addEventListener('storage', (e) => {
     if (e.key === 'mama-chat-messages') messages.value = loadHistory()
   })
@@ -475,10 +518,13 @@ function dismissPreview() {
 }
 
 function clearChat() {
+  persistSession()
   clearHistory()
   messages.value = []
   hasReplied.value = false
   showEmergencyBanner.value = false
+  currentSessionId.value = null
+  localStorage.removeItem('mama-current-session-id')
 }
 
 // Time-aware greeting (addition 3)
@@ -538,6 +584,7 @@ async function sendMessage() {
     isTyping.value = false
     hasReplied.value = true
     scrollToBottom()
+    persistSession()
   }
 }
 
