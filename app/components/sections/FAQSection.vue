@@ -26,7 +26,6 @@
             class="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-mama-bg dark:hover:bg-white/5 transition-colors duration-150"
             :aria-expanded="openFaq === i"
           >
-            <span class="text-xl flex-shrink-0 leading-none">{{ faq.emoji }}</span>
             <span class="flex-1 font-semibold text-mama-text dark:text-white text-sm leading-snug">{{ t(faq.q) }}</span>
             <svg
               class="w-5 h-5 text-mama-teal flex-shrink-0 transition-transform duration-300"
@@ -47,7 +46,7 @@
           >
             <div v-if="openFaq === i" class="overflow-hidden">
               <div class="px-5 pb-5 pt-1">
-                <p class="text-sm text-mama-muted dark:text-white/60 leading-relaxed pl-9">{{ t(faq.a) }}</p>
+                <p class="text-sm text-mama-muted dark:text-white/60 leading-relaxed">{{ t(faq.a) }}</p>
               </div>
             </div>
           </Transition>
@@ -71,17 +70,17 @@ function toggleFaq(i: number) {
 }
 
 const faqs = [
-  { emoji: '🤱', q: 'faq.q0',  a: 'faq.a0'  },
-  { emoji: '🎙️', q: 'faq.q1',  a: 'faq.a1'  },
-  { emoji: '🌍', q: 'faq.q2',  a: 'faq.a2'  },
-  { emoji: '💬', q: 'faq.q3',  a: 'faq.a3'  },
-  { emoji: '💳', q: 'faq.q4',  a: 'faq.a4'  },
-  { emoji: '🔒', q: 'faq.q5',  a: 'faq.a5'  },
-  { emoji: '👩‍⚕️', q: 'faq.q6',  a: 'faq.a6'  },
-  { emoji: '📊', q: 'faq.q7',  a: 'faq.a7'  },
-  { emoji: '💻', q: 'faq.q8',  a: 'faq.a8'  },
-  { emoji: '🏥', q: 'faq.q9',  a: 'faq.a9'  },
-  { emoji: '👩‍🦺', q: 'faq.q10', a: 'faq.a10' },
-  { emoji: '🔄', q: 'faq.q11', a: 'faq.a11' },
+  { q: 'faq.q0',  a: 'faq.a0'  },
+  { q: 'faq.q1',  a: 'faq.a1'  },
+  { q: 'faq.q2',  a: 'faq.a2'  },
+  { q: 'faq.q3',  a: 'faq.a3'  },
+  { q: 'faq.q4',  a: 'faq.a4'  },
+  { q: 'faq.q5',  a: 'faq.a5'  },
+  { q: 'faq.q6',  a: 'faq.a6'  },
+  { q: 'faq.q7',  a: 'faq.a7'  },
+  { q: 'faq.q8',  a: 'faq.a8'  },
+  { q: 'faq.q9',  a: 'faq.a9'  },
+  { q: 'faq.q10', a: 'faq.a10' },
+  { q: 'faq.q11', a: 'faq.a11' },
 ]
 </script>
