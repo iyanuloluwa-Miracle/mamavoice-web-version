@@ -24,6 +24,21 @@
 
         <!-- Desktop right actions (lg+) -->
         <div class="hidden lg:flex items-center gap-3">
+          <!-- Auth: Sign In / Sign Up (guest) or UserAvatar (authenticated) -->
+          <template v-if="isAuthenticated">
+            <AuthUserAvatar />
+          </template>
+          <template v-else>
+            <NuxtLink to="/auth/login"
+              class="px-4 py-2 rounded-full border border-mama-teal text-mama-teal font-semibold text-sm hover:bg-mama-sky dark:hover:bg-mama-teal/20 transition-all">
+              {{ t('auth.signIn') }}
+            </NuxtLink>
+            <NuxtLink to="/auth/register"
+              class="px-5 py-2 rounded-full bg-mama-teal text-white font-semibold text-sm hover:bg-mama-teal-dark transition-all shadow-sm">
+              {{ t('auth.signUp') }}
+            </NuxtLink>
+          </template>
+
           <!-- Language picker -->
           <div class="relative" data-lang-picker>
             <button
@@ -146,14 +161,30 @@
         </div>
 
         <div class="px-4 pb-6 pb-safe space-y-3 border-t border-mama-border-light pt-4">
-          <NuxtLink to="/chat" @click="isMenuOpen = false"
-            class="flex items-center justify-center w-full py-3.5 rounded-2xl border-2 border-mama-teal text-mama-teal font-bold text-base">
-            {{ t('nav.tryWebApp') }}
-          </NuxtLink>
-          <a href="#download" @click="isMenuOpen = false"
-            class="flex items-center justify-center w-full py-3.5 rounded-2xl bg-mama-teal text-white font-bold text-base shadow-sm">
-            {{ t('nav.downloadApp') }}
-          </a>
+          <template v-if="isAuthenticated">
+            <NuxtLink to="/chat" @click="isMenuOpen = false"
+              class="flex items-center justify-center w-full py-3.5 rounded-2xl bg-mama-teal text-white font-bold text-base shadow-sm">
+              {{ t('nav.tryWebApp') }}
+            </NuxtLink>
+            <button @click="handleLogout"
+              class="flex items-center justify-center w-full py-3.5 rounded-2xl border-2 border-mama-coral text-mama-coral font-bold text-base">
+              {{ t('auth.logOut') }}
+            </button>
+          </template>
+          <template v-else>
+            <NuxtLink to="/auth/register" @click="isMenuOpen = false"
+              class="flex items-center justify-center w-full py-3.5 rounded-2xl bg-mama-teal text-white font-bold text-base shadow-sm">
+              {{ t('auth.signUp') }}
+            </NuxtLink>
+            <NuxtLink to="/auth/login" @click="isMenuOpen = false"
+              class="flex items-center justify-center w-full py-3.5 rounded-2xl border-2 border-mama-teal text-mama-teal font-bold text-base">
+              {{ t('auth.signIn') }}
+            </NuxtLink>
+            <NuxtLink to="/chat" @click="isMenuOpen = false"
+              class="flex items-center justify-center w-full py-3 rounded-2xl text-mama-muted text-sm font-medium hover:text-mama-text transition-colors">
+              {{ t('nav.tryWebApp') }}
+            </NuxtLink>
+          </template>
         </div>
       </div>
     </Transition>
@@ -164,9 +195,18 @@
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useColorMode } from '../../composables/useColorMode'
+import { useAuthStore } from '~/stores/auth'
 
 const { isDark, toggle } = useColorMode()
 const { t, locale, locales, setLocale } = useI18n()
+const auth = useAuthStore()
+const isAuthenticated = computed(() => auth.isAuthenticated)
+
+async function handleLogout() {
+  auth.logout()
+  isMenuOpen.value = false
+  await navigateTo('/')
+}
 
 const isScrolled = ref(false)
 const isMenuOpen = ref(false)
