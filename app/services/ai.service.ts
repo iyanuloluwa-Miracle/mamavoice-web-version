@@ -1,5 +1,5 @@
 import { apiFetch } from './apiClient'
-import type { AiQueryResponse, VoiceTextQueryResponse } from '~/types/api'
+import type { AiQueryResponse, VoiceTextQueryResponse, VoiceQueryResponse } from '~/types/api'
 
 export const aiService = {
   async textQuery(textQuery: string): Promise<AiQueryResponse> {
@@ -16,11 +16,11 @@ export const aiService = {
     })
   },
 
-  async voiceQuery(audioBlob: Blob): Promise<VoiceTextQueryResponse> {
+  async voiceQuery(audioBlob: Blob): Promise<VoiceQueryResponse> {
     const form = new FormData()
     form.append('audio', audioBlob, 'recording.webm')
     // Do NOT set Content-Type manually — browser sets boundary automatically
-    return apiFetch<VoiceTextQueryResponse>('/api/voice/query', {
+    return apiFetch<VoiceQueryResponse>('/api/voice/query', {
       method: 'POST',
       body: form,
     })

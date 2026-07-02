@@ -514,7 +514,9 @@
     "selectLga": "Select your LGA",
     "save": "Save & Continue",
     "saving": "Saving…",
-    "saveError": "Could not save profile. Please try again."
+    "saveError": "Could not save profile. Please try again.",
+    "enumsError": "Could not load states and languages. Check your connection and try again.",
+    "retry": "Retry"
   },
   "dashboardPage": {
     "title": "My Health Dashboard",

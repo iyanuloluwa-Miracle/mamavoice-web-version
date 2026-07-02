@@ -489,7 +489,9 @@
     "selectLga": "Họọ LGA gị",
     "save": "Chekwaa & Gaa n'ihu",
     "saving": "Na-echekwaa…",
-    "saveError": "Enweghị ike ichekwaa profaịlụ. Biko nwaa ọzọ."
+    "saveError": "Enweghị ike ichekwaa profaịlụ. Biko nwaa ọzọ.",
+    "enumsError": "Enweghị ike ibudata steeti na asụsụ. Lelee njikọ gị ma nwaa ọzọ.",
+    "retry": "Nwaa ọzọ"
   },
   "dashboardPage": {
     "title": "Dashboard Ahụike M",

@@ -3,8 +3,8 @@
 export interface AuthUserDto {
   id: string
   email: string
-  firstName: string
-  lastName: string
+  firstName: string | null
+  lastName: string | null
   language: 'English' | 'Yoruba' | 'Igbo' | 'Hausa' | null
   state: string | null
   lga: string | null
@@ -78,13 +78,20 @@ export interface VoiceTextQueryResponse {
   audioContentType: string | null
 }
 
+export interface VoiceQueryResponse extends VoiceTextQueryResponse {
+  profileLanguage: string
+  detectedLanguage: string | null
+  transcript: string
+  sttConfidence: number
+}
+
 // ── Vaccines ─────────────────────────────────────────────────────────────────
 
 export interface VaccineItemDto {
   vaccineId: string
   vaccineName: string
   dueDateString: string
-  dueDate: string
+  dueDate: string | null
   isCompleted: boolean
   administeredDate: string | null
   sideEffects: string | null
@@ -96,6 +103,16 @@ export interface LogVaccineRequest {
   vaccineName?: string
   isCompleted?: boolean
   sideEffects?: string
+}
+
+export interface LogVaccineResponse {
+  id: string
+  vaccineId: string
+  vaccineName: string
+  isCompleted: boolean
+  administeredDate: string | null
+  sideEffects: string | null
+  updatedAt: string
 }
 
 // ── Health Tracker ────────────────────────────────────────────────────────────
@@ -122,12 +139,18 @@ export interface LogHealthRequest {
 // ── Foods ─────────────────────────────────────────────────────────────────────
 
 export interface NutritionalValuesDto {
-  calories?: number
-  protein?: number
-  iron?: number
-  folate?: number
-  calcium?: number
-  vitaminC?: number
+  calories: number
+  protein: number
+  carbs: number
+  fat: number
+  fiber: number
+  sodium: number
+  iron: number
+  calcium: number
+  vitaminC: number
+  folate: number
+  vitaminA: number
+  zinc: number
   [key: string]: number | undefined
 }
 
@@ -141,14 +164,14 @@ export interface FoodItemDto {
   preparationTips: string | null
   affordabilityRating: number
   availabilityRating: number
-  imageUrls: string[]
+  imageUrls: string[] | null
   nutritionalValues: NutritionalValuesDto
   suitableFor: string[]
-  trimesterRecommendation: string | null
+  trimesterRecommendation: string[]
   keyNutrients: string[]
   servingSuggestion: string | null
   pairsWellWith: string[]
-  avoidWith: string[]
+  avoidWith: string[] | null
   isHighIron: boolean
   isHighFolate: boolean
   isHighCalcium: boolean

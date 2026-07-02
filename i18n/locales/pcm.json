@@ -489,7 +489,9 @@
     "selectLga": "Choose your LGA",
     "save": "Save & Continue",
     "saving": "Dey save…",
-    "saveError": "We no fit save profile. Abeg try again."
+    "saveError": "We no fit save profile. Abeg try again.",
+    "enumsError": "We no fit load states and languages. Check your network make you try again.",
+    "retry": "Try again"
   },
   "dashboardPage": {
     "title": "My Health Dashboard",

@@ -27,6 +27,20 @@
           <p class="text-sm text-red-700 dark:text-red-300">{{ error }}</p>
         </div>
 
+        <!-- Enums load failure — state/LGA options unavailable -->
+        <div v-if="enumsError"
+          class="mb-5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl px-4 py-3 flex items-center justify-between gap-3">
+          <p class="text-sm text-amber-800 dark:text-amber-300">{{ t('onboarding.enumsError') }}</p>
+          <button
+            type="button"
+            @click="loadEnums"
+            :disabled="enumsLoading"
+            class="shrink-0 text-sm font-semibold text-mama-teal hover:underline disabled:opacity-50"
+          >
+            {{ enumsLoading ? t('onboarding.saving') : t('onboarding.retry') }}
+          </button>
+        </div>
+
         <form @submit.prevent="handleSubmit" class="space-y-5">
           <!-- Name row -->
           <div class="grid grid-cols-2 gap-3">
@@ -38,6 +52,7 @@
                 autocomplete="given-name"
                 required
                 minlength="2"
+                maxlength="50"
                 class="w-full px-4 py-3 rounded-2xl border border-mama-border bg-mama-input text-mama-text text-sm focus:outline-none focus:border-mama-teal focus:bg-mama-surface transition-colors"
               />
             </div>
@@ -49,6 +64,7 @@
                 autocomplete="family-name"
                 required
                 minlength="2"
+                maxlength="50"
                 class="w-full px-4 py-3 rounded-2xl border border-mama-border bg-mama-input text-mama-text text-sm focus:outline-none focus:border-mama-teal focus:bg-mama-surface transition-colors"
               />
             </div>
@@ -186,6 +202,8 @@ const stages = [
 const languages = ['English', 'Yoruba', 'Igbo', 'Hausa'] as const
 
 const enums = ref<EnumsDto | null>(null)
+const enumsLoading = ref(false)
+const enumsError = ref(false)
 const error = ref('')
 const isLoading = ref(false)
 
@@ -204,13 +222,20 @@ const canSubmit = computed(() =>
   form.lga !== '',
 )
 
-onMounted(async () => {
+async function loadEnums() {
+  enumsLoading.value = true
+  enumsError.value = false
   try {
     enums.value = await enumsService.getEnums()
   } catch {
-    // Non-fatal — user can still type state/LGA manually
+    // State/LGA are select-only, so without enums the user cannot proceed.
+    enumsError.value = true
+  } finally {
+    enumsLoading.value = false
   }
-})
+}
+
+onMounted(loadEnums)
 
 async function handleSubmit() {
   if (!canSubmit.value || !form.motherStage) return

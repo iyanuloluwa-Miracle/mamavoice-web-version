@@ -501,7 +501,9 @@
     "selectLga": "Yan LGA rẹ",
     "save": "Fipamọ & Tẹsiwaju",
     "saving": "Ń fipamọ…",
-    "saveError": "A kò lè fipamọ profaili. Jọwọ gbiyanju lẹẹkansi."
+    "saveError": "A kò lè fipamọ profaili. Jọwọ gbiyanju lẹẹkansi.",
+    "enumsError": "A kò lè gbé àwọn ìpínlẹ̀ àti èdè wọlé. Ṣàyẹ̀wò ìsopọ̀ rẹ kí o sì gbiyanju lẹẹkansi.",
+    "retry": "Gbiyanju lẹẹkansi"
   },
   "dashboardPage": {
     "title": "Dasibodu Ilera Mi",

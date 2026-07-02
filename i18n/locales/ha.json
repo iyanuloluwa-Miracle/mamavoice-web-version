@@ -489,7 +489,9 @@
     "selectLga": "Zaɓi LGAnku",
     "save": "Ajiye & Ci gaba",
     "saving": "Ana ajiyewa…",
-    "saveError": "Ba a iya ajiye bayanan ba. Don Allah sake gwadawa."
+    "saveError": "Ba a iya ajiye bayanan ba. Don Allah sake gwadawa.",
+    "enumsError": "Ba a iya ɗora jihohi da harsuna ba. Duba haɗin ku sannan ku sake gwadawa.",
+    "retry": "Sake gwadawa"
   },
   "dashboardPage": {
     "title": "Dashboard na Lafiyata",
