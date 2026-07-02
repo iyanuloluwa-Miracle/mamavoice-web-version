@@ -39,6 +39,16 @@
 
         <!-- Right: controls -->
         <div class="flex items-center gap-1.5 sm:gap-2">
+          <!-- User avatar (authenticated) / Sign In (guest) -->
+          <AuthUserAvatar v-if="isAuthenticated" />
+          <NuxtLink
+            v-else
+            to="/auth/login"
+            class="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full border border-mama-border text-xs font-semibold text-mama-text hover:border-mama-teal hover:text-mama-teal transition-all"
+          >
+            {{ t('auth.signIn') }}
+          </NuxtLink>
+
           <!-- Language selector -->
           <div class="relative">
             <button
@@ -409,6 +419,8 @@ import { useI18n } from 'vue-i18n'
 import { useColorMode } from '../composables/useColorMode'
 import { useChatHistory } from '../composables/useChatHistory'
 import { useSeoMeta } from '@unhead/vue'
+import { useAuthStore } from '~/stores/auth'
+import { aiService } from '~/services/ai.service'
 
 definePageMeta({ layout: false })
 
@@ -418,6 +430,9 @@ const { isDark, toggle } = useColorMode()
 const LOCALE_DISPLAY: Record<string, string> = {
   en: 'EN', yo: 'YO', ha: 'HA', ig: 'IG', pcm: 'PCM',
 }
+const auth = useAuthStore()
+const isAuthenticated = computed(() => auth.isAuthenticated)
+
 const { isRecording, isSupported: sttSupported, startRecording, stopRecording } = useSpeechToText()
 const { isEnabled: ttsEnabled, isSupported: ttsSupported, isSpeaking, speak, stop, toggleEnabled } = useTextToSpeech()
 
@@ -557,30 +572,48 @@ async function sendMessage() {
   scrollToBottom()
 
   isTyping.value = true
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 30_000)
 
   try {
-    const apiMessages = messages.value.map(m => ({
-      role: m.role === 'user' ? 'user' : 'assistant' as 'user' | 'assistant',
-      content: m.text,
-    }))
+    let aiText: string
 
-    const res = await $fetch<{ text: string }>('/api/chat', {
-      method: 'POST',
-      body: { messages: apiMessages, locale: locale.value },
-      signal: controller.signal,
-    })
+    if (isAuthenticated.value) {
+      // Authenticated: use external backend API (personalized, risk-aware)
+      const res = await aiService.voiceTextQuery(text)
+      aiText = res.aiResponseText || t('chat.errorResponse')
+      // Use backend risk level instead of keyword matching
+      showEmergencyBanner.value = res.riskLevel === 'EMERGENCY' || res.riskLevel === 'HIGH'
+      // Play backend TTS audio if available, otherwise fall back to local TTS
+      if (res.audioUrl && ttsEnabled.value) {
+        playBackendAudio(res.audioUrl)
+      }
+    } else {
+      // Guest: use existing internal Claude Haiku route (unchanged)
+      const controller = new AbortController()
+      const timer = setTimeout(() => controller.abort(), 30_000)
+      try {
+        const apiMessages = messages.value.map(m => ({
+          role: m.role === 'user' ? 'user' : 'assistant' as 'user' | 'assistant',
+          content: m.text,
+        }))
+        const res = await $fetch<{ text: string }>('/api/chat', {
+          method: 'POST',
+          body: { messages: apiMessages, locale: locale.value },
+          signal: controller.signal,
+        })
+        aiText = res.text || t('chat.errorResponse')
+        checkEmergency(aiText)
+      } catch (err: unknown) {
+        const isTimeout = err instanceof Error && err.name === 'AbortError'
+        aiText = isTimeout ? t('chat.timeoutError') : t('chat.errorResponse')
+      } finally {
+        clearTimeout(timer)
+      }
+    }
 
-    const aiText = res.text || t('chat.errorResponse')
     messages.value.push({ role: 'ai', text: aiText, time: getTime() })
-    checkEmergency(aiText)
-  } catch (err: unknown) {
-    const isTimeout = err instanceof Error && err.name === 'AbortError'
-    const msg = isTimeout ? t('chat.timeoutError') : t('chat.errorResponse')
-    messages.value.push({ role: 'ai', text: msg, time: getTime() })
+  } catch {
+    messages.value.push({ role: 'ai', text: t('chat.errorResponse'), time: getTime() })
   } finally {
-    clearTimeout(timer)
     isTyping.value = false
     hasReplied.value = true
     scrollToBottom()
@@ -698,6 +731,14 @@ function autoResize() {
 function resetTextarea() {
   const el = inputRef.value
   if (el) { el.style.height = 'auto' }
+}
+
+let backendAudio: HTMLAudioElement | null = null
+
+function playBackendAudio(url: string) {
+  if (backendAudio) { backendAudio.pause(); backendAudio = null }
+  backendAudio = new Audio(url)
+  backendAudio.play().catch(() => {})
 }
 
 function renderAiMessage(raw: string): string {
