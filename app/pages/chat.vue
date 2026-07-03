@@ -39,20 +39,38 @@
 
         <!-- Right: controls -->
         <div class="flex items-center gap-1.5 sm:gap-2">
-          <!-- User avatar (authenticated) / Sign In (guest) -->
+          <!-- User avatar (authenticated) / Guest controls -->
           <AuthUserAvatar v-if="isAuthenticated" />
-          <NuxtLink
-            v-else
-            to="/auth/login"
-            class="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full border border-mama-border text-xs font-semibold text-mama-text hover:border-mama-teal hover:text-mama-teal transition-all"
-          >
-            {{ t('auth.signIn') }}
-          </NuxtLink>
+          <template v-else>
+            <!-- Guest Mode badge -->
+            <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 text-amber-700 dark:text-amber-400 text-xs font-semibold">
+              <svg class="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              {{ t('chat.guestMode') }}
+            </div>
+            <!-- Sign In -->
+            <NuxtLink
+              to="/auth/login"
+              class="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full border border-mama-border text-xs font-semibold text-mama-text hover:border-mama-teal hover:text-mama-teal transition-all"
+            >
+              {{ t('auth.signIn') }}
+            </NuxtLink>
+            <!-- Sign Up -->
+            <NuxtLink
+              to="/auth/register"
+              class="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full bg-mama-teal text-white text-xs font-semibold hover:bg-mama-teal-dark transition-all"
+            >
+              {{ t('auth.signUp') }}
+            </NuxtLink>
+          </template>
 
           <!-- Language selector -->
-          <div class="relative">
+          <div class="relative" data-lang-picker>
             <button
               @click="isLangOpen = !isLangOpen"
+              :aria-expanded="isLangOpen"
+              aria-haspopup="listbox"
               class="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-full border border-mama-border text-xs font-medium text-mama-text hover:border-mama-teal hover:text-mama-teal transition-all"
             >
               <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -414,7 +432,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick, watch, onMounted } from 'vue'
+import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useColorMode } from '../composables/useColorMode'
 import { useChatHistory } from '../composables/useChatHistory'
@@ -516,16 +534,29 @@ function switchToSession(id: string) {
 
 // Web Preview banner
 const previewDismissed = ref(false)
+
+function onStorageChange(e: StorageEvent) {
+  if (e.key === 'mama-chat-messages') messages.value = loadHistory()
+}
+
+function closeChatLangPicker(e: MouseEvent) {
+  if (!(e.target as HTMLElement).closest('[data-lang-picker]')) isLangOpen.value = false
+}
+
 onMounted(() => {
   previewDismissed.value = localStorage.getItem('mama-preview-dismissed') === 'true'
   messages.value = loadHistory()
   currentSessionId.value = localStorage.getItem('mama-current-session-id') || null
   chatSessions.value = getStoredSessions().map(({ id, title, updatedAt }) => ({ id, title, updatedAt }))
-  window.addEventListener('storage', (e) => {
-    if (e.key === 'mama-chat-messages') messages.value = loadHistory()
-  })
+  window.addEventListener('storage', onStorageChange)
+  document.addEventListener('click', closeChatLangPicker)
   // Open sidebar on desktop by default (addition 2)
   sidebarOpen.value = window.innerWidth >= 1024
+})
+
+onUnmounted(() => {
+  window.removeEventListener('storage', onStorageChange)
+  document.removeEventListener('click', closeChatLangPicker)
 })
 function dismissPreview() {
   previewDismissed.value = true
