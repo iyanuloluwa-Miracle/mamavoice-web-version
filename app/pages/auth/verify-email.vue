@@ -18,25 +18,20 @@
         </div>
 
         <h1 class="text-2xl font-bold text-mama-text mb-1">{{ t('auth.verifyTitle') }}</h1>
-        <p class="text-sm text-mama-muted mb-6">
+
+        <!-- Missing-params error (navigated here without an active OTP) -->
+        <div v-if="hasParamsError" class="mb-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl px-4 py-3 text-sm text-red-700 dark:text-red-300">
+          {{ t('auth.verifyMissingParams') }}
+          <NuxtLink to="/auth/register" class="font-semibold underline ml-1">{{ t('auth.backToRegister') }}</NuxtLink>
+        </div>
+
+        <p v-else class="text-sm text-mama-muted mb-6">
           {{ t('auth.verifySubtitle') }}
           <span class="font-semibold text-mama-text">{{ emailParam }}</span>
         </p>
 
-        <!-- Error banner -->
-        <div v-if="error"
-          class="mb-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl px-4 py-3">
-          <p class="text-sm text-red-700 dark:text-red-300">{{ error }}</p>
-        </div>
-
-        <!-- Success banner -->
-        <div v-if="resendSuccess"
-          class="mb-4 bg-mama-sky border border-mama-teal/30 rounded-2xl px-4 py-3">
-          <p class="text-sm text-mama-teal font-medium">{{ t('auth.resendSuccess') }}</p>
-        </div>
-
         <!-- OTP inputs -->
-        <form @submit.prevent="handleSubmit">
+        <form v-if="!hasParamsError" @submit.prevent="handleSubmit">
           <div class="flex gap-2 justify-center mb-6">
             <input
               v-for="(_, i) in 6"
@@ -71,7 +66,7 @@
         </form>
 
         <!-- Resend -->
-        <div class="text-center mt-4">
+        <div v-if="!hasParamsError" class="text-center mt-4">
           <button
             v-if="resendCountdown === 0"
             @click="handleResend"
@@ -96,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, nextTick, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '~/stores/auth'
 
@@ -106,29 +101,51 @@ useSeoMeta({ title: 'Verify Email — MamaVoice' })
 
 const { t } = useI18n()
 const auth = useAuthStore()
+const { error: toastError, success: toastSuccess } = useToast()
 const route = useRoute()
 
-const emailParam = computed(() => route.query.email as string ?? '')
-const currentOtpId = ref((route.query.otpId as string) ?? '')
+// Prefer in-memory OTP state (set by register/resend actions); fall back to
+// URL query params so that direct links and page refreshes still work.
+const emailParam = computed(() =>
+  auth.pendingOtp?.email ?? (route.query.email as string) ?? ''
+)
+const currentOtpId = ref(
+  auth.pendingOtp?.otpId ?? (route.query.otpId as string) ?? ''
+)
 
-// Redirect if required params missing
-onMounted(() => {
+const hasParamsError = ref(false)
+
+onMounted(async () => {
+  await nextTick()
+  // Re-read in case the store was populated after component creation
+  if (!currentOtpId.value) {
+    currentOtpId.value = auth.pendingOtp?.otpId ?? (route.query.otpId as string) ?? ''
+  }
+
+  if (auth.isAuthenticated && auth.user?.profileCompleted) {
+    navigateTo('/chat')
+    return
+  }
   if (!currentOtpId.value || !emailParam.value) {
-    navigateTo('/auth/register')
+    hasParamsError.value = true
+    return
   }
   startResendTimer()
 })
 
-// OTP digit state
 const digits = ref<string[]>(['', '', '', '', '', ''])
 const inputs = ref<HTMLInputElement[]>([])
 const otp = computed(() => digits.value.join(''))
 
-const error = ref('')
 const isLoading = computed(() => auth.isLoading)
 const isResending = ref(false)
-const resendSuccess = ref(false)
 const resendCountdown = ref(60)
+
+function extractError(err: unknown, fallback: string): string {
+  const data = (err as { data?: { message?: string | string[] } })?.data
+  if (!data) return (err as { message?: string })?.message ?? fallback
+  return Array.isArray(data.message) ? data.message[0] : (data.message ?? fallback)
+}
 
 let countdownTimer: ReturnType<typeof setInterval> | null = null
 
@@ -152,12 +169,10 @@ function setInputRef(i: number, el: unknown) {
 }
 
 function onDigitInput(i: number) {
-  // Only allow digits
   digits.value[i] = digits.value[i].replace(/\D/g, '').slice(-1)
   if (digits.value[i] && i < 5) {
     inputs.value[i + 1]?.focus()
   }
-  // Auto-submit when all filled
   if (otp.value.length === 6) handleSubmit()
 }
 
@@ -176,20 +191,16 @@ function onPaste(e: ClipboardEvent) {
 }
 
 async function handleSubmit() {
-  if (otp.value.length < 6) return
-  error.value = ''
+  if (otp.value.length < 6 || isLoading.value) return
   try {
     await auth.verifyEmail(currentOtpId.value, otp.value)
-    if (auth.user && !auth.user.profileCompleted) {
+    if (!auth.user?.profileCompleted) {
       await navigateTo('/onboarding')
     } else {
       await navigateTo('/chat')
     }
   } catch (err: unknown) {
-    const msg = (err as { data?: { message?: string }; message?: string })?.data?.message
-      ?? (err as { message?: string })?.message
-      ?? t('auth.verifyError')
-    error.value = msg
+    toastError(extractError(err, t('auth.verifyError')))
     digits.value = ['', '', '', '', '', '']
     inputs.value[0]?.focus()
   }
@@ -197,17 +208,14 @@ async function handleSubmit() {
 
 async function handleResend() {
   isResending.value = true
-  resendSuccess.value = false
-  error.value = ''
   try {
     const res = await auth.resendOtp(emailParam.value)
     currentOtpId.value = res.otpId
-    resendSuccess.value = true
+    hasParamsError.value = false
+    toastSuccess(t('auth.resendSuccess'))
     startResendTimer()
   } catch (err: unknown) {
-    const msg = (err as { data?: { message?: string }; message?: string })?.data?.message
-      ?? t('auth.resendError')
-    error.value = msg
+    toastError(extractError(err, t('auth.resendError')))
   } finally {
     isResending.value = false
   }

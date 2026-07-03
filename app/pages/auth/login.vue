@@ -13,10 +13,10 @@
         <h1 class="text-2xl font-bold text-mama-text mb-1">{{ t('auth.loginTitle') }}</h1>
         <p class="text-sm text-mama-muted mb-6">{{ t('auth.loginSub') }}</p>
 
-        <!-- Error banner -->
-        <div v-if="error"
-          class="mb-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl px-4 py-3">
-          <p class="text-sm text-red-700 dark:text-red-300">{{ error }}</p>
+        <!-- Inline error so it's visible even when keyboard covers the toast -->
+        <div v-if="loginError"
+          class="mb-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl px-4 py-3 text-sm text-red-700 dark:text-red-300">
+          {{ loginError }}
         </div>
 
         <form @submit.prevent="handleSubmit" class="space-y-4">
@@ -91,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '~/stores/auth'
 
@@ -101,27 +101,37 @@ useSeoMeta({ title: 'Sign In — MamaVoice' })
 
 const { t } = useI18n()
 const auth = useAuthStore()
+const { error: toastError } = useToast()
+
+onMounted(() => {
+  if (auth.isAuthenticated) navigateTo('/chat')
+})
 
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
-const error = ref('')
 const isLoading = computed(() => auth.isLoading)
+const loginError = ref('')
+
+function extractError(err: unknown, fallback: string): string {
+  const data = (err as { data?: { message?: string | string[] } })?.data
+  if (!data) return (err as { message?: string })?.message ?? fallback
+  return Array.isArray(data.message) ? data.message[0] : (data.message ?? fallback)
+}
 
 async function handleSubmit() {
-  error.value = ''
+  loginError.value = ''
   try {
     await auth.login(email.value, password.value)
-    if (auth.user && !auth.user.profileCompleted) {
+    if (!auth.user?.profileCompleted) {
       await navigateTo('/onboarding')
     } else {
       await navigateTo('/chat')
     }
   } catch (err: unknown) {
-    const msg = (err as { data?: { message?: string }; message?: string })?.data?.message
-      ?? (err as { message?: string })?.message
-      ?? t('auth.loginError')
-    error.value = msg
+    const msg = extractError(err, t('auth.loginError'))
+    loginError.value = msg
+    toastError(msg)
   }
 }
 </script>
