@@ -1,6 +1,6 @@
 import type { FetchOptions } from 'ofetch'
-
-const BASE_URL = 'https://mama-voice.vercel.app'
+import { API_BASE_URL } from './config'
+import type { ApiEnvelope } from '~/types/api'
 
 interface TokenAccessor {
   getToken: () => string | null
@@ -29,7 +29,8 @@ export async function apiFetch<T>(
   }
 
   try {
-    return await $fetch<T>(BASE_URL + path, { ...options, headers })
+    const res = await $fetch<ApiEnvelope<T>>(API_BASE_URL + path, { ...options, headers })
+    return res.data
   } catch (err: unknown) {
     const status = (err as { statusCode?: number; status?: number })?.statusCode
       ?? (err as { status?: number })?.status
@@ -56,6 +57,7 @@ export async function apiFetch<T>(
       ...(options.headers as Record<string, string> | undefined),
       ...(newToken ? { Authorization: `Bearer ${newToken}` } : {}),
     }
-    return await $fetch<T>(BASE_URL + path, { ...options, headers: retryHeaders })
+    const retryRes = await $fetch<ApiEnvelope<T>>(API_BASE_URL + path, { ...options, headers: retryHeaders })
+    return retryRes.data
   }
 }

@@ -1,3 +1,13 @@
+// ── Envelope ─────────────────────────────────────────────────────────────────
+
+// The backend wraps every response body in this envelope; callers must unwrap `.data`.
+export interface ApiEnvelope<T> {
+  success: boolean
+  statusCode: number
+  message: string
+  data: T
+}
+
 // ── Auth ─────────────────────────────────────────────────────────────────────
 
 export interface AuthUserDto {
@@ -10,17 +20,23 @@ export interface AuthUserDto {
   lga: string | null
   motherStage: 'Pregnant' | 'New Mom' | null
   targetDate: string | null
-  accountStatus: string
+  accountStatus: 'active' | 'suspended' | 'deactivated'
   emailVerified: boolean
   profileCompleted: boolean
 }
 
-export interface AuthResponse {
-  token?: string
-  accessToken?: string
+export interface VerifyEmailResponse {
+  token: string
   refreshToken: string
-  isExistingUser?: boolean
-  user?: AuthUserDto
+  isExistingUser: boolean
+  user: AuthUserDto
+}
+
+export interface LoginResponse {
+  token: string
+  refreshToken: string
+  isExistingUser: boolean
+  user: AuthUserDto
 }
 
 export interface RegisterResponse {
@@ -29,8 +45,7 @@ export interface RegisterResponse {
 }
 
 export interface RefreshResponse {
-  token?: string
-  accessToken?: string
+  token: string
   refreshToken: string
 }
 
