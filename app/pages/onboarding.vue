@@ -21,12 +21,6 @@
           <p class="text-sm text-mama-muted mt-1">{{ t('onboarding.subtitle') }}</p>
         </div>
 
-        <!-- Error banner -->
-        <div v-if="error"
-          class="mb-5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl px-4 py-3">
-          <p class="text-sm text-red-700 dark:text-red-300">{{ error }}</p>
-        </div>
-
         <!-- Enums load failure — state/LGA options unavailable -->
         <div v-if="enumsError"
           class="mb-5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl px-4 py-3 flex items-center justify-between gap-3">
@@ -53,6 +47,7 @@
                 required
                 minlength="2"
                 maxlength="50"
+                pattern="[a-zA-ZÀ-ÿ\s\-']{2,50}"
                 class="w-full px-4 py-3 rounded-2xl border border-mama-border bg-mama-input text-mama-text text-sm focus:outline-none focus:border-mama-teal focus:bg-mama-surface transition-colors"
               />
             </div>
@@ -65,6 +60,7 @@
                 required
                 minlength="2"
                 maxlength="50"
+                pattern="[a-zA-ZÀ-ÿ\s\-']{2,50}"
                 class="w-full px-4 py-3 rounded-2xl border border-mama-border bg-mama-input text-mama-text text-sm focus:outline-none focus:border-mama-teal focus:bg-mama-surface transition-colors"
               />
             </div>
@@ -109,7 +105,7 @@
                 v-for="lang in languages"
                 :key="lang"
                 type="button"
-                @click="form.language = lang as typeof form.language"
+                @click="selectLanguage(lang)"
                 class="py-2.5 px-3 rounded-xl border-2 text-sm font-medium transition-all text-left"
                 :class="form.language === lang
                   ? 'border-mama-teal bg-mama-sky text-mama-teal'
@@ -183,6 +179,7 @@ useSeoMeta({ title: 'Set Up Your Profile — MamaVoice' })
 
 const { t } = useI18n()
 const auth = useAuthStore()
+const { error: toastError, success: toastSuccess } = useToast()
 
 const form = reactive({
   firstName: auth.user?.firstName ?? '',
@@ -201,10 +198,13 @@ const stages = [
 
 const languages = ['English', 'Yoruba', 'Igbo', 'Hausa'] as const
 
+function selectLanguage(lang: string) {
+  form.language = lang as typeof form.language
+}
+
 const enums = ref<EnumsDto | null>(null)
 const enumsLoading = ref(false)
 const enumsError = ref(false)
-const error = ref('')
 const isLoading = ref(false)
 
 const states = computed(() => enums.value?.states ?? [])
@@ -228,7 +228,6 @@ async function loadEnums() {
   try {
     enums.value = await enumsService.getEnums()
   } catch {
-    // State/LGA are select-only, so without enums the user cannot proceed.
     enumsError.value = true
   } finally {
     enumsLoading.value = false
@@ -240,7 +239,6 @@ onMounted(loadEnums)
 async function handleSubmit() {
   if (!canSubmit.value || !form.motherStage) return
   isLoading.value = true
-  error.value = ''
   try {
     const updated = await userService.updateProfile({
       firstName: form.firstName,
@@ -251,17 +249,14 @@ async function handleSubmit() {
       motherStage: form.motherStage,
       targetDate: form.targetDate,
     })
-    // Update local auth store with completed profile
-    auth.user = updated
-    if (import.meta.client) {
-      localStorage.setItem('mama-auth-user', JSON.stringify(updated))
-    }
+    auth.setUser(updated)
+    toastSuccess(t('onboarding.saved'))
     await navigateTo('/chat')
   } catch (err: unknown) {
-    const msg = (err as { data?: { message?: string }; message?: string })?.data?.message
+    const msg = (err as { data?: { message?: string } })?.data?.message
       ?? (err as { message?: string })?.message
       ?? t('onboarding.saveError')
-    error.value = msg
+    toastError(msg)
   } finally {
     isLoading.value = false
   }
