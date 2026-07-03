@@ -6,7 +6,9 @@
     "howItWorks": "Yadda Yake Aiki",
     "tryWebApp": "Gwada App",
     "downloadApp": "Sauke App",
-    "language": "Harshe"
+    "language": "Harshe",
+    "home": "Gida",
+    "dashboard": "Allon Sarrafa"
   },
   "hero": {
     "badge": "Dubun iyaye mata a Afirka sun aminta da mu",
@@ -269,7 +271,8 @@
     "pregnancyTracker": "Bin Diddigin Ciki",
     "currentChat": "Zance na yanzu",
     "noMessages": "Fara sabon zance",
-    "regenerate": "Sake amsa"
+    "regenerate": "Sake amsa",
+    "guestMode": "Yanayin Baƙo"
   },
   "privacy": {
     "pageTitle": "Manufar Sirri — MamaVoice",
@@ -470,7 +473,11 @@
     "authModalBody": "Ƙirƙiri asusu kyauta don adana bayananka na lafiya, bin allurar rigakafi, da samun jagorar AI ta musamman a na'urori daban-daban.",
     "authModalSignUp": "Yi Rajista Kyauta",
     "authModalSignIn": "Shiga",
-    "authModalGuest": "Ci gaba a matsayin baƙo"
+    "authModalGuest": "Ci gaba a matsayin baƙo",
+    "myProfile": "Bayananku",
+    "settings": "Saiti",
+    "settingsSoon": "Ba da daɗewa",
+    "verifyMissingParams": "Babu zaman OTP mai aiki. Don Allah yi rajista sake."
   },
   "onboarding": {
     "title": "Kafa bayananku",
@@ -491,7 +498,8 @@
     "saving": "Ana ajiyewa…",
     "saveError": "Ba a iya ajiye bayanan ba. Don Allah sake gwadawa.",
     "enumsError": "Ba a iya ɗora jihohi da harsuna ba. Duba haɗin ku sannan ku sake gwadawa.",
-    "retry": "Sake gwadawa"
+    "retry": "Sake gwadawa",
+    "saved": "An ajiye bayanai!"
   },
   "dashboardPage": {
     "title": "Dashboard na Lafiyata",

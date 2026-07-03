@@ -6,7 +6,9 @@
     "howItWorks": "Otu O Si Arụ Ọrụ",
     "tryWebApp": "Nwale App",
     "downloadApp": "Budata App",
-    "language": "Asụsụ"
+    "language": "Asụsụ",
+    "home": "Ụlọ",
+    "dashboard": "Dashboard"
   },
   "hero": {
     "badge": "Puku ụmụ nne n'Africa tụkwọrọ anyị obi",
@@ -269,7 +271,8 @@
     "pregnancyTracker": "Nledo Ime Ime",
     "currentChat": "Mkparịta ụka ugbu a",
     "noMessages": "Bido mkparịta ụka ọhụrụ",
-    "regenerate": "Mepụta ọzọ"
+    "regenerate": "Mepụta ọzọ",
+    "guestMode": "Ọnọdụ Ọbịa"
   },
   "privacy": {
     "pageTitle": "Iwu Nzuzo — MamaVoice",
@@ -470,7 +473,11 @@
     "authModalBody": "Mepụta akaụntụ n'efu iji chekwaa data ahụike gị, soro ọgwụ mgbochi, ma nweta nduzi AI nke nwere ike n'ngwaọrụ dị iche iche.",
     "authModalSignUp": "Debanye Aha N'efu",
     "authModalSignIn": "Banye",
-    "authModalGuest": "Gaa n'ihu dị ka ọbịa"
+    "authModalGuest": "Gaa n'ihu dị ka ọbịa",
+    "myProfile": "Profaịlụ M",
+    "settings": "Ntọala",
+    "settingsSoon": "Ọ dịghị anya",
+    "verifyMissingParams": "Enweghị oge OTP na-arụ ọrụ. Biko debanye aha ọzọ."
   },
   "onboarding": {
     "title": "Tọọ profaịlụ gị",
@@ -491,7 +498,8 @@
     "saving": "Na-echekwaa…",
     "saveError": "Enweghị ike ichekwaa profaịlụ. Biko nwaa ọzọ.",
     "enumsError": "Enweghị ike ibudata steeti na asụsụ. Lelee njikọ gị ma nwaa ọzọ.",
-    "retry": "Nwaa ọzọ"
+    "retry": "Nwaa ọzọ",
+    "saved": "Achekwala profaịlụ!"
   },
   "dashboardPage": {
     "title": "Dashboard Ahụike M",

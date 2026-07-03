@@ -6,7 +6,9 @@
     "howItWorks": "How E Work",
     "tryWebApp": "Try Web App",
     "downloadApp": "Download App",
-    "language": "Language"
+    "language": "Language",
+    "home": "Home",
+    "dashboard": "Dashboard"
   },
   "hero": {
     "badge": "More than 10,000 African Mamas Don Trust Us",
@@ -269,7 +271,8 @@
     "pregnancyTracker": "Pregnancy Tracker",
     "currentChat": "Current conversation",
     "noMessages": "Start new conversation",
-    "regenerate": "Regenerate answer"
+    "regenerate": "Regenerate answer",
+    "guestMode": "Guest Mode"
   },
   "privacy": {
     "pageTitle": "Privacy Policy — MamaVoice",
@@ -470,7 +473,11 @@
     "authModalBody": "Create free account to save your health data, track vaccines, and get personal AI guide for all your devices.",
     "authModalSignUp": "Sign Up For Free",
     "authModalSignIn": "Enter",
-    "authModalGuest": "Continue as visitor"
+    "authModalGuest": "Continue as visitor",
+    "myProfile": "My Profile",
+    "settings": "Settings",
+    "settingsSoon": "Soon",
+    "verifyMissingParams": "No active OTP session. Abeg register again."
   },
   "onboarding": {
     "title": "Set up your profile",
@@ -491,7 +498,8 @@
     "saving": "Dey save…",
     "saveError": "We no fit save profile. Abeg try again.",
     "enumsError": "We no fit load states and languages. Check your network make you try again.",
-    "retry": "Try again"
+    "retry": "Try again",
+    "saved": "Profile don save!"
   },
   "dashboardPage": {
     "title": "My Health Dashboard",

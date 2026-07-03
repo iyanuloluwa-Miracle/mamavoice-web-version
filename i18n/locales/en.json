@@ -6,7 +6,9 @@
     "howItWorks": "How It Works",
     "tryWebApp": "Try Web App",
     "downloadApp": "Download App",
-    "language": "Language"
+    "language": "Language",
+    "home": "Home",
+    "dashboard": "Dashboard"
   },
   "hero": {
     "badge": "Trusted by 10,000+ African Mothers",
@@ -269,7 +271,8 @@
     "pregnancyTracker": "Pregnancy Tracker",
     "currentChat": "Current conversation",
     "noMessages": "Start a new conversation",
-    "regenerate": "Regenerate response"
+    "regenerate": "Regenerate response",
+    "guestMode": "Guest Mode"
   },
   "privacy": {
     "pageTitle": "Privacy Policy — MamaVoice",
@@ -495,7 +498,11 @@
     "authModalBody": "Create a free account to sync your health data, track vaccines, and get personalised AI guidance across devices.",
     "authModalSignUp": "Sign Up Free",
     "authModalSignIn": "Sign In",
-    "authModalGuest": "Continue as Guest"
+    "authModalGuest": "Continue as Guest",
+    "myProfile": "My Profile",
+    "settings": "Settings",
+    "settingsSoon": "Soon",
+    "verifyMissingParams": "No active OTP session. Please register again."
   },
   "onboarding": {
     "title": "Set up your profile",
@@ -516,7 +523,8 @@
     "saving": "Saving…",
     "saveError": "Could not save profile. Please try again.",
     "enumsError": "Could not load states and languages. Check your connection and try again.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "saved": "Profile saved!"
   },
   "dashboardPage": {
     "title": "My Health Dashboard",

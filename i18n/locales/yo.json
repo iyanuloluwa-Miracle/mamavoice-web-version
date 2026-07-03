@@ -6,7 +6,9 @@
     "howItWorks": "Bí Ó Ṣẹ Ń Ṣiṣẹ́",
     "tryWebApp": "Gbiyànjú Ẹ̀rọ Ayélujára",
     "downloadApp": "Gba Ẹ̀rọ Náà",
-    "language": "Èdè"
+    "language": "Èdè",
+    "home": "Ilé",
+    "dashboard": "Dáṣíbọ̀ọ̀dù"
   },
   "hero": {
     "badge": "Ẹgbàárùn-ún Ìyá Ilẹ̀ Áfíríkà Gbádùn Rẹ̀",
@@ -269,7 +271,8 @@
     "pregnancyTracker": "Ìtọpinpin Oyún",
     "currentChat": "Ìjíròrò lọwọlọwọ",
     "noMessages": "Bẹ̀rẹ̀ ìjíròrò tuntun",
-    "regenerate": "Tún èsì ṣe"
+    "regenerate": "Tún èsì ṣe",
+    "guestMode": "Ìpinlẹ̀ Àlejò"
   },
   "privacy": {
     "pageTitle": "Ìlànà Ìkọ̀kọ̀ — MamaVoice",
@@ -482,7 +485,11 @@
     "authModalBody": "Ṣẹda akọọlẹ ọfẹ lati fipamọ data ilera rẹ, tọpa àjẹsara, àti gba itọsọna AI ti ara ẹni lori awọn ẹrọ.",
     "authModalSignUp": "Forukọsilẹ Ọfẹ",
     "authModalSignIn": "Wọlé",
-    "authModalGuest": "Tẹsiwaju gẹgẹ bí alábàájọ"
+    "authModalGuest": "Tẹsiwaju gẹgẹ bí alábàájọ",
+    "myProfile": "Profaìlì Mi",
+    "settings": "Ìtọ̀nà",
+    "settingsSoon": "Laipẹ̀",
+    "verifyMissingParams": "Ko sí àkókò OTP tí ó ń ṣiṣẹ́. Jọwọ forúkọsílẹ̀ lẹ́ẹ̀kan si."
   },
   "onboarding": {
     "title": "Ṣeto profaili rẹ",
@@ -503,7 +510,8 @@
     "saving": "Ń fipamọ…",
     "saveError": "A kò lè fipamọ profaili. Jọwọ gbiyanju lẹẹkansi.",
     "enumsError": "A kò lè gbé àwọn ìpínlẹ̀ àti èdè wọlé. Ṣàyẹ̀wò ìsopọ̀ rẹ kí o sì gbiyanju lẹẹkansi.",
-    "retry": "Gbiyanju lẹẹkansi"
+    "retry": "Gbiyanju lẹẹkansi",
+    "saved": "Profaili ti fipamọ̀!"
   },
   "dashboardPage": {
     "title": "Dasibodu Ilera Mi",
