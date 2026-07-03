@@ -1,9 +1,9 @@
 import type { ApiEnvelope, VerifyEmailResponse, LoginResponse, RegisterResponse, RefreshResponse } from '~/types/api'
-import { API_BASE_URL } from './config'
+import { getApiBaseUrl } from './config'
 
 export const authService = {
   async register(email: string, password: string): Promise<RegisterResponse> {
-    const res = await $fetch<ApiEnvelope<RegisterResponse>>(`${API_BASE_URL}/api/auth/register`, {
+    const res = await $fetch<ApiEnvelope<RegisterResponse>>(`${getApiBaseUrl()}/api/auth/register`, {
       method: 'POST',
       body: { email, password },
     })
@@ -11,7 +11,7 @@ export const authService = {
   },
 
   async verifyEmail(otpId: string, otp: string): Promise<VerifyEmailResponse> {
-    const res = await $fetch<ApiEnvelope<VerifyEmailResponse>>(`${API_BASE_URL}/api/auth/verify-email`, {
+    const res = await $fetch<ApiEnvelope<VerifyEmailResponse>>(`${getApiBaseUrl()}/api/auth/verify-email`, {
       method: 'POST',
       body: { otpId, otp },
     })
@@ -19,7 +19,7 @@ export const authService = {
   },
 
   async resendOtp(email: string): Promise<RegisterResponse> {
-    const res = await $fetch<ApiEnvelope<RegisterResponse>>(`${API_BASE_URL}/api/auth/resend-otp`, {
+    const res = await $fetch<ApiEnvelope<RegisterResponse>>(`${getApiBaseUrl()}/api/auth/resend-otp`, {
       method: 'POST',
       body: { email },
     })
@@ -27,7 +27,7 @@ export const authService = {
   },
 
   async login(email: string, password: string): Promise<LoginResponse> {
-    const res = await $fetch<ApiEnvelope<LoginResponse>>(`${API_BASE_URL}/api/auth/login`, {
+    const res = await $fetch<ApiEnvelope<LoginResponse>>(`${getApiBaseUrl()}/api/auth/login`, {
       method: 'POST',
       body: { email, password },
     })
@@ -35,7 +35,7 @@ export const authService = {
   },
 
   async refresh(refreshToken: string): Promise<RefreshResponse> {
-    const res = await $fetch<ApiEnvelope<RefreshResponse>>(`${API_BASE_URL}/api/auth/refresh`, {
+    const res = await $fetch<ApiEnvelope<RefreshResponse>>(`${getApiBaseUrl()}/api/auth/refresh`, {
       method: 'POST',
       body: { refreshToken },
     })

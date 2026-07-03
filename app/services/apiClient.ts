@@ -1,5 +1,5 @@
 import type { FetchOptions } from 'ofetch'
-import { API_BASE_URL } from './config'
+import { getApiBaseUrl } from './config'
 import type { ApiEnvelope } from '~/types/api'
 
 interface TokenAccessor {
@@ -28,8 +28,10 @@ export async function apiFetch<T>(
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   }
 
+  const baseURL = getApiBaseUrl()
+
   try {
-    const res = await $fetch<ApiEnvelope<T>>(API_BASE_URL + path, { ...options, headers })
+    const res = await $fetch<ApiEnvelope<T>>(baseURL + path, { ...options, headers })
     return res.data
   } catch (err: unknown) {
     const status = (err as { statusCode?: number; status?: number })?.statusCode
@@ -57,7 +59,7 @@ export async function apiFetch<T>(
       ...(options.headers as Record<string, string> | undefined),
       ...(newToken ? { Authorization: `Bearer ${newToken}` } : {}),
     }
-    const retryRes = await $fetch<ApiEnvelope<T>>(API_BASE_URL + path, { ...options, headers: retryHeaders })
+    const retryRes = await $fetch<ApiEnvelope<T>>(baseURL + path, { ...options, headers: retryHeaders })
     return retryRes.data
   }
 }
