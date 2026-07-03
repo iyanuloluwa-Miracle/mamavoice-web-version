@@ -10,6 +10,9 @@
       :visible="showOnboarding"
       @close="completeOnboarding"
     />
+
+    <!-- Global toast notifications -->
+    <UiAppToast />
   </div>
 </template>
 
