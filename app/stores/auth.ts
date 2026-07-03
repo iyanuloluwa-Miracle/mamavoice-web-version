@@ -13,10 +13,19 @@ export const useAuthStore = defineStore('auth', {
     accessToken: null as string | null,
     refreshToken: null as string | null,
     isLoading: false,
+    isInitializing: true,
+    // Transient OTP context — set after register/resend, cleared after verify.
+    // Lets the verify-email page read otpId even if query params are stripped
+    // by the router (e.g. @nuxtjs/i18n 10.x beforeEach behaviour).
+    pendingOtp: null as { otpId: string; email: string } | null,
   }),
 
   getters: {
-    isAuthenticated: (s): boolean => !!s.accessToken,
+    // A persisted refresh token means the session survives reloads even before
+    // the in-memory access token is re-fetched. apiFetch refreshes the access
+    // token transparently on the first 401; restoreSession clears the refresh
+    // token if it turns out to be invalid, reverting this to false.
+    isAuthenticated: (s): boolean => !!s.accessToken || !!s.refreshToken,
     profileCompleted: (s): boolean => s.user?.profileCompleted ?? false,
     initials: (s): string => {
       if (!s.user) return '?'
@@ -35,7 +44,6 @@ export const useAuthStore = defineStore('auth', {
         localStorage.setItem(REFRESH_KEY, refresh)
         localStorage.setItem(USER_KEY, JSON.stringify(user))
       }
-      this._registerApiClient()
     },
 
     _registerApiClient() {
@@ -46,29 +54,29 @@ export const useAuthStore = defineStore('auth', {
       })
     },
 
+    setUser(user: AuthUserDto) {
+      this.user = user
+      if (import.meta.client) localStorage.setItem(USER_KEY, JSON.stringify(user))
+    },
+
     async register(email: string, password: string) {
       this.isLoading = true
       try {
-        return await authService.register(email, password)
+        const res = await authService.register(email, password)
+        this.pendingOtp = { otpId: res.otpId, email }
+        return res
       } finally {
         this.isLoading = false
       }
     },
 
-    async verifyEmail(otpId: string, otp: string): Promise<AuthUserDto | null> {
+    async verifyEmail(otpId: string, otp: string): Promise<{ user: AuthUserDto; isExistingUser: boolean }> {
       this.isLoading = true
       try {
         const res = await authService.verifyEmail(otpId, otp)
-        const token = res.token ?? res.accessToken ?? ''
-        if (res.user) {
-          this._hydrate(token, res.refreshToken, res.user)
-        } else {
-          this.accessToken = token
-          this.refreshToken = res.refreshToken
-          if (import.meta.client) localStorage.setItem(REFRESH_KEY, res.refreshToken)
-          this._registerApiClient()
-        }
-        return res.user ?? null
+        this._hydrate(res.token, res.refreshToken, res.user)
+        this.pendingOtp = null
+        return { user: res.user, isExistingUser: res.isExistingUser }
       } catch (e) {
         this.accessToken = null
         this.refreshToken = null
@@ -79,23 +87,17 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async resendOtp(email: string) {
-      return authService.resendOtp(email)
+      const res = await authService.resendOtp(email)
+      this.pendingOtp = { otpId: res.otpId, email }
+      return res
     },
 
-    async login(email: string, password: string): Promise<AuthUserDto | null> {
+    async login(email: string, password: string): Promise<{ user: AuthUserDto; isExistingUser: boolean }> {
       this.isLoading = true
       try {
         const res = await authService.login(email, password)
-        const token = res.token ?? res.accessToken ?? ''
-        if (res.user) {
-          this._hydrate(token, res.refreshToken, res.user)
-        } else {
-          this.accessToken = token
-          this.refreshToken = res.refreshToken
-          if (import.meta.client) localStorage.setItem(REFRESH_KEY, res.refreshToken)
-          this._registerApiClient()
-        }
-        return res.user ?? null
+        this._hydrate(res.token, res.refreshToken, res.user)
+        return { user: res.user, isExistingUser: res.isExistingUser }
       } catch (e) {
         this.accessToken = null
         this.refreshToken = null
@@ -112,9 +114,8 @@ export const useAuthStore = defineStore('auth', {
 
       try {
         const res = await authService.refresh(rt)
-        const token = res.token ?? res.accessToken ?? null
-        if (!token) return false
-        this.accessToken = token
+        if (!res.token) return false
+        this.accessToken = res.token
         this.refreshToken = res.refreshToken
         if (import.meta.client) {
           localStorage.setItem(REFRESH_KEY, res.refreshToken)
@@ -126,10 +127,10 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async restoreSession() {
-      if (!import.meta.client) return
+      if (!import.meta.client) { this.isInitializing = false; return }
 
       const rt = localStorage.getItem(REFRESH_KEY)
-      if (!rt) return  // refresh token is the only hard requirement
+      if (!rt) { this.isInitializing = false; return }
 
       const storedUser = localStorage.getItem(USER_KEY)
 
@@ -137,7 +138,6 @@ export const useAuthStore = defineStore('auth', {
         // Pre-populate from cache so the UI isn't empty while we refresh
         if (storedUser) this.user = JSON.parse(storedUser) as AuthUserDto
         this.refreshToken = rt
-        this._registerApiClient()
 
         const ok = await this.refresh()
         if (!ok) {
@@ -158,6 +158,8 @@ export const useAuthStore = defineStore('auth', {
       } catch {
         localStorage.removeItem(REFRESH_KEY)
         localStorage.removeItem(USER_KEY)
+      } finally {
+        this.isInitializing = false
       }
     },
 

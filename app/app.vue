@@ -10,19 +10,18 @@
       :visible="showOnboarding"
       @close="completeOnboarding"
     />
+
+    <!-- Global toast notifications -->
+    <UiAppToast />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '~/stores/auth'
-
 const { init: initColorMode } = useColorMode()
 const { showOnboarding, init: initOnboarding, completeOnboarding } = useLanguageOnboarding()
-const auth = useAuthStore()
 
-onMounted(async () => {
+onMounted(() => {
   initColorMode()
   initOnboarding()
-  await auth.restoreSession()
 })
 </script>
