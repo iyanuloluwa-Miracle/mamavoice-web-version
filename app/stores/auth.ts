@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { authService } from '~/services/auth.service'
 import { userService } from '~/services/user.service'
 import { initApiClient } from '~/services/apiClient'
+import { CURRENT_CONVERSATION_ID_KEY } from '~/composables/useConversations'
+import { CHAT_HISTORY_KEY } from '~/composables/useChatHistory'
 import type { AuthUserDto } from '~/types/api'
 
 const REFRESH_KEY = 'mama-auth-refresh'
@@ -170,6 +172,10 @@ export const useAuthStore = defineStore('auth', {
       if (import.meta.client) {
         localStorage.removeItem(REFRESH_KEY)
         localStorage.removeItem(USER_KEY)
+        // Prevent the next account to sign in (or a guest) on this browser from
+        // restoring or seeing a conversation thread that belongs to this account.
+        localStorage.removeItem(CURRENT_CONVERSATION_ID_KEY)
+        localStorage.removeItem(CHAT_HISTORY_KEY)
       }
     },
   },

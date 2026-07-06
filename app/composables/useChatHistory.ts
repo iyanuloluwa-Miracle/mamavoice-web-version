@@ -1,4 +1,5 @@
-const STORAGE_KEY = 'mama-chat-messages'
+export const CHAT_HISTORY_KEY = 'mama-chat-messages'
+const STORAGE_KEY = CHAT_HISTORY_KEY
 
 interface Message {
   role: 'user' | 'ai'
