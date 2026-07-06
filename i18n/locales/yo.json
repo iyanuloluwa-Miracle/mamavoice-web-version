@@ -272,7 +272,9 @@
     "currentChat": "Ìjíròrò lọwọlọwọ",
     "noMessages": "Bẹ̀rẹ̀ ìjíròrò tuntun",
     "regenerate": "Tún èsì ṣe",
-    "guestMode": "Ìpinlẹ̀ Àlejò"
+    "guestMode": "Ìpinlẹ̀ Àlejò",
+    "deleteConversation": "Paarẹ́ ìjíròrò",
+    "loadConversationError": "A kò lè ṣí ìjíròrò náà. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
   },
   "privacy": {
     "pageTitle": "Ìlànà Ìkọ̀kọ̀ — MamaVoice",

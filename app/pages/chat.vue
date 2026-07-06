@@ -12,6 +12,7 @@
       @new-chat="clearChat(); sidebarOpen = false"
       @select-prompt="sendSuggested"
       @load-session="switchToSession"
+      @delete-session="deleteSession"
     />
 
     <!-- ── Main Column ─────────────────────────────────────────── -->
@@ -436,6 +437,8 @@ import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useColorMode } from '../composables/useColorMode'
 import { useChatHistory } from '../composables/useChatHistory'
+import { useConversations } from '../composables/useConversations'
+import { useToast } from '../composables/useToast'
 import { useSeoMeta } from '@unhead/vue'
 import { useAuthStore } from '~/stores/auth'
 import { aiService } from '~/services/ai.service'
@@ -450,6 +453,7 @@ const LOCALE_DISPLAY: Record<string, string> = {
 }
 const auth = useAuthStore()
 const isAuthenticated = computed(() => auth.isAuthenticated)
+const toast = useToast()
 
 const { isRecording, isSupported: sttSupported, startRecording, stopRecording } = useSpeechToText()
 const { isEnabled: ttsEnabled, isSupported: ttsSupported, isSpeaking, speak, stop, toggleEnabled } = useTextToSpeech()
@@ -470,7 +474,9 @@ interface Message {
 }
 
 const messages = ref<Message[]>([])
-watch(messages, (val) => saveHistory(val), { deep: true })
+// Guest-only: authenticated conversations are persisted server-side, not in this shared
+// localStorage key — writing them here too would leak them into the next guest session.
+watch(messages, (val) => { if (!isAuthenticated.value) saveHistory(val) }, { deep: true })
 
 watch(locale, (newLoc, oldLoc) => {
   if (newLoc === oldLoc || messages.value.length === 0 || pendingLocale.value !== null) return
@@ -494,42 +500,102 @@ const copiedIndex = ref<number | null>(null)
 // Sidebar state (addition 1)
 const sidebarOpen = ref(false)
 
-// Multi-session history
-interface Session { id: string; title: string; messages: Message[]; updatedAt: string }
-const chatSessions = ref<Omit<Session, 'messages'>[]>([])
-const currentSessionId = ref<string | null>(null)
+// Multi-session history.
+// Authenticated users: sessions are the backend's persisted Conversations (useConversations).
+// Guests: sessions are localStorage-only, since the Conversations API requires auth.
+const {
+  conversations,
+  currentConversationId,
+  refreshList: refreshConversations,
+  loadConversation,
+  remove: removeConversationRemote,
+  setCurrentId: setCurrentConversationId,
+  restoreCurrentId: restoreCurrentConversationId,
+} = useConversations()
 
-function getStoredSessions(): Session[] {
+interface Session { id: string; title: string; messages: Message[]; updatedAt: string }
+const guestSessions = ref<Omit<Session, 'messages'>[]>([])
+const guestCurrentSessionId = ref<string | null>(null)
+
+const chatSessions = computed(() => isAuthenticated.value
+  ? conversations.value.map(c => ({ id: c.id, title: c.title, updatedAt: c.lastMessageAt ?? c.updatedAt }))
+  : guestSessions.value)
+
+const currentSessionId = computed(() => isAuthenticated.value ? currentConversationId.value : guestCurrentSessionId.value)
+
+function getStoredGuestSessions(): Session[] {
   try { return JSON.parse(localStorage.getItem('mama-chat-sessions') || '[]') } catch { return [] }
 }
 
-function persistSession() {
+function persistGuestSession() {
   if (messages.value.length === 0) return
-  const all = getStoredSessions()
+  const all = getStoredGuestSessions()
   const firstUser = messages.value.find(m => m.role === 'user')
   const title = firstUser ? (firstUser.text.length > 55 ? firstUser.text.slice(0, 55) + '…' : firstUser.text) : 'Chat'
-  const id = currentSessionId.value ?? `s_${Date.now()}`
-  currentSessionId.value = id
+  const id = guestCurrentSessionId.value ?? `s_${Date.now()}`
+  guestCurrentSessionId.value = id
   localStorage.setItem('mama-current-session-id', id)
   const idx = all.findIndex(s => s.id === id)
   const entry: Session = { id, title, messages: messages.value, updatedAt: new Date().toISOString() }
   if (idx !== -1) all[idx] = entry; else all.unshift(entry)
   const trimmed = all.slice(0, 30)
   localStorage.setItem('mama-chat-sessions', JSON.stringify(trimmed))
-  chatSessions.value = trimmed.map(({ id, title, updatedAt }) => ({ id, title, updatedAt }))
+  guestSessions.value = trimmed.map(({ id, title, updatedAt }) => ({ id, title, updatedAt }))
 }
 
-function switchToSession(id: string) {
-  persistSession()
-  const session = getStoredSessions().find(s => s.id === id)
+async function switchToSession(id: string) {
+  if (id === currentSessionId.value) return
+
+  if (isAuthenticated.value) {
+    try {
+      const loaded = await loadConversation(id)
+      messages.value = loaded
+      hasReplied.value = loaded.some(m => m.role === 'ai')
+      showEmergencyBanner.value = false
+      scrollToBottom()
+    } catch {
+      // Leave the currently-displayed conversation untouched on failure — don't
+      // splice an error bubble into an unrelated thread.
+      toast.error(t('chat.loadConversationError'))
+    }
+    return
+  }
+
+  persistGuestSession()
+  const session = getStoredGuestSessions().find(s => s.id === id)
   if (!session) return
   messages.value = session.messages
-  currentSessionId.value = id
+  guestCurrentSessionId.value = id
   localStorage.setItem('mama-current-session-id', id)
   saveHistory(session.messages)
   hasReplied.value = session.messages.some(m => m.role === 'ai')
   showEmergencyBanner.value = false
   scrollToBottom()
+}
+
+async function deleteSession(id: string) {
+  // Avoid deleting the thread a reply is still in flight for — the response would
+  // land after the reset below and resurrect a conversation the user just removed.
+  if (id === currentSessionId.value && isTyping.value) return
+
+  if (isAuthenticated.value) {
+    const wasActive = id === currentConversationId.value
+    try { await removeConversationRemote(id) } catch { return }
+    if (wasActive) resetChatState()
+    return
+  }
+
+  const wasActive = id === guestCurrentSessionId.value
+  const remaining = getStoredGuestSessions().filter(s => s.id !== id)
+  localStorage.setItem('mama-chat-sessions', JSON.stringify(remaining))
+  guestSessions.value = remaining.map(({ id, title, updatedAt }) => ({ id, title, updatedAt }))
+  if (wasActive) {
+    // Do NOT call clearChat() here — it persists the current thread as a session
+    // first, which would immediately resurrect the one we just deleted.
+    guestCurrentSessionId.value = null
+    localStorage.removeItem('mama-current-session-id')
+    resetChatState()
+  }
 }
 
 // Web Preview banner
@@ -543,11 +609,27 @@ function closeChatLangPicker(e: MouseEvent) {
   if (!(e.target as HTMLElement).closest('[data-lang-picker]')) isLangOpen.value = false
 }
 
-onMounted(() => {
+onMounted(async () => {
   previewDismissed.value = localStorage.getItem('mama-preview-dismissed') === 'true'
-  messages.value = loadHistory()
-  currentSessionId.value = localStorage.getItem('mama-current-session-id') || null
-  chatSessions.value = getStoredSessions().map(({ id, title, updatedAt }) => ({ id, title, updatedAt }))
+
+  if (isAuthenticated.value) {
+    await refreshConversations()
+    const restoredId = restoreCurrentConversationId()
+    if (restoredId) {
+      try {
+        const loaded = await loadConversation(restoredId)
+        messages.value = loaded
+        hasReplied.value = loaded.some(m => m.role === 'ai')
+      } catch {
+        setCurrentConversationId(null)
+      }
+    }
+  } else {
+    messages.value = loadHistory()
+    guestCurrentSessionId.value = localStorage.getItem('mama-current-session-id') || null
+    guestSessions.value = getStoredGuestSessions().map(({ id, title, updatedAt }) => ({ id, title, updatedAt }))
+  }
+
   window.addEventListener('storage', onStorageChange)
   document.addEventListener('click', closeChatLangPicker)
   // Open sidebar on desktop by default (addition 2)
@@ -563,14 +645,23 @@ function dismissPreview() {
   localStorage.setItem('mama-preview-dismissed', 'true')
 }
 
-function clearChat() {
-  persistSession()
+function resetChatState() {
   clearHistory()
   messages.value = []
   hasReplied.value = false
   showEmergencyBanner.value = false
-  currentSessionId.value = null
-  localStorage.removeItem('mama-current-session-id')
+}
+
+// "New Chat": save the in-progress thread as a session, then start fresh.
+function clearChat() {
+  if (isAuthenticated.value) {
+    setCurrentConversationId(null)
+  } else {
+    persistGuestSession()
+    guestCurrentSessionId.value = null
+    localStorage.removeItem('mama-current-session-id')
+  }
+  resetChatState()
 }
 
 // Time-aware greeting (addition 3)
@@ -608,9 +699,10 @@ async function sendMessage() {
     let aiText: string
 
     if (isAuthenticated.value) {
-      // Authenticated: use external backend API (personalized, risk-aware)
-      const res = await aiService.voiceTextQuery(text)
-      aiText = res.aiResponseText || t('chat.errorResponse')
+      // Authenticated: use external backend API (personalized, risk-aware, persisted conversation)
+      const res = await aiService.voiceTextQuery(text, currentConversationId.value ?? undefined)
+      aiText = res.spokenResponseEnglish || t('chat.errorResponse')
+      setCurrentConversationId(res.conversationId)
       // Use backend risk level instead of keyword matching
       showEmergencyBanner.value = res.riskLevel === 'EMERGENCY' || res.riskLevel === 'HIGH'
       // Play backend TTS audio if available, otherwise fall back to local TTS
@@ -648,7 +740,11 @@ async function sendMessage() {
     isTyping.value = false
     hasReplied.value = true
     scrollToBottom()
-    persistSession()
+    if (isAuthenticated.value) {
+      await refreshConversations()
+    } else {
+      persistGuestSession()
+    }
   }
 }
 
@@ -701,11 +797,12 @@ function speakMessage(i: number, text: string) {
 
 // Regenerate last AI response (addition 4)
 async function regenerateLastResponse() {
-  const lastUserMsg = [...messages.value].reverse().find(m => m.role === 'user')
+  const lastUserIdx = messages.value.map(m => m.role).lastIndexOf('user')
+  const lastUserMsg = lastUserIdx !== -1 ? messages.value[lastUserIdx] : undefined
   if (!lastUserMsg) return
-  // Remove last AI message
-  const lastAiIdx = messages.value.map(m => m.role).lastIndexOf('ai')
-  if (lastAiIdx !== -1) messages.value.splice(lastAiIdx, 1)
+  // Drop the last user turn and everything after it (the stale AI reply) — sendMessage()
+  // re-adds the user message fresh, so leaving it in place would show/send it twice.
+  messages.value.splice(lastUserIdx)
   inputText.value = lastUserMsg.text
   await nextTick()
   await sendMessage()

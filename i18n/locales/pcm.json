@@ -272,7 +272,9 @@
     "currentChat": "Current conversation",
     "noMessages": "Start new conversation",
     "regenerate": "Regenerate answer",
-    "guestMode": "Guest Mode"
+    "guestMode": "Guest Mode",
+    "deleteConversation": "Delete this conversation",
+    "loadConversationError": "E no fit load dat conversation. Abeg try again."
   },
   "privacy": {
     "pageTitle": "Privacy Policy — MamaVoice",

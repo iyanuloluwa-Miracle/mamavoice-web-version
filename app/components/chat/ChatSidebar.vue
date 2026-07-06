@@ -88,35 +88,55 @@
       </div>
 
       <!-- Session entries -->
-      <button
+      <div
         v-for="session in allSessions"
         :key="session.id"
-        @click="session.id !== currentSessionId ? $emit('loadSession', session.id) : undefined"
-        class="w-full flex items-start gap-2.5 rounded-xl px-3 py-2.5 text-left transition-all mb-0.5"
+        class="group w-full flex items-start gap-2.5 rounded-xl px-3 py-2.5 mb-0.5"
         :class="[
           isOpen ? '' : 'justify-center',
           session.id === currentSessionId
-            ? 'bg-mama-sky border border-mama-teal/25 cursor-default'
-            : 'hover:bg-mama-border-light cursor-pointer active:scale-[0.98]'
+            ? 'bg-mama-sky border border-mama-teal/25'
+            : 'hover:bg-mama-border-light'
         ]"
-        :title="!isOpen ? session.title : undefined"
       >
-        <svg class="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
-          :class="session.id === currentSessionId ? 'text-mama-teal' : 'text-mama-muted'"
-          fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-        </svg>
-        <div v-if="isOpen" class="flex-1 min-w-0">
-          <p class="text-xs font-medium truncate"
-            :class="session.id === currentSessionId ? 'text-mama-text' : 'text-mama-text/80'">
-            {{ session.title }}
-          </p>
-          <p class="text-[10px] mt-0.5"
-            :class="session.id === currentSessionId ? 'text-mama-teal font-semibold' : 'text-mama-muted'">
-            {{ session.id === currentSessionId ? 'Active' : formatTime(session.updatedAt) }}
-          </p>
-        </div>
-      </button>
+        <button
+          type="button"
+          @click="session.id !== currentSessionId ? $emit('loadSession', session.id) : undefined"
+          class="flex items-start gap-2.5 flex-1 min-w-0 text-left"
+          :class="session.id === currentSessionId ? 'cursor-default' : 'cursor-pointer active:scale-[0.98]'"
+          :title="!isOpen ? session.title : undefined"
+        >
+          <svg class="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
+            :class="session.id === currentSessionId ? 'text-mama-teal' : 'text-mama-muted'"
+            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          <div v-if="isOpen" class="flex-1 min-w-0">
+            <p class="text-xs font-medium truncate"
+              :class="session.id === currentSessionId ? 'text-mama-text' : 'text-mama-text/80'">
+              {{ session.title }}
+            </p>
+            <p class="text-[10px] mt-0.5"
+              :class="session.id === currentSessionId ? 'text-mama-teal font-semibold' : 'text-mama-muted'">
+              {{ session.id === currentSessionId ? 'Active' : formatTime(session.updatedAt) }}
+            </p>
+          </div>
+        </button>
+
+        <!-- Delete session -->
+        <button
+          v-if="isOpen"
+          type="button"
+          @click="$emit('deleteSession', session.id)"
+          :aria-label="t('chat.deleteConversation')"
+          :title="t('chat.deleteConversation')"
+          class="flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center text-mama-muted opacity-0 group-hover:opacity-100 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400 transition-all"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m2 0v13a1 1 0 01-1 1H8a1 1 0 01-1-1V7h10z"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Quick Actions (pinned at bottom above locale) -->
@@ -204,6 +224,7 @@ defineEmits<{
   newChat: []
   selectPrompt: [text: string]
   loadSession: [id: string]
+  deleteSession: [id: string]
 }>()
 
 const { t } = useI18n()

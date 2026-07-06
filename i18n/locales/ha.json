@@ -272,7 +272,9 @@
     "currentChat": "Zance na yanzu",
     "noMessages": "Fara sabon zance",
     "regenerate": "Sake amsa",
-    "guestMode": "Yanayin Baƙo"
+    "guestMode": "Yanayin Baƙo",
+    "deleteConversation": "Share zance",
+    "loadConversationError": "An kasa loda wannan zance. Da fatan za a sake gwadawa."
   },
   "privacy": {
     "pageTitle": "Manufar Sirri — MamaVoice",
