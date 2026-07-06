@@ -272,7 +272,9 @@
     "currentChat": "Mkparịta ụka ugbu a",
     "noMessages": "Bido mkparịta ụka ọhụrụ",
     "regenerate": "Mepụta ọzọ",
-    "guestMode": "Ọnọdụ Ọbịa"
+    "guestMode": "Ọnọdụ Ọbịa",
+    "deleteConversation": "Hichapụ mkparịta ụka",
+    "loadConversationError": "Enweghị ike ibubata mkparịta ụka ahụ. Biko nwaa ọzọ."
   },
   "privacy": {
     "pageTitle": "Iwu Nzuzo — MamaVoice",

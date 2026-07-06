@@ -272,7 +272,9 @@
     "currentChat": "Current conversation",
     "noMessages": "Start a new conversation",
     "regenerate": "Regenerate response",
-    "guestMode": "Guest Mode"
+    "guestMode": "Guest Mode",
+    "deleteConversation": "Delete conversation",
+    "loadConversationError": "Couldn't load that conversation. Please try again."
   },
   "privacy": {
     "pageTitle": "Privacy Policy — MamaVoice",
