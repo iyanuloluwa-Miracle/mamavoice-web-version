@@ -9,16 +9,17 @@ export const aiService = {
     })
   },
 
-  async voiceTextQuery(textQuery: string): Promise<VoiceTextQueryResponse> {
+  async voiceTextQuery(textQuery: string, conversationId?: string): Promise<VoiceTextQueryResponse> {
     return apiFetch<VoiceTextQueryResponse>('/api/voice/text-query', {
       method: 'POST',
-      body: { textQuery },
+      body: { textQuery, ...(conversationId ? { conversationId } : {}) },
     })
   },
 
-  async voiceQuery(audioBlob: Blob): Promise<VoiceQueryResponse> {
+  async voiceQuery(audioBlob: Blob, conversationId?: string): Promise<VoiceQueryResponse> {
     const form = new FormData()
     form.append('audio', audioBlob, 'recording.webm')
+    if (conversationId) form.append('conversationId', conversationId)
     // Do NOT set Content-Type manually — browser sets boundary automatically
     return apiFetch<VoiceQueryResponse>('/api/voice/query', {
       method: 'POST',

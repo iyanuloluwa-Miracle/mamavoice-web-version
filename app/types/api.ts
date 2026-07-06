@@ -86,18 +86,65 @@ export interface VoiceTextQueryResponse {
   spokenResponse: string
   spokenResponseEnglish: string
   riskLevel: RiskLevel
-  aiResponseText: string
   isDangerSign: boolean
   language: string
+  profileLanguage: string
+  detectedLanguage: string | null
+  conversationId: string
   audioUrl: string | null
   audioContentType: string | null
 }
 
 export interface VoiceQueryResponse extends VoiceTextQueryResponse {
-  profileLanguage: string
-  detectedLanguage: string | null
   transcript: string
   sttConfidence: number
+}
+
+// ── Conversations ─────────────────────────────────────────────────────────────
+
+export interface ConversationSummaryDto {
+  id: string
+  title: string
+  lastMessageAt: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface PaginationMetaDto {
+  page: number
+  limit: number
+  total: number
+  totalPages: number
+  hasMore: boolean
+}
+
+export interface ConversationListResponse {
+  conversations: ConversationSummaryDto[]
+  pagination: PaginationMetaDto
+}
+
+export interface ConversationMessageDto {
+  id: string
+  role: 'user' | 'assistant'
+  content: string
+  spokenResponse: string | null
+  language: 'English' | 'Yoruba' | 'Igbo' | 'Hausa' | null
+  riskLevel: RiskLevel | null
+  inputType: 'voice' | 'text' | null
+  audioUrl: string | null
+  audioContentType: string | null
+  sttConfidence: number | null
+  createdAt: string
+}
+
+export interface ConversationDetailResponse {
+  id: string
+  title: string
+  lastMessageAt: string | null
+  createdAt: string
+  updatedAt: string
+  messages: ConversationMessageDto[]
+  pagination: PaginationMetaDto
 }
 
 // ── Vaccines ─────────────────────────────────────────────────────────────────
