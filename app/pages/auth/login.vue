@@ -99,7 +99,7 @@ definePageMeta({ middleware: 'guest', layout: false })
 
 useSeoMeta({ title: 'Sign In — MamaVoice' })
 
-const { t } = useI18n()
+const { t, setLocale } = useI18n()
 const auth = useAuthStore()
 const { error: toastError } = useToast()
 
@@ -123,6 +123,8 @@ async function handleSubmit() {
   loginError.value = ''
   try {
     await auth.login(email.value, password.value)
+    const savedLocale = profileLanguageToLocale(auth.user?.language)
+    if (savedLocale) setLocale(savedLocale)
     if (!auth.user?.profileCompleted) {
       await navigateTo('/onboarding')
     } else {

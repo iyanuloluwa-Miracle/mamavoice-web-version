@@ -99,7 +99,7 @@ definePageMeta({ layout: false })
 
 useSeoMeta({ title: 'Verify Email — MamaVoice' })
 
-const { t } = useI18n()
+const { t, setLocale } = useI18n()
 const auth = useAuthStore()
 const { error: toastError, success: toastSuccess } = useToast()
 const route = useRoute()
@@ -194,6 +194,8 @@ async function handleSubmit() {
   if (otp.value.length < 6 || isLoading.value) return
   try {
     await auth.verifyEmail(currentOtpId.value, otp.value)
+    const savedLocale = profileLanguageToLocale(auth.user?.language)
+    if (savedLocale) setLocale(savedLocale)
     if (!auth.user?.profileCompleted) {
       await navigateTo('/onboarding')
     } else {

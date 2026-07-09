@@ -90,7 +90,7 @@
             <div v-if="isLangOpen"
               class="absolute right-0 mt-2 w-28 sm:w-32 bg-mama-surface rounded-2xl shadow-lg border border-mama-border-light overflow-hidden z-50">
               <button v-for="l in locales" :key="l.code"
-                @click="setLocale(l.code); isLangOpen = false"
+                @click="applyLocaleChange(l.code); isLangOpen = false"
                 class="w-full px-3 sm:px-4 py-2.5 text-left text-xs sm:text-sm hover:bg-mama-sky hover:text-mama-teal transition-colors"
                 :class="locale === l.code ? 'text-mama-teal font-semibold bg-mama-sky' : 'text-mama-text'">
                 {{ l.name }}
@@ -454,6 +454,7 @@ import { useToast } from '../composables/useToast'
 import { useSeoMeta } from '@unhead/vue'
 import { useAuthStore } from '~/stores/auth'
 import { aiService } from '~/services/ai.service'
+import { userService } from '~/services/user.service'
 
 definePageMeta({ layout: false })
 
@@ -853,11 +854,38 @@ async function copyMessage(i: number, text: string) {
 function confirmLocaleSwitch() {
   if (!pendingLocale.value) return
   clearChat()
-  setLocale(pendingLocale.value)
+  applyLocaleChange(pendingLocale.value)
   pendingLocale.value = null
 }
 
 function cancelLocaleSwitch() { pendingLocale.value = null }
+
+// Switch the displayed language and, for authenticated users with a completed
+// profile, push the change to their account too — the backend's AI voice/text
+// responses are keyed off the account's saved language, not anything per-request,
+// so switching here must update the account for the AI to actually respond in it.
+async function applyLocaleChange(code: string) {
+  setLocale(code)
+  if (!isAuthenticated.value || !auth.profileCompleted || !auth.user) return
+
+  const backendLanguage = localeToProfileLanguage(code)
+  if (!backendLanguage) return // e.g. pcm — no backend equivalent, UI-only
+
+  try {
+    const updated = await userService.updateProfile({
+      firstName: auth.user.firstName ?? '',
+      lastName: auth.user.lastName ?? '',
+      language: backendLanguage,
+      state: auth.user.state ?? '',
+      lga: auth.user.lga ?? '',
+      motherStage: auth.user.motherStage ?? 'Pregnant',
+      targetDate: auth.user.targetDate ?? '',
+    })
+    auth.setUser(updated)
+  } catch (err) {
+    console.error('[MamaVoice] Failed to sync language to account profile:', err)
+  }
+}
 
 function scrollToBottom() {
   nextTick(() => {
