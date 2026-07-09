@@ -721,7 +721,11 @@ async function sendMessage() {
     if (isAuthenticated.value) {
       // Authenticated: use external backend API (personalized, risk-aware, persisted conversation)
       const res = await aiService.voiceTextQuery(text, currentConversationId.value ?? undefined)
-      aiText = res.spokenResponseEnglish || t('chat.errorResponse')
+      // Show the response in the conversation's own language, not the English crib —
+      // this also keeps the per-message "Speak" replay correct (it re-reads msg.text
+      // with a voice matched to the active locale; feeding it English text there would
+      // read English words aloud in a Yoruba/Hausa/Igbo voice).
+      aiText = res.spokenResponse || t('chat.errorResponse')
       setCurrentConversationId(res.conversationId)
       // Use backend risk level instead of keyword matching
       showEmergencyBanner.value = res.riskLevel === 'EMERGENCY' || res.riskLevel === 'HIGH'
