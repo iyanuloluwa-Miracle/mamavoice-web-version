@@ -274,7 +274,11 @@
     "regenerate": "Sake amsa",
     "guestMode": "Yanayin Baƙo",
     "deleteConversation": "Share zance",
-    "loadConversationError": "An kasa loda wannan zance. Da fatan za a sake gwadawa."
+    "loadConversationError": "An kasa loda wannan zance. Da fatan za a sake gwadawa.",
+    "deleteConversationTitle": "Share wannan zance?",
+    "deleteConversationBody": "Wannan zai share zancen nan tare da dukan saƙonnin da ke ciki har abada. Ba za a iya mayar da shi ba.",
+    "deleteConversationCancel": "Soke",
+    "deleteConversationConfirm": "Share"
   },
   "privacy": {
     "pageTitle": "Manufar Sirri — MamaVoice",

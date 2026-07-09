@@ -274,7 +274,11 @@
     "regenerate": "Regenerate answer",
     "guestMode": "Guest Mode",
     "deleteConversation": "Delete this conversation",
-    "loadConversationError": "E no fit load dat conversation. Abeg try again."
+    "loadConversationError": "E no fit load dat conversation. Abeg try again.",
+    "deleteConversationTitle": "You wan delete dis conversation?",
+    "deleteConversationBody": "Dis go delete dis conversation and all im messages forever. E no fit undo am.",
+    "deleteConversationCancel": "Cancel",
+    "deleteConversationConfirm": "Delete"
   },
   "privacy": {
     "pageTitle": "Privacy Policy — MamaVoice",

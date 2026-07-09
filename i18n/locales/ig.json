@@ -274,7 +274,11 @@
     "regenerate": "Mepụta ọzọ",
     "guestMode": "Ọnọdụ Ọbịa",
     "deleteConversation": "Hichapụ mkparịta ụka",
-    "loadConversationError": "Enweghị ike ibubata mkparịta ụka ahụ. Biko nwaa ọzọ."
+    "loadConversationError": "Enweghị ike ibubata mkparịta ụka ahụ. Biko nwaa ọzọ.",
+    "deleteConversationTitle": "Hichapụ mkparịta ụka a?",
+    "deleteConversationBody": "Nke a ga-ehichapụ mkparịta ụka a na ozi ya niile kpamkpam. Enweghị ike imegharị ya.",
+    "deleteConversationCancel": "Kagbuo",
+    "deleteConversationConfirm": "Hichapụ"
   },
   "privacy": {
     "pageTitle": "Iwu Nzuzo — MamaVoice",

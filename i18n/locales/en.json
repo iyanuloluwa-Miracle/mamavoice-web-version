@@ -274,7 +274,11 @@
     "regenerate": "Regenerate response",
     "guestMode": "Guest Mode",
     "deleteConversation": "Delete conversation",
-    "loadConversationError": "Couldn't load that conversation. Please try again."
+    "loadConversationError": "Couldn't load that conversation. Please try again.",
+    "deleteConversationTitle": "Delete this conversation?",
+    "deleteConversationBody": "This will permanently delete this conversation and all its messages. This can't be undone.",
+    "deleteConversationCancel": "Cancel",
+    "deleteConversationConfirm": "Delete"
   },
   "privacy": {
     "pageTitle": "Privacy Policy — MamaVoice",

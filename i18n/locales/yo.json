@@ -274,7 +274,11 @@
     "regenerate": "Tún èsì ṣe",
     "guestMode": "Ìpinlẹ̀ Àlejò",
     "deleteConversation": "Paarẹ́ ìjíròrò",
-    "loadConversationError": "A kò lè ṣí ìjíròrò náà. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
+    "loadConversationError": "A kò lè ṣí ìjíròrò náà. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i.",
+    "deleteConversationTitle": "Ṣé o fẹ́ paarẹ́ ìjíròrò yìí?",
+    "deleteConversationBody": "Èyí yóò paarẹ́ ìjíròrò yìí àti gbogbo ìhìn rẹ̀ pátápátá. A kò lè yí padà.",
+    "deleteConversationCancel": "Fagilé",
+    "deleteConversationConfirm": "Paarẹ́"
   },
   "privacy": {
     "pageTitle": "Ìlànà Ìkọ̀kọ̀ — MamaVoice",
