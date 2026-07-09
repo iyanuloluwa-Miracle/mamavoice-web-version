@@ -12,7 +12,14 @@
       @new-chat="clearChat(); sidebarOpen = false"
       @select-prompt="sendSuggested"
       @load-session="switchToSession"
-      @delete-session="deleteSession"
+      @delete-session="pendingDeleteSessionId = $event"
+    />
+
+    <!-- ── Delete conversation confirmation ───────────────────── -->
+    <ChatDeleteConfirmModal
+      :visible="pendingDeleteSessionId !== null"
+      @cancel="pendingDeleteSessionId = null"
+      @confirm="confirmDeleteSession"
     />
 
     <!-- ── Main Column ─────────────────────────────────────────── -->
@@ -499,6 +506,7 @@ const copiedIndex = ref<number | null>(null)
 
 // Sidebar state (addition 1)
 const sidebarOpen = ref(false)
+const pendingDeleteSessionId = ref<string | null>(null)
 
 // Multi-session history.
 // Authenticated users: sessions are the backend's persisted Conversations (useConversations).
@@ -596,6 +604,12 @@ async function deleteSession(id: string) {
     localStorage.removeItem('mama-current-session-id')
     resetChatState()
   }
+}
+
+async function confirmDeleteSession() {
+  const id = pendingDeleteSessionId.value
+  pendingDeleteSessionId.value = null
+  if (id) await deleteSession(id)
 }
 
 // Web Preview banner
