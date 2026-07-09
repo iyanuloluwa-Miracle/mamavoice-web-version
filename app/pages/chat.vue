@@ -246,10 +246,14 @@
                     <button
                       v-if="ttsSupported"
                       @click="speakMessage(i, msg.text)"
-                      :title="speakingIndex === i ? 'Stop' : 'Read aloud'"
+                      :title="speakingIndex === i ? (isPreparing ? t('chat.preparing') : 'Stop') : 'Read aloud'"
                       class="text-mama-muted hover:text-mama-teal transition-colors"
                     >
-                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                      <svg v-if="speakingIndex === i && isPreparing" class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                      </svg>
+                      <svg v-else class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                         <path v-if="speakingIndex !== i" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                         <path v-else d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 18l1.27 1.27L20.27 18 5.27 3 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/>
                       </svg>
@@ -433,6 +437,7 @@
       v-if="isRecording || isSpeaking"
       :is-recording="isRecording"
       :is-speaking="isSpeaking"
+      :is-preparing="isPreparing"
       :transcript="inputText"
       @stop="handleVoiceStop"
     />
@@ -463,7 +468,7 @@ const isAuthenticated = computed(() => auth.isAuthenticated)
 const toast = useToast()
 
 const { isRecording, isSupported: sttSupported, startRecording, stopRecording } = useSpeechToText()
-const { isEnabled: ttsEnabled, isSupported: ttsSupported, isSpeaking, speak, stop, toggleEnabled } = useTextToSpeech()
+const { isEnabled: ttsEnabled, isSupported: ttsSupported, isSpeaking, isPreparing, speak, stop, toggleEnabled } = useTextToSpeech()
 
 const speakingIndex = ref<number | null>(null)
 watch(isSpeaking, (val) => { if (!val) speakingIndex.value = null })

@@ -22,6 +22,15 @@
         </div>
       </div>
 
+      <!-- Preparing state: audio is being fetched from the TTS API, not playing yet -->
+      <div v-else-if="isPreparing" class="relative flex items-center justify-center w-24 h-24">
+        <div class="relative w-14 h-14 rounded-full bg-gradient-to-br from-mama-teal to-mama-teal-light flex items-center justify-center shadow-lg gap-1.5">
+          <div v-for="n in 3" :key="n"
+            class="w-2 h-2 rounded-full bg-white/70 animate-typing-dot"
+            :style="{ animationDelay: `${n * 150}ms` }" />
+        </div>
+      </div>
+
       <!-- Speaking state: animated wave bars -->
       <div v-else class="relative flex items-center justify-center w-24 h-24">
         <!-- Outer glow ring -->
@@ -37,7 +46,7 @@
       <!-- Status text -->
       <div class="text-center">
         <p class="text-base font-semibold text-mama-text">
-          {{ isRecording ? t('chat.listening') : t('chat.speaking') }}
+          {{ isRecording ? t('chat.listening') : (isPreparing ? t('chat.preparing') : t('chat.speaking')) }}
         </p>
         <!-- Transcript preview during recording -->
         <p v-if="isRecording && transcript" class="mt-2 text-sm text-mama-muted italic line-clamp-2 max-w-[220px]">
@@ -68,6 +77,7 @@ import { useI18n } from 'vue-i18n'
 defineProps<{
   isRecording: boolean
   isSpeaking: boolean
+  isPreparing: boolean
   transcript: string
 }>()
 

@@ -98,6 +98,7 @@ let currentAudioSource: AudioBufferSourceNode | null = null
 
 export function useTextToSpeech() {
   const isSpeaking = ref(false)
+  const isPreparing = ref(false)
   const isSupported = ref(false)
   const isEnabled = ref(true)
   let cancelled = false
@@ -130,6 +131,7 @@ export function useTextToSpeech() {
       currentAudioSource = null
     }
     isSpeaking.value = false
+    isPreparing.value = false
   }
 
   async function playViaAudioContext(blob: Blob): Promise<void> {
@@ -157,11 +159,13 @@ export function useTextToSpeech() {
     try {
       for (const chunk of chunks) {
         if (cancelled || !isEnabled.value) break
+        isPreparing.value = true
         const blob = await $fetch<Blob>('/api/tts', {
           method: 'POST',
           body: { text: chunk, voice },
           responseType: 'blob',
         })
+        isPreparing.value = false
         if (cancelled || !isEnabled.value) break
         await playViaAudioContext(blob)
       }
@@ -169,6 +173,7 @@ export function useTextToSpeech() {
       console.error('[MamaVoice] YarnGPT TTS error:', err)
     } finally {
       if (!cancelled) isSpeaking.value = false
+      isPreparing.value = false
     }
   }
 
@@ -186,6 +191,7 @@ export function useTextToSpeech() {
     }
 
     if (!('speechSynthesis' in window)) return
+    // isPreparing intentionally never set here — native SpeechSynthesis has no network wait
     cancelled = false
     const gen = ++speechGen
 
@@ -208,5 +214,5 @@ export function useTextToSpeech() {
     window.speechSynthesis.speak(utterance)
   }
 
-  return { isSpeaking, isSupported, isEnabled, speak, stop, toggleEnabled }
+  return { isSpeaking, isPreparing, isSupported, isEnabled, speak, stop, toggleEnabled }
 }
