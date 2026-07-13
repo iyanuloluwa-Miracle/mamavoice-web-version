@@ -1,12 +1,12 @@
 <template>
   <nav
-    class="sticky top-0 z-50 transition-all duration-300"
+    class="sticky top-0 left-0 right-0 z-50 w-full border-b border-mama-border-light/10 bg-mama-surface/95 dark:bg-slate-950/95 backdrop-blur-md shadow-sm transition-all duration-300"
     :class="isScrolled
-      ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm'
-      : 'bg-transparent'"
+      ? 'border-mama-border-light/70 dark:border-slate-700/70'
+      : 'border-mama-border-light/10 dark:border-slate-700/10'"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
+      <div class="flex items-center justify-between h-16 gap-4">
 
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center gap-3 flex-shrink-0">
@@ -15,19 +15,19 @@
         </NuxtLink>
 
         <!-- Desktop nav links (lg+) -->
-        <div class="hidden lg:flex items-center gap-8">
+        <div class="hidden lg:flex items-center gap-4">
           <template v-for="link in navLinks" :key="link.href">
             <NuxtLink
               v-if="link.isRoute"
               :to="link.href"
-              class="text-mama-dark/70 dark:text-slate-400 hover:text-mama-teal dark:hover:text-mama-teal font-medium transition-colors text-sm"
+              class="text-mama-dark/80 dark:text-slate-200 hover:text-mama-teal dark:hover:text-mama-teal font-semibold transition-colors text-sm px-3 py-2 rounded-full hover:bg-mama-sky dark:hover:bg-slate-800/70"
             >
               {{ link.label }}
             </NuxtLink>
             <a
               v-else
               :href="link.href"
-              class="text-mama-dark/70 dark:text-slate-400 hover:text-mama-teal dark:hover:text-mama-teal font-medium transition-colors text-sm"
+              class="text-mama-dark/80 dark:text-slate-200 hover:text-mama-teal dark:hover:text-mama-teal font-semibold transition-colors text-sm px-3 py-2 rounded-full hover:bg-mama-sky dark:hover:bg-slate-800/70"
             >
               {{ link.label }}
             </a>
@@ -110,7 +110,7 @@
         <!-- Mobile/Tablet right cluster -->
         <div class="flex lg:hidden items-center gap-2">
           <button @click="toggle"
-            class="w-10 h-10 rounded-full flex items-center justify-center bg-mama-sky dark:bg-slate-800 text-mama-teal"
+            class="w-10 h-10 rounded-full flex items-center justify-center bg-mama-sky dark:bg-slate-800 text-mama-teal shadow-sm border border-transparent hover:border-mama-teal/30 transition-colors"
             :aria-label="isDark ? t('chat.switchLight') : t('chat.switchDark')">
             <svg v-if="!isDark" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -136,12 +136,12 @@
 
   <Teleport to="body">
     <Transition enter-active-class="transition-opacity duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300" leave-from-class="opacity-100" leave-to-class="opacity-0">
-      <div v-if="isMenuOpen" class="drawer-backdrop lg:hidden" @click="isMenuOpen = false" />
+      <div v-if="isMenuOpen" class="drawer-backdrop lg:hidden z-[55]!" @click="isMenuOpen = false" />
     </Transition>
 
     <Transition enter-active-class="transition-transform duration-300 ease-out" enter-from-class="translate-x-full" enter-to-class="translate-x-0" leave-active-class="transition-transform duration-300 ease-in" leave-from-class="translate-x-0" leave-to-class="translate-x-full">
       <div v-if="isMenuOpen"
-        class="fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] bg-mama-surface flex flex-col shadow-2xl lg:hidden"
+        class="fixed inset-y-0 right-0 z-[60] w-[90vw] max-w-sm bg-mama-surface shadow-2xl border-l border-mama-border-light/70 dark:border-slate-700/70 flex flex-col lg:hidden pt-safe"
       >
         <div class="flex items-center justify-between px-6 h-16 border-b border-mama-border-light flex-shrink-0">
           <div class="flex items-center gap-3">
@@ -149,7 +149,7 @@
             <span class="text-xl font-black text-mama-coral">MamaVoice</span>
           </div>
           <button @click="isMenuOpen = false"
-            class="w-10 h-10 rounded-xl text-mama-muted hover:text-mama-text hover:bg-mama-input transition-colors"
+            class="w-10 h-10 rounded-xl text-mama-muted hover:text-mama-text hover:bg-mama-input transition-colors shadow-sm"
             aria-label="Close menu">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -221,14 +221,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useColorMode } from '../../composables/useColorMode'
-import { useAuthStore } from '~/stores/auth'
+import { useAuthStore } from '../../stores/auth'
 import { useLogout } from '../../composables/useLogout'
 
 const { isDark, toggle } = useColorMode()
-const { t, locale, locales, setLocale } = useI18n()
+const i18n = useI18n()
+const { t, locale } = i18n
+const locales = (i18n as unknown as { locales: ComputedRef<Array<{ code: string; name: string; file?: string }> > }).locales
+const setLocale = (i18n as unknown as { setLocale: (locale: string) => Promise<void> }).setLocale
 const auth = useAuthStore()
 const isAuthenticated = computed(() => auth.isAuthenticated)
 const logout = useLogout()

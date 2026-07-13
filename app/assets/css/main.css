@@ -60,12 +60,14 @@ body {
 }
 
 /* Minimum touch target across the board */
-button, a, [role="button"] {
-  min-height: 44px;
-  min-width: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+@layer base {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* Smooth theme transition — excludes animation-driven elements */
