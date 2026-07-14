@@ -477,7 +477,7 @@ const { load: loadHistory, save: saveHistory, clear: clearHistory } = useChatHis
 
 useSeoMeta({
   title: 'MamaVoice AI Chat — Your Maternal Health Companion',
-  description: 'Chat with MamaVoice AI for trusted pregnancy and newborn health guidance in Yoruba, Hausa, Igbo, or English.',
+  description: 'Chat with MamaVoice AI for trusted pregnancy and newborn health guidance in Yoruba, Hausa, Igbo, Pidgin, or English.',
 })
 
 interface Message {

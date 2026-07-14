@@ -1,4 +1,4 @@
-﻿{
+{
   "nav": {
     "features": "Abubuwa",
     "specialists": "Kwararru",
@@ -15,7 +15,7 @@
     "headline1": "Kowane Uwa Ta Cancanci",
     "headline2": "Abokin Murya",
     "headline3": "Mai Aminci",
-    "sub": "Yi magana da yarensa Hausa, Yoruba, Igbo, ko Turanci kuma karbi jagora game da ciki, kulawa da jariri, abinci, da alurar riga kafi.",
+    "sub": "Yi magana da yarensa Hausa, Yoruba, Igbo, Pidgin, ko Turanci kuma karbi jagora game da ciki, kulawa da jariri, abinci, da alurar riga kafi.",
     "downloadApp": "Sauke App",
     "tryWebApp": "Gwada App",
     "stats": {
@@ -32,7 +32,7 @@
     "headline1": "Duk Abin Da Uwa Take Bukata,",
     "headline2": "A Wuri Ɗaya",
     "sub": "Daga bin ciki zuwa kulawa da jariri — MamaVoice yana jagoranta matakai ɗaya bayan ɗaya.",
-    "voice": { "title": "Shawarwari Ta Murya", "desc": "Yi magana da yarensa Hausa, Yoruba, Igbo, ko Turanci — AI ɗinmu ya fahimta kuma ya mayar da martani da harshenka tare da jagorar likita mai aminci.", "tag": "AI Mai Harsuna Da Yawa" },
+    "voice": { "title": "Shawarwari Ta Murya", "desc": "Yi magana da yarensa Hausa, Yoruba, Igbo, Pidgin, ko Turanci — AI ɗinmu ya fahimta kuma ya mayar da martani da harshenka tare da jagorar likita mai aminci.", "tag": "AI Mai Harsuna Da Yawa" },
     "specialist": { "title": "Haɗin Kwararru", "desc": "Samun damar masu ƙwarewa a OBGYN, ungozoma, da likitocin yara a duk faɗin Najeriya don shawarwari na kan layi ko kai tsaye.", "tag": "Likitoci 50+" },
     "health": { "title": "Bin Lafiya", "desc": "Saka idanu kan matsin jini, nauyi, motsin jariri, da mahimman matakan ciki kai tsaye a lokaci daidai.", "tag": "Ainihin Lokaci" },
     "nutrition": { "title": "Jagorar Abinci", "desc": "Shirye-shiryen abinci na musamman da abincin Najeriya na gida mai cike da folate, ƙarfe, da furotin.", "tag": "Abincin Gida" },
@@ -57,10 +57,10 @@
     "badge": "Shawarar Murya Ta Rayuwa",
     "headline1": "Tambayi Komai, A Kowane Lokaci,",
     "headline2": "Da Harshensa",
-    "sub": "MamaVoice ya fahimci Hausa, Yoruba, Igbo, da Turanci — yana mayar da martani da jagorar likita mai aminci nan take.",
+    "sub": "MamaVoice ya fahimci Hausa, Yoruba, Igbo, Pidgin, da Turanci — yana mayar da martani da jagorar likita mai aminci nan take.",
     "listening": "Yana sauraro… yi magana yanzu",
     "tapToSpeak": "Danna makirofon don yin magana",
-    "supports": "Yana tallafawa Hausa · Yoruba · Igbo · Turanci",
+    "supports": "Yana tallafawa Hausa · Yoruba · Igbo · Pidgin · Turanci",
     "you": "Kai/Ki",
     "mamavoice": "MamaVoice",
     "langEn": "🇳🇬 Turanci",
@@ -362,7 +362,7 @@
     "a1": "Taɓa alamar makirofon kuma yi magana cikin yarjenka. MamaVoice tana amfani da AI mai ci gaba don fahimtar tambayarka da amsa da jagoranci na kiwon lafiya na uwa bisa shaidar nan da nan.",
     "q2": "Waɗanne harsuna ake tallafawa?",
     "a2": "MamaVoice tana tallafawa Turanci, Yorùbá, Hausa, Igbo, da Nigerian Pidgin (Naija). Muna ci gaba da faɗaɗa tallafin harshe don kaiwa ga ƙarin al'ummomi a duk faɗin Afirka.",
-    "q3": "Zan iya tambaya a Yorùbá, Hausa, Igbo, ko Turanci?",
+    "q3": "Zan iya tambaya a Yorùbá, Hausa, Igbo, Pidgin, ko Turanci?",
     "a3": "Eh! Kuna iya tambaya a kowane yaren da ake tallafawa. AI ta MamaVoice tana fahimtar magana ta halitta a harsunan guda biyar kuma tana amsa a cikin yaren da kuke amfani da shi.",
     "q4": "Shin MamaVoice kyauta ce don amfani?",
     "a4": "Eh! Manhaja ta yanar gizo da fasalullukan asali kyauta ne gaba ɗaya. Fasalullukan premium kamar shawarwarin kwararru marasa iyaka da bin diddigin lafiya mai zurfi suna samuwa ta hanyar tsare-tsare masu saukin farashin biyan kuɗi.",

@@ -1,4 +1,4 @@
-﻿{
+{
   "nav": {
     "features": "Features",
     "specialists": "Specialists",
@@ -15,7 +15,7 @@
     "headline1": "Every Mother Deserves a",
     "headline2": "Trusted Voice",
     "headline3": "Companion",
-    "sub": "Speak naturally in Yoruba, Hausa, Igbo, or English and receive personalised pregnancy, newborn care, nutrition, and vaccination guidance.",
+    "sub": "Speak naturally in Yoruba, Hausa, Igbo, Pidgin, or English and receive personalised pregnancy, newborn care, nutrition, and vaccination guidance.",
     "downloadApp": "Download App",
     "tryWebApp": "Try Web App",
     "stats": {
@@ -32,7 +32,7 @@
     "headline1": "Everything a Mother Needs,",
     "headline2": "All in One Place",
     "sub": "From pregnancy tracking to newborn care — MamaVoice guides you every step of the way.",
-    "voice": { "title": "Voice-First Consultations", "desc": "Speak naturally in Yoruba, Hausa, Igbo, or English — our AI understands and responds in your language with trusted medical guidance.", "tag": "Multilingual AI" },
+    "voice": { "title": "Voice-First Consultations", "desc": "Speak naturally in Yoruba, Hausa, Igbo, Pidgin, or English — our AI understands and responds in your language with trusted medical guidance.", "tag": "Multilingual AI" },
     "specialist": { "title": "Specialist Connect", "desc": "Instant access to verified OBGYNs, midwives, and pediatricians across Nigeria for virtual or in-person consultations.", "tag": "50+ Doctors" },
     "health": { "title": "Health Tracking", "desc": "Monitor blood pressure, weight, baby movements, and key milestones automatically throughout your pregnancy journey.", "tag": "Real-Time" },
     "nutrition": { "title": "Nutrition Guidance", "desc": "Personalized meal plans featuring local Nigerian foods rich in folate, iron, and protein — foods you actually know and love.", "tag": "Local Foods" },
@@ -57,10 +57,10 @@
     "badge": "Live Voice Consultation",
     "headline1": "Ask Anything, Anytime,",
     "headline2": "In Your Language",
-    "sub": "MamaVoice understands Yoruba, Hausa, Igbo, and English — responding with trusted medical guidance instantly.",
+    "sub": "MamaVoice understands Yoruba, Hausa, Igbo, Pidgin, and English — responding with trusted medical guidance instantly.",
     "listening": "Listening… speak now",
     "tapToSpeak": "Tap the mic to speak",
-    "supports": "Supports Yoruba · Hausa · Igbo · English",
+    "supports": "Supports Yoruba · Hausa · Igbo · Pidgin · English",
     "you": "You",
     "mamavoice": "MamaVoice",
     "langEn": "🇳🇬 English",
@@ -387,7 +387,7 @@
     "a1": "Tap the microphone icon and speak naturally in your preferred language. MamaVoice uses advanced AI to understand your question and instantly responds with evidence-based maternal health guidance.",
     "q2": "Which languages are supported?",
     "a2": "MamaVoice supports English, Yorùbá, Hausa, Igbo, and Nigerian Pidgin (Naija). We are continuously expanding language support to reach more communities across Africa.",
-    "q3": "Can I ask questions in Yorùbá, Hausa, Igbo, or English?",
+    "q3": "Can I ask questions in Yorùbá, Hausa, Igbo, Pidgin, or English?",
     "a3": "Yes! You can ask questions in any supported language. MamaVoice's AI understands natural speech in all five languages and responds in the same language you use.",
     "q4": "Is MamaVoice free to use?",
     "a4": "Yes! The web app and core features are completely free. Premium features such as unlimited specialist consultations and advanced health tracking are available through affordable subscription plans.",

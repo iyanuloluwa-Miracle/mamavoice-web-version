@@ -1,4 +1,4 @@
-﻿{
+{
   "nav": {
     "features": "Àwọn Ẹ̀yà",
     "specialists": "Àwọn Ogbóntarigi",
@@ -15,7 +15,7 @@
     "headline1": "Ìyá Kọọkan Yẹ",
     "headline2": "Ohùn Tó Gbẹ́kẹ̀lé",
     "headline3": "Ẹlẹ́gbẹ́",
-    "sub": "Sọ lẹ́dẹ̀ Yorùbá, Hausa, Igbo, tàbí Gèésì kí o sì gba ìmọ̀ nípa aboyún, ìtọ́jú ọmọ tuntun, oúnjẹ, àti àjesára.",
+    "sub": "Sọ lẹ́dẹ̀ Yorùbá, Hausa, Igbo, Nigerian Pidgin, tàbí Gèésì kí o sì gba ìmọ̀ nípa aboyún, ìtọ́jú ọmọ tuntun, oúnjẹ, àti àjesára.",
     "downloadApp": "Gba Ẹ̀rọ Náà",
     "tryWebApp": "Gbiyànjú Ẹ̀rọ Ayélujára",
     "stats": {
@@ -32,7 +32,7 @@
     "headline1": "Gbogbo Ohun Tí Ìyá Nílò,",
     "headline2": "Gbogbo Wà Níbi Kan",
     "sub": "Láti ìtọ́pàtọ̀ oyún sí ìtọ́jú ọmọ tuntun — MamaVoice máa ń darí ọ ní ìgbésẹ̀ kọọkan.",
-    "voice": { "title": "Ìfọ̀rọ̀wánilẹ́nuwò Ohùn", "desc": "Sọ lẹ́dẹ̀ Yorùbá, Hausa, Igbo, tàbí Gèésì — AI wa loye àti fèsì ní èdè rẹ pẹ̀lú ìmọ̀ ìṣègùn tó ní ìgbẹ́kẹ̀lé.", "tag": "AI Ẹ̀dẹ Púpọ̀" },
+    "voice": { "title": "Ìfọ̀rọ̀wánilẹ́nuwò Ohùn", "desc": "Sọ lẹ́dẹ̀ Yorùbá, Hausa, Igbo, Nigerian Pidgin, tàbí Gèésì — AI wa loye àti fèsì ní èdè rẹ pẹ̀lú ìmọ̀ ìṣègùn tó ní ìgbẹ́kẹ̀lé.", "tag": "AI Ẹ̀dẹ Púpọ̀" },
     "specialist": { "title": "Àsopọ̀ Ogbóntarigi", "desc": "Ìráyè sí àwọn OBGYNs, àwọn agbẹ̀bí, àti àwọn ẹlẹ́gbẹ́ ọmọdé tó jẹ́rìísí kárọ̀sọ̀ Nàìjíríà.", "tag": "50+ Dókítà" },
     "health": { "title": "Ìtọ́pàtọ̀ Ìlera", "desc": "Ṣàkíyèsí ìtẹ́síwájú ẹ̀jẹ̀, ìwọ̀n ara, àti àwọn gbígbé ọmọ nínú ikùn ní àkókò gidi.", "tag": "Àkókò Gidi" },
     "nutrition": { "title": "Ìtọ́sọ́nà Oúnjẹ", "desc": "Àwọn ètò oúnjẹ tó ní àkánṣe pẹ̀lú oúnjẹ Nàìjíríà tó ní folate, irin, àti àmìnoacid.", "tag": "Oúnjẹ Àdúgbò" },
@@ -57,10 +57,10 @@
     "badge": "Ìfọ̀rọ̀wánilẹ́nuwò Ohùn Tààrà",
     "headline1": "Béèrè Ohunkóhun, Nígbàkígbà,",
     "headline2": "Ní Èdè Rẹ",
-    "sub": "MamaVoice gbóye Yorùbá, Hausa, Igbo, àti Gèésì — ń fèsì pẹ̀lú ìtọ́sọ́nà ìṣègùn tó ní ìgbẹ́kẹ̀lé lẹ̀ẹ̀kan.",
+    "sub": "MamaVoice gbóye Yorùbá, Hausa, Igbo, Nigerian Pidgin, àti Gèésì — ń fèsì pẹ̀lú ìtọ́sọ́nà ìṣègùn tó ní ìgbẹ́kẹ̀lé lẹ̀ẹ̀kan.",
     "listening": "Ń gbọ̀… sọ báyìí",
     "tapToSpeak": "Tẹ maiki náà kí o sọrọ",
-    "supports": "Ń ṣe àtìlẹ́yìn Yorùbá · Hausa · Igbo · Gèésì",
+    "supports": "Ń ṣe àtìlẹ́yìn Yorùbá · Hausa · Igbo · Pidgin · Gèésì",
     "you": "Ìwọ",
     "mamavoice": "MamaVoice",
     "langEn": "🇳🇬 Gèésì",
@@ -374,7 +374,7 @@
     "a1": "Tẹ àmì maikirofóòní náà kí o sọrọ ní ẹ̀dẹ rẹ. MamaVoice ń lo AI tó ní ìmọ̀ gíga láti loye ìbéèrè rẹ àti fèsì pẹ̀lú ìtọ́sọ́nà ìlera ìyá tó dá lórí ẹ̀rí lẹ̀sẹ̀kẹsẹ̀.",
     "q2": "Àwọn èdè wo ni a ń ṣe àtìlẹ́yìn?",
     "a2": "MamaVoice ń ṣe àtìlẹ́yìn Gèésì, Yorùbá, Hausa, Igbo, àti Nigerian Pidgin (Naija). A ń tẹ̀síwájú láti fẹ àtìlẹ́yìn èdè sí i láti dé àwọn àwùjọ síi kárọ̀sọ̀ Áfíríkà.",
-    "q3": "Ṣé mo lè béèrè ní Yorùbá, Hausa, Igbo, tàbí Gèésì?",
+    "q3": "Ṣé mo lè béèrè ní Yorùbá, Hausa, Igbo, Nigerian Pidgin, tàbí Gèésì?",
     "a3": "Bẹ̃ẽni! O lè béèrè ní èdè tí o fẹ́. AI MamaVoice loye ọ̀rọ̀ àdánidá ní gbogbo àwọn èdè márùn-ún àti fèsì ní èdè kannáà tí o ń sọ.",
     "q4": "Ṣé MamaVoice fẹ̀ mú?",
     "a4": "Bẹ̃ẽni! Ẹ̀rọ ayélujára àti àwọn ẹ̀yà àkọ́kọ́ jẹ́ ọ̀fẹ́ pátápátá. Àwọn ẹ̀yà gíga bí ìfọ̀rọ̀wánilẹ́nuwò ogbóntarigi àìlópin àti ìtọ́pàtọ̀ ìlera tó jinlẹ̀ wà nínú àwọn ètò ìdókòwò tó láárẹ̀.",

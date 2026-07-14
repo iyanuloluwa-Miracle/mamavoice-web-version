@@ -1,4 +1,4 @@
-﻿{
+{
   "nav": {
     "features": "Ihe Ndị Dị",
     "specialists": "Ndị Ọkachamara",
@@ -15,7 +15,7 @@
     "headline1": "Ụmụ Nne Nile Kwesịrị",
     "headline2": "Enyi Olu",
     "headline3": "Onye Ntụkwasị Obi",
-    "sub": "Kwuo n'asụsụ Igbo, Hausa, Yoruba, ma ọ bụ Bekee wee nata nduzi banyere ime, ọgwụgwọ ọmọ ọhụrụ, nri, na ọgwụ mgbochi ọrịa.",
+    "sub": "Kwuo n'asụsụ Igbo, Hausa, Yoruba, Pidgin, ma ọ bụ Bekee wee nata nduzi banyere ime, ọgwụgwọ ọmọ ọhụrụ, nri, na ọgwụ mgbochi ọrịa.",
     "downloadApp": "Budata App",
     "tryWebApp": "Nwale App",
     "stats": {
@@ -32,7 +32,7 @@
     "headline1": "Ihe Nile Ụmụ Nne Chefuo,",
     "headline2": "Nọ N'otu Ebe",
     "sub": "Site n'ịgbaso ime ruo n'ọgwụgwọ ọmọ ọhụrụ — MamaVoice na-edu gị n'ọkwa ọ bụla.",
-    "voice": { "title": "Ndụmọdụ Site N'Olu", "desc": "Kwuo n'asụsụ Igbo, Hausa, Yoruba, ma ọ bụ Bekee — AI anyị nąghị atụfu ma na-azaghachi n'asụsụ gị site na nduzi ọgwụgwọ a pụrụ ịdabere na ya.", "tag": "AI Asụsụ Ọtụtụ" },
+    "voice": { "title": "Ndụmọdụ Site N'Olu", "desc": "Kwuo n'asụsụ Igbo, Hausa, Yoruba, Pidgin, ma ọ bụ Bekee — AI anyị nąghị atụfu ma na-azaghachi n'asụsụ gị site na nduzi ọgwụgwọ a pụrụ ịdabere na ya.", "tag": "AI Asụsụ Ọtụtụ" },
     "specialist": { "title": "Njikọ Ndị Ọkachamara", "desc": "Nweta ohere turu OBGYNs, ndị mgbapụta, na ndị dọkịta ụmụ nne achọpụtara n'ofe Naịjịrịa maka ndụmọdụ n'ịntanet ma ọ bụ onwe onye.", "tag": "Dọkịta 50+" },
     "health": { "title": "Ịgbaso Ahụ Ike", "desc": "Lelee ọnọdụ ọbara, ibu, ụdụ nwa n'ime afo, na ihe ndị dị mkpa n'oge kwesịrị ekwesị n'oge gbasaa.", "tag": "Oge Nke Ọzọ" },
     "nutrition": { "title": "Nduzi Nri", "desc": "Atụmatụ nri pụrụ iche nwere nri Naịjịrịa nke ọla ezigbo ihe na folate, igwe, na protein.", "tag": "Nri Nke Obodo" },
@@ -57,10 +57,10 @@
     "badge": "Ndụmọdụ Olu Ndụ Ndụ",
     "headline1": "Jụọ Ihe Ọ Bụla, Mgbe Ọ Bụla,",
     "headline2": "N'Asụsụ Gị",
-    "sub": "MamaVoice nąghị atụfu Igbo, Hausa, Yoruba, na Bekee — na-azaghachi site na nduzi ọgwụgwọ a pụrụ ịdabere na ya ozugbo.",
+    "sub": "MamaVoice nąghị atụfu Igbo, Hausa, Yoruba, Pidgin, na Bekee — na-azaghachi site na nduzi ọgwụgwọ a pụrụ ịdabere na ya ozugbo.",
     "listening": "Na-ege ntị… kwuo ugbu a",
     "tapToSpeak": "Pịa maịkrofọn iji kwuo",
-    "supports": "Na-akwado Igbo · Hausa · Yoruba · Bekee",
+    "supports": "Na-akwado Igbo · Hausa · Yoruba · Pidgin · Bekee",
     "you": "Gị",
     "mamavoice": "MamaVoice",
     "langEn": "🇳🇬 Bekee",
@@ -362,7 +362,7 @@
     "a1": "Pịa akara maịkrofọn ma kwuo okwu n'asụsụ ị họọrọ. MamaVoice na-eji AI dị elu ịghọta ajụjụ gị ma ọzọ lizie anya na nduzi ahụike nna ukwu nke dabere na ihe akaebe ozugbo.",
     "q2": "Asụsụ ole na ole ka a na-akwado?",
     "a2": "MamaVoice na-akwado Bekee, Yorùbá, Hausa, Igbo, na Nigerian Pidgin (Naija). Anyị na-aga n'ihu ịgbasawanye nkwado asụsụ iji nweta obodo ndị ọzọ n'ụwa nile Africa.",
-    "q3": "Enwere m ike ịjụ ajụjụ n'Yorùbá, Hausa, Igbo, ma ọ bụ Bekee?",
+    "q3": "Enwere m ike ịjụ ajụjụ n'Yorùbá, Hausa, Igbo, Pidgin, ma ọ bụ Bekee?",
     "a3": "Ee! Ị nwere ike ịjụ ajụjụ n'asụsụ ọ bụla a na-akwado. AI nke MamaVoice na-aghọta okwu ọmụmụ n'asụsụ ise nile ma zaghachite n'asụsụ ọ bụ onwe gị ji asụ.",
     "q4": "MamaVoice bụ ihe n'efu iji?",
     "a4": "Ee! Ngwa weebụ na atụmatụ ndị isi bụ n'efu kpamkpam. Atụmatụ ndị elu dịka ntụnyere ọkachamara na-enweghị ngwụcha na iṣọ ahụike dị mwute dị n'ime atụmatụ akwụmụ ụgwọ ndị dị ọnụ ahịa mma.",
