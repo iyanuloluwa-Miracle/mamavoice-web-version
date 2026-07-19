@@ -2,7 +2,7 @@ import { defineEventHandler } from 'h3'
 import { db } from '../../utils/db'
 
 export default defineEventHandler(async () => {
-  const donations = db.listSuccessfulDonations()
+  const donations = await db.listSuccessfulDonations()
 
   // Project public fields and filter out anonymous donations
   const publicSupporters = donations

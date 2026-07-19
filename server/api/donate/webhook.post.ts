@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
     const paymentReference = eventData.paymentReference
 
     // Load from DB to check if it exists
-    const donation = db.getDonation(paymentReference)
+    const donation = await db.getDonation(paymentReference)
     if (!donation) {
       console.warn(`[Monnify Webhook] Donation ref not found: ${paymentReference}`)
       return { received: true, message: 'Transaction not found locally.' }
@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
 
     // Process event
     if (eventType === 'SUCCESSFUL_TRANSACTION' && eventData.paymentStatus === 'PAID') {
-      db.updateDonationStatus(
+      await db.updateDonationStatus(
         paymentReference,
         'SUCCESS',
         eventData.transactionReference,
@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
       )
       console.log(`[Monnify Webhook] Transaction marked SUCCESS via webhook: ${paymentReference}`)
     } else if (eventData.paymentStatus === 'FAILED') {
-      db.updateDonationStatus(
+      await db.updateDonationStatus(
         paymentReference,
         'FAILED',
         eventData.transactionReference,

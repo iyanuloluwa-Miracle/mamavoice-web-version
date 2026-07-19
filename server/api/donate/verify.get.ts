@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Get transaction from local DB
-  const donation = db.getDonation(paymentReference)
+  const donation = await db.getDonation(paymentReference)
   if (!donation) {
     throw createError({
       statusCode: 404,
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Update DB
-    const updatedDonation = db.updateDonationStatus(
+    const updatedDonation = await db.updateDonationStatus(
       paymentReference,
       status,
       verifyRes.transactionReference,

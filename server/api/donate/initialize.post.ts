@@ -58,7 +58,7 @@ export default defineEventHandler(async (event) => {
     })
 
     // Save pending donation to DB
-    db.saveDonation({
+    await db.saveDonation({
       id: paymentReference,
       transactionReference: initRes.transactionReference,
       amount: body.amount,

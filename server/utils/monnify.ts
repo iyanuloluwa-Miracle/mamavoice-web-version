@@ -154,7 +154,7 @@ export const monnify = {
       console.warn('[Monnify] Running in simulation mode. No credentials configured.')
       // In simulation mode, fetch the pending transaction from local DB,
       // and mock success for any pending transaction
-      const localTx = db.getDonation(paymentReference)
+      const localTx = await db.getDonation(paymentReference)
       return {
         paymentReference,
         transactionReference: localTx?.transactionReference || `MNFY|MOCK|${Date.now()}`,
