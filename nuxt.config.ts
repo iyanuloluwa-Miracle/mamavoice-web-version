@@ -11,7 +11,10 @@ export default defineNuxtConfig({
     },
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ['.outray.app', '.outray.dev', '.ngrok-free.app']
+    }
   },
   app: {
     head: {
