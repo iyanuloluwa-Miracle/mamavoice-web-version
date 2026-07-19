@@ -8,7 +8,8 @@
     "downloadApp": "Gba Ẹ̀rọ Náà",
     "language": "Èdè",
     "home": "Ilé",
-    "dashboard": "Dáṣíbọ̀ọ̀dù"
+    "dashboard": "Dáṣíbọ̀ọ̀dù",
+    "donate": "Ṣètọrẹ"
   },
   "hero": {
     "badge": "Ẹgbàárùn-ún Ìyá Ilẹ̀ Áfíríkà Gbádùn Rẹ̀",
@@ -547,5 +548,38 @@
     "loadError": "A kò lè gbé data dasibodu. Tẹ lati gbiyanju lẹẹkansi.",
     "retry": "Gbiyanju Lẹẹkansi",
     "backToChat": "Padà sí Ìfọ̀rọ̀wérọ̀"
+  },
+  "donate": {
+    "title": "Tì wá lẹ́yìn",
+    "subtitle": "Ran wa lọwọ lati fun awọn iya ni agbara kaakiri Afirika nipa titọju MamaVoice lọwọ.",
+    "cta": "Tì MamaVoice Lẹ́yìn",
+    "amountLabel": "Yan Iye Oúnjẹ",
+    "customAmountPlaceholder": "Tẹ iye ti o fẹ tọrẹ sii ní ₦",
+    "donorName": "Orúkọ Olùtọrẹ (bí o bá fẹ́)",
+    "donorNamePlaceholder": "apẹẹrẹ: Aisha Musa",
+    "donorEmail": "Àdírẹ́sì Imeeli (bí o bá fẹ́)",
+    "donorEmailPlaceholder": "apẹẹrẹ: aisha{'@'}example.com",
+    "message": "Ọ̀rọ̀ Ìṣírí (bí o bá fẹ́)",
+    "messagePlaceholder": "Fi ọ̀rọ̀ ìṣírí tọkàntọkàn sílẹ̀ fún àwọn òṣìṣẹ́ wa àti àwọn ìyá…",
+    "anonymous": "Tọrẹ láìjẹ́ kí a mọ orúkọ rẹ",
+    "submit": "Ṣètọrẹ Ní báyìí",
+    "initializing": "Ń múra owó sísan…",
+    "supportersWall": "Ògiri àwọn Olùtìlẹ́yìn",
+    "noSupporters": "Jẹ́ ẹni àkọ́kọ́ láti tì wá lẹ́yìn!",
+    "recentSupporters": "Àwọn Olùtìlẹ́yìn Lẹ́nu Àìpẹ́",
+    "minAmountError": "Iye tí o lè tọrẹ kò gbọ́dọ̀ dín nì ₦100.",
+    "successTitle": "Oṣé fún Ìtìlẹ́yìn Rẹ!",
+    "successMessage": "Títọrẹ rẹ yọrí sí rere. O ń ràn wá lọ́wọ́ láti mú ìyípadà rere bá ìtọ́jú ìlera aboyún.",
+    "failedTitle": "Títọrẹ Kò Yọrí Sí Rere",
+    "failedMessage": "A kò lè parí ètò ìsanwó rẹ. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i tàbí kí o yẹ ọ̀nà ìsanwó rẹ wò.",
+    "pendingTitle": "Ìsanwó Ń Dúró",
+    "pendingMessage": "A ń dúró de ìfìdájú sísanwó. Èyí yóò yí padà fúnra rẹ̀.",
+    "receipt": "Rísíìtì Ìtọrẹ",
+    "paymentRef": "Nọ́mbà Ìtọrẹ",
+    "date": "Ọjọ́",
+    "amount": "Iye",
+    "status": "Ipò",
+    "backHome": "Padà sí Ilé",
+    "retry": "Gbìyànjú Lẹ́ẹ̀kan Sí I"
   }
 }

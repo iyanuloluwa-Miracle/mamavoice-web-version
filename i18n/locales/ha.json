@@ -8,7 +8,8 @@
     "downloadApp": "Sauke App",
     "language": "Harshe",
     "home": "Gida",
-    "dashboard": "Allon Sarrafa"
+    "dashboard": "Allon Sarrafa",
+    "donate": "Bayar da Tallafi"
   },
   "hero": {
     "badge": "Dubun iyaye mata a Afirka sun aminta da mu",
@@ -535,5 +536,38 @@
     "loadError": "Ba a iya loda bayanin dashboard. Latsa don sake gwadawa.",
     "retry": "Sake Gwadawa",
     "backToChat": "Koma Tattaunawa"
+  },
+  "donate": {
+    "title": "Taimaka wa Manufarmu",
+    "subtitle": "Taimaka mana mu ƙarfafa iyaye mata a faɗin Afirka ta hanyar ci gaba da gudanar da MamaVoice.",
+    "cta": "Taimaka wa MamaVoice",
+    "amountLabel": "Zaɓi Adadi",
+    "customAmountPlaceholder": "Shigar da adadin tallafi a ₦",
+    "donorName": "Sunan Mai Tallafi (na zaɓi)",
+    "donorNamePlaceholder": "misali Aisha Musa",
+    "donorEmail": "Adireshin Imel (na zaɓi)",
+    "donorEmailPlaceholder": "misali aisha{'@'}example.com",
+    "message": "Sakon Karfafa Gwiwa (na zaɓi)",
+    "messagePlaceholder": "Bar sako don ƙarfafa gwiwar ƙungiyarmu da iyaye mata…",
+    "anonymous": "Bayar da tallafi ba tare da suna ba",
+    "submit": "Bayar da Tallafi Yanzu",
+    "initializing": "Ana shirya biyan kuɗi…",
+    "supportersWall": "Bangon Masu Tallafi",
+    "noSupporters": "Zama farkon wanda zai taimaka wa manufarmu!",
+    "recentSupporters": "Masu Tallafi na Kusa-kusa",
+    "minAmountError": "Mafi ƙarancin tallafi shine ₦100.",
+    "successTitle": "Godiya da Taimakonku!",
+    "successMessage": "Tallafinku ya yi nasara. Kuna taimaka mana wajen kawo canji a fannin lafiyar mata.",
+    "failedTitle": "Tallafi Bai Yi Nasara Ba",
+    "failedMessage": "Ba mu iya kammala biyan kuɗin ku ba. Da fatan za a sake gwadawa ko duba hanyar biyan ku.",
+    "pendingTitle": "Biyan Kuɗi na Jira",
+    "pendingMessage": "Muna jiran tabbatar da biyan kuɗi. Wannan zai sabunta kansa ta atomatik.",
+    "receipt": "Rasidin Tallafi",
+    "paymentRef": "Lambar Tallafi",
+    "date": "Kwanan wata",
+    "amount": "Adadi",
+    "status": "Hali",
+    "backHome": "Koma Gida",
+    "retry": "Sake Gwadawa"
   }
 }

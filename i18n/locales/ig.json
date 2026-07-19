@@ -8,7 +8,8 @@
     "downloadApp": "Budata App",
     "language": "Asụsụ",
     "home": "Ụlọ",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "donate": "Nye Onyinye"
   },
   "hero": {
     "badge": "Puku ụmụ nne n'Africa tụkwọrọ anyị obi",
@@ -535,5 +536,38 @@
     "loadError": "Enweghị ike ibu data dashboard. Pịa iji nwaa ọzọ.",
     "retry": "Nwaa Ọzọ",
     "backToChat": "Laghachi Mkparịta Ụka"
+  },
+  "donate": {
+    "title": "Kwado Ọrụ Anyị",
+    "subtitle": "Nyere anyị aka inye ụmụ nne n'Africa ike site n'idebe MamaVoice na-arụ ọrụ.",
+    "cta": "Kwado MamaVoice",
+    "amountLabel": "Họrọ Ụdị Ego",
+    "customAmountPlaceholder": "Tinye ego onyinye gị na ₦",
+    "donorName": "Aha Onye Onyinye (nhọrọ)",
+    "donorNamePlaceholder": "d.g. Aisha Musa",
+    "donorEmail": "Email Address (nhọrọ)",
+    "donorEmailPlaceholder": "d.g. aisha{'@'}example.com",
+    "message": "Ozi Agbamume (nhọrọ)",
+    "messagePlaceholder": "Hapụrụ ndị otu anyị na ndị nne okwu agbamume…",
+    "anonymous": "Nye onyinye na nzuzo",
+    "submit": "Nye Onyinye Ugbu a",
+    "initializing": "Na-akwadebe ịkwụ ụgwọ…",
+    "supportersWall": "Mgbidi Ndị Nkwado",
+    "noSupporters": "Bụrụ onye mbụ kwadoro ọrụ anyị!",
+    "recentSupporters": "Ndị Nkwado Na-adịbeghị Anya",
+    "minAmountError": "Opekempe onyinye bụ ₦100.",
+    "successTitle": "Dalu Maka Nkwado Gị!",
+    "successMessage": "Onyinye gị gara nke ọma. Ị na-enyere anyị aka ime mgbanwe na nlekọta ahụike ndị nne.",
+    "failedTitle": "Onyinye Agaghị Nke Ọma",
+    "failedMessage": "Anyị enweghị ike mechaa azụmahịa gị. Biko nwaa ọzọ ma ọ bụ lelee usoro ịkwụ ụgwọ gị.",
+    "pendingTitle": "Ịkwụ Ụgwọ Na-echere",
+    "pendingMessage": "Anyị na-echere nkwenye ịkwụ ụgwọ. Nke a ga-emelite onwe ya ozugbo.",
+    "receipt": "Nnata Onyinye",
+    "paymentRef": "Ntụgharị Ịkwụ Ụgwọ",
+    "date": "Ụbọchị",
+    "amount": "Ego",
+    "status": "Ọkwa",
+    "backHome": "Laghachi Ụlọ",
+    "retry": "Nwaa Ọzọ"
   }
 }

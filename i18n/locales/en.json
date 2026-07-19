@@ -8,7 +8,8 @@
     "downloadApp": "Download App",
     "language": "Language",
     "home": "Home",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "donate": "Donate"
   },
   "hero": {
     "badge": "Trusted by 10,000+ African Mothers",
@@ -560,5 +561,38 @@
     "loadError": "Could not load dashboard data. Tap to retry.",
     "retry": "Retry",
     "backToChat": "Back to Chat"
+  },
+  "donate": {
+    "title": "Support Our Mission",
+    "subtitle": "Help us empower mothers across Africa by keeping MamaVoice running.",
+    "cta": "Support MamaVoice",
+    "amountLabel": "Select Amount",
+    "customAmountPlaceholder": "Enter custom amount in ₦",
+    "donorName": "Donor Name (optional)",
+    "donorNamePlaceholder": "e.g. Aisha Musa",
+    "donorEmail": "Email Address (optional)",
+    "donorEmailPlaceholder": "e.g. aisha{'@'}example.com",
+    "message": "Encouraging Message (optional)",
+    "messagePlaceholder": "Leave a word of encouragement for our team and mothers…",
+    "anonymous": "Donate Anonymously",
+    "submit": "Donate Now",
+    "initializing": "Preparing payment…",
+    "supportersWall": "Supporters Wall",
+    "noSupporters": "Be the first to support our mission!",
+    "recentSupporters": "Recent Supporters",
+    "minAmountError": "Minimum donation amount is ₦100.",
+    "successTitle": "Thank You for Your Support!",
+    "successMessage": "Your donation was successful. You are helping us make a difference in maternal healthcare.",
+    "failedTitle": "Donation Unsuccessful",
+    "failedMessage": "We could not complete your transaction. Please try again or check your payment method.",
+    "pendingTitle": "Payment Pending",
+    "pendingMessage": "We are waiting for payment confirmation. This will update automatically.",
+    "receipt": "Donation Receipt",
+    "paymentRef": "Payment Reference",
+    "date": "Date",
+    "amount": "Amount",
+    "status": "Status",
+    "backHome": "Back to Home",
+    "retry": "Try Again"
   }
 }

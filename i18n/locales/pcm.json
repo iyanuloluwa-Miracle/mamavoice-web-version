@@ -8,7 +8,8 @@
     "downloadApp": "Download App",
     "language": "Language",
     "home": "Home",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "donate": "Support Us"
   },
   "hero": {
     "badge": "More than 10,000 African Mamas Don Trust Us",
@@ -535,5 +536,38 @@
     "loadError": "We no fit load dashboard data. Tap to try again.",
     "retry": "Try Again",
     "backToChat": "Back to Chat"
+  },
+  "donate": {
+    "title": "Support Our Work",
+    "subtitle": "Help us make African mamas strong by keeping MamaVoice running.",
+    "cta": "Support MamaVoice",
+    "amountLabel": "Choose Amount",
+    "customAmountPlaceholder": "Enter amount in ₦",
+    "donorName": "Your Name (if you want)",
+    "donorNamePlaceholder": "e.g. Aisha Musa",
+    "donorEmail": "Email Address (if you want)",
+    "donorEmailPlaceholder": "e.g. aisha{'@'}example.com",
+    "message": "Message for Us (if you want)",
+    "messagePlaceholder": "Write sweet words for our team and other mamas…",
+    "anonymous": "No let anybody know my name",
+    "submit": "Donate Now",
+    "initializing": "We dey check payment…",
+    "supportersWall": "People Wey Don Support",
+    "noSupporters": "Be the first person to support our work!",
+    "recentSupporters": "People Wey Support Recently",
+    "minAmountError": "Smallest money you fit support with na ₦100.",
+    "successTitle": "Thank You So Much!",
+    "successMessage": "Your support money don enter. You dey help us make pregnancy better for mamas.",
+    "failedTitle": "Payment No Work",
+    "failedMessage": "We no fit do the payment. Try again or check your card/bank.",
+    "pendingTitle": "Payment Dey Wait",
+    "pendingMessage": "We dey wait for bank to confirm the payment. E go update just now.",
+    "receipt": "Support Receipt",
+    "paymentRef": "Payment Reference",
+    "date": "Date",
+    "amount": "Amount",
+    "status": "Status",
+    "backHome": "Go back Home",
+    "retry": "Try Again"
   }
 }
