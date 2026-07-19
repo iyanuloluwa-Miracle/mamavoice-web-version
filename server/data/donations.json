@@ -1,0 +1,18 @@
+{
+  "mv-donate-1784464817519-sg6jhgqkg": {
+    "id": "mv-donate-1784464817519-sg6jhgqkg",
+    "transactionReference": "MNFY|MOCK|1784464817551",
+    "amount": 1000,
+    "currency": "NGN",
+    "donorName": "Dina Iyanuloluwa",
+    "donorEmail": "anonymous-supporter@mamavoice.africa",
+    "message": "",
+    "isAnonymous": false,
+    "status": "SUCCESS",
+    "createdAt": "2026-07-19T12:40:17.551Z",
+    "updatedAt": "2026-07-19T12:40:19.204Z",
+    "rawResponse": {
+      "simulation": true
+    }
+  }
+}
