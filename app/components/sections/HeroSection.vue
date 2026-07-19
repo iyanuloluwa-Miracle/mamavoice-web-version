@@ -48,14 +48,14 @@
       </div>
 
       <!-- ── Right: Hero image ────────────────────────────────── -->
-      <div class="order-2 flex justify-center lg:justify-end">
-        <div class="relative animate-float">
+      <div class="order-2 flex justify-center lg:justify-end w-full">
+        <div class="relative animate-float w-full flex justify-center lg:justify-end">
           <!-- Subtle glow -->
           <div class="absolute inset-0 bg-gradient-to-br from-mama-teal/20 to-mama-sky/40 rounded-3xl blur-2xl scale-105" aria-hidden="true" />
           <img
-            src="/hero-section-image.png"
+            src="/Pregnancy-stages-pana.svg"
             alt="MamaVoice Companion app showing pregnancy health dashboard"
-            class="relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl object-contain drop-shadow-2xl"
+            class="relative w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl object-contain drop-shadow-2xl"
           />
         </div>
       </div>
