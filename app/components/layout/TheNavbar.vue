@@ -248,12 +248,14 @@ const isLangOpen = ref(false)
 const guestLinks = computed(() => [
   { href: '/',          label: t('nav.home'),      emoji: '🏠', isRoute: true },
   { href: '#features',  label: t('nav.features'),  emoji: '✨', isRoute: false },
+  { href: '/donate',    label: t('nav.donate'),    emoji: '💝', isRoute: true },
   { href: '/chat',      label: t('nav.tryWebApp'), emoji: '💬', isRoute: true },
 ])
 
 const authLinks = computed(() => [
   { href: '/chat',     label: t('nav.dashboard'), emoji: '📊', isRoute: true },
   { href: '#features', label: t('nav.features'),  emoji: '✨', isRoute: false },
+  { href: '/donate',    label: t('nav.donate'),    emoji: '💝', isRoute: true },
 ])
 
 const navLinks = computed(() => isAuthenticated.value ? authLinks.value : guestLinks.value)

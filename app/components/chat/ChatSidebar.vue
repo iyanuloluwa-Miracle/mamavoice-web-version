@@ -181,6 +181,18 @@
         <span class="text-sm flex-shrink-0">👶</span>
         <span v-if="isOpen" class="text-xs font-medium truncate group-hover:text-mama-teal transition-colors">{{ t('chat.pregnancyTracker') }}</span>
       </button>
+
+      <!-- Donate -->
+      <NuxtLink
+        to="/donate"
+        class="flex items-center gap-2.5 w-full rounded-xl px-3 py-2 text-mama-text
+               hover:bg-mama-sky hover:text-mama-teal transition-all group active:scale-[0.98]"
+        :class="isOpen ? 'justify-start' : 'justify-center'"
+        :title="!isOpen ? t('nav.donate') : undefined"
+      >
+        <span class="text-sm flex-shrink-0">💝</span>
+        <span v-if="isOpen" class="text-xs font-semibold truncate group-hover:text-mama-teal transition-colors">{{ t('nav.donate') }}</span>
+      </NuxtLink>
     </div>
 
     <!-- Locale badge -->

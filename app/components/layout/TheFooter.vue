@@ -82,6 +82,11 @@
             <li v-for="(label, i) in companyLinks" :key="i">
               <a href="#" class="text-white/55 hover:text-mama-teal-light text-sm transition-colors">{{ label }}</a>
             </li>
+            <li>
+              <NuxtLink to="/donate" class="text-white/55 hover:text-mama-teal-light text-sm transition-colors flex items-center gap-1.5">
+                💝 {{ t('nav.donate') }}
+              </NuxtLink>
+            </li>
           </ul>
         </div>
 

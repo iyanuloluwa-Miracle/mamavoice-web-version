@@ -46,6 +46,17 @@
             {{ t('auth.myProfile') }}
           </NuxtLink>
 
+          <!-- Donate -->
+          <NuxtLink
+            to="/donate"
+            role="menuitem"
+            @click="open = false"
+            class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-mama-text hover:bg-mama-sky dark:hover:bg-slate-700 hover:text-mama-teal transition-colors"
+          >
+            <span class="text-sm flex-shrink-0">💝</span>
+            {{ t('nav.donate') }}
+          </NuxtLink>
+
           <!-- Settings (disabled — no backend support yet) -->
           <div role="menuitem" aria-disabled="true" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-mama-muted opacity-50 cursor-not-allowed select-none">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
