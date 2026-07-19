@@ -77,10 +77,6 @@ async function getAuthToken(): Promise<string> {
 }
 
 export const monnify = {
-  isSimulated(): boolean {
-    return !hasConfig()
-  },
-
   async initializePayment(params: {
     amount: number;
     customerName: string;
@@ -90,18 +86,6 @@ export const monnify = {
     redirectUrl: string;
     metadata?: Record<string, any>;
   }): Promise<MonnifyInitResponse> {
-    if (!hasConfig()) {
-      console.warn('[Monnify] Running in simulation mode. No credentials configured.')
-      // Simulation mode: Redirect directly to callback page with mock params after 1.5s delay
-      const mockTxRef = `MNFY|MOCK|${Date.now()}`
-      const checkoutUrl = `${params.redirectUrl}?paymentReference=${params.paymentReference}&transactionReference=${mockTxRef}`
-      return {
-        checkoutUrl,
-        transactionReference: mockTxRef,
-        paymentReference: params.paymentReference,
-      }
-    }
-
     const token = await getAuthToken()
     const baseUrl = getBaseUrl()
 
@@ -150,22 +134,6 @@ export const monnify = {
   },
 
   async verifyPayment(paymentReference: string): Promise<MonnifyVerifyResponse> {
-    if (!hasConfig()) {
-      console.warn('[Monnify] Running in simulation mode. No credentials configured.')
-      // In simulation mode, fetch the pending transaction from local DB,
-      // and mock success for any pending transaction
-      const localTx = await db.getDonation(paymentReference)
-      return {
-        paymentReference,
-        transactionReference: localTx?.transactionReference || `MNFY|MOCK|${Date.now()}`,
-        amount: localTx?.amount || 1000,
-        paymentStatus: 'PAID', // Auto-approve in simulation mode
-        customerName: localTx?.donorName || 'Anonymous Supporter',
-        customerEmail: localTx?.donorEmail || 'anonymous-supporter@mamavoice.africa',
-        raw: { simulation: true },
-      }
-    }
-
     const token = await getAuthToken()
     const baseUrl = getBaseUrl()
 
@@ -219,9 +187,8 @@ export const monnify = {
 
   validateWebhookSignature(rawBody: string, signature: string): boolean {
     if (!process.env.MONNIFY_SECRET_KEY) {
-      // In development simulation without keys, bypass signature check
-      console.warn('[Monnify Webhook] Bypassing signature check: MONNIFY_SECRET_KEY not set.')
-      return true
+      console.warn('[Monnify Webhook] Signature verification failed: MONNIFY_SECRET_KEY not set.')
+      return false
     }
 
     try {
