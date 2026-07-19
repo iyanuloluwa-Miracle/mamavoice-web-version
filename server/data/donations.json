@@ -14,5 +14,21 @@
     "rawResponse": {
       "simulation": true
     }
+  },
+  "mv-donate-1784469209294-i4hje853q": {
+    "id": "mv-donate-1784469209294-i4hje853q",
+    "transactionReference": "MNFY|MOCK|1784469209351",
+    "amount": 1000,
+    "currency": "NGN",
+    "donorName": "Anonymous Supporter",
+    "donorEmail": "anonymous-supporter@mamavoice.africa",
+    "message": "",
+    "isAnonymous": true,
+    "status": "SUCCESS",
+    "createdAt": "2026-07-19T13:53:29.351Z",
+    "updatedAt": "2026-07-19T13:53:30.112Z",
+    "rawResponse": {
+      "simulation": true
+    }
   }
 }
