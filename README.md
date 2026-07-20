@@ -11,6 +11,12 @@ MamaVoice is a premium, voice-first AI maternal health companion specifically bu
 
 🌐 **Live Application Website:** [https://www.mamavoice.com.ng/](https://www.mamavoice.com.ng/)
 
+⚙️ **Authenticated Users Production Backend API:** [https://mama-voice.vercel.app](https://mama-voice.vercel.app)
+
+📂 **Frontend Repository:** [https://github.com/iyanuloluwa-Miracle/mamavoice-web-version](https://github.com/iyanuloluwa-Miracle/mamavoice-web-version)
+
+📂 **Backend Repository:** [https://github.com/Izzy678/mama-voice-backend-hackathon](https://github.com/Izzy678/mama-voice-backend-hackathon)
+
 ---
 
 ## 🎥 Demo Video
@@ -137,7 +143,7 @@ MONNIFY_CONTRACT_CODE=your_monnify_contract_code_here
 MONNIFY_IS_PROD=false
 
 # Application Settings
-NUXT_PUBLIC_API_BASE_URL=http://localhost:3000
+NUXT_PUBLIC_API_BASE_URL=https://mama-voice.vercel.app
 ```
 > [!WARNING]
 > Never commit your `.env` file to the public source code repository. Keep your keys secret.
