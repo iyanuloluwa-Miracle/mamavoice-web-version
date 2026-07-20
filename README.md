@@ -11,6 +11,10 @@ MamaVoice is a premium, voice-first AI maternal health companion specifically bu
 
 🌐 **Live Application Website:** [https://www.mamavoice.com.ng/](https://www.mamavoice.com.ng/)
 
+🎬 **Demo Video Link:** [https://drive.google.com/drive/folders/1yT9x6QGMaTN_VHY9PFLDw51-kduMNDwQ?usp=drive_link](https://drive.google.com/drive/folders/1yT9x6QGMaTN_VHY9PFLDw51-kduMNDwQ?usp=drive_link)
+
+📊 **Presentation Slides:** [https://drive.google.com/drive/folders/1aQtS_cSqRWsilp6q5-E2c8OMp1bsiRQ_?usp=drive_link](https://drive.google.com/drive/folders/1aQtS_cSqRWsilp6q5-E2c8OMp1bsiRQ_?usp=drive_link)
+
 ⚙️ **Authenticated Users Production Backend API:** [https://mama-voice.vercel.app](https://mama-voice.vercel.app)
 
 📂 **Frontend Repository:** [https://github.com/iyanuloluwa-Miracle/mamavoice-web-version](https://github.com/iyanuloluwa-Miracle/mamavoice-web-version)
@@ -21,9 +25,17 @@ MamaVoice is a premium, voice-first AI maternal health companion specifically bu
 
 ## 🎥 Demo Video
 > [!IMPORTANT]
-> Watch our 3-minute project walkthrough demonstrating real-time voice consultations in local dialects, the onboarding flow, and the Monnify donation interface.
+> Watch our project walkthrough demonstrating real-time voice consultations in local dialects, the onboarding flow, and the Monnify donation interface.
 > 
-> 👉 **[Watch the Demo Video on YouTube](https://youtu.be/your-video-link-here)** *(or add your link here)*
+> 👉 **[Watch the Demo Video on Google Drive](https://drive.google.com/drive/folders/1yT9x6QGMaTN_VHY9PFLDw51-kduMNDwQ?usp=drive_link)**
+
+---
+
+## 📊 Presentation Slides
+> [!NOTE]
+> View our project presentation deck detailing the problem statement, architecture, local language AI voice integration, and Monnify donation workflow.
+> 
+> 👉 **[View Presentation Slides on Google Drive](https://drive.google.com/drive/folders/1aQtS_cSqRWsilp6q5-E2c8OMp1bsiRQ_?usp=drive_link)**
 
 ---
 
