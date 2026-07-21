@@ -11,6 +11,8 @@ MamaVoice is a premium, voice-first AI maternal health companion specifically bu
 
 🌐 **Live Application Website:** [https://www.mamavoice.com.ng/](https://www.mamavoice.com.ng/)
 
+📱 **Android Mobile App (APK):** [https://drive.google.com/drive/folders/1fQ0mRQxszoZkIJqM8P52P68Zvs8FL5YE?usp=drive_link](https://drive.google.com/drive/folders/1fQ0mRQxszoZkIJqM8P52P68Zvs8FL5YE?usp=drive_link)
+
 🎬 **Demo Video Link:** [https://drive.google.com/drive/folders/1yT9x6QGMaTN_VHY9PFLDw51-kduMNDwQ?usp=drive_link](https://drive.google.com/drive/folders/1yT9x6QGMaTN_VHY9PFLDw51-kduMNDwQ?usp=drive_link)
 
 📊 **Presentation Slides:** [https://drive.google.com/drive/folders/1aQtS_cSqRWsilp6q5-E2c8OMp1bsiRQ_?usp=drive_link](https://drive.google.com/drive/folders/1aQtS_cSqRWsilp6q5-E2c8OMp1bsiRQ_?usp=drive_link)
@@ -36,6 +38,14 @@ MamaVoice is a premium, voice-first AI maternal health companion specifically bu
 > View our project presentation deck detailing the problem statement, architecture, local language AI voice integration, and Monnify donation workflow.
 > 
 > 👉 **[View Presentation Slides on Google Drive](https://drive.google.com/drive/folders/1aQtS_cSqRWsilp6q5-E2c8OMp1bsiRQ_?usp=drive_link)**
+
+---
+
+## 📱 Native Mobile Application (Android APK)
+> [!TIP]
+> Our native mobile app is currently in active development to bring seamless voice consultations directly to Android devices. You can download and test the preliminary APK build directly:
+> 
+> 📲 **[Download MamaVoice Android APK on Google Drive](https://drive.google.com/drive/folders/1fQ0mRQxszoZkIJqM8P52P68Zvs8FL5YE?usp=drive_link)**
 
 ---
 
